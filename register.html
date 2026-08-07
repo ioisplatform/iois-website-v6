@@ -3,124 +3,230 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IOIS Platform - Secure Registration</title>
-    <link rel="stylesheet" href="style.css">
+    <title>रजिस्ट्रेशन - IOIS Platform</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, sans-serif; }
+        body { background: #0b0f19; color: #fff; padding: 12px; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding-bottom: 80px; }
+
+        .container { 
+            width: 100%;
+            max-width: 460px; 
+            background: linear-gradient(135deg, #0f172a, #1e1b4b); 
+            border: 2px solid #fbbf24; 
+            border-radius: 20px; 
+            padding: 20px; 
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.9), 0 0 25px rgba(251,191,36,0.2); 
+        }
+
+        .brand-header { text-align: center; margin-bottom: 12px; }
+        .logo-wrapper {
+            display: inline-block;
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.15), rgba(245, 158, 11, 0.3));
+            border: 2.5px solid #fbbf24;
+            padding: 8px 20px;
+            border-radius: 40px;
+            box-shadow: 0 0 20px rgba(251, 191, 36, 0.4);
+        }
+        .logo-main-text { 
+            background: linear-gradient(135deg, #ff9933 0%, #ffffff 50%, #138808 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 18px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; 
+        }
+        .logo-sub-text { font-size: 8px; color: #38bdf8; letter-spacing: 1px; text-transform: uppercase; margin-top: 2px; font-weight: 700; }
+
+        .main-heading { text-align: center; color: #fbbf24; font-size: 18px; font-weight: 800; margin-bottom: 4px; text-transform: uppercase; }
+        .sub-heading { text-align: center; color: #94a3b8; font-size: 11.5px; margin-bottom: 15px; font-weight: 500; }
+
+        .form-group { margin-bottom: 12px; }
+        .form-group label { display: block; font-size: 12px; color: #38bdf8; font-weight: 700; margin-bottom: 4px; }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 10px 12px;
+            background: rgba(15, 23, 42, 0.9);
+            border: 1px solid rgba(251, 191, 36, 0.4);
+            border-radius: 8px;
+            color: #fff;
+            font-size: 13px;
+        }
+        .form-group input:focus, .form-group select:focus {
+            border-color: #fbbf24;
+            outline: none;
+            box-shadow: 0 0 8px rgba(251,191,36,0.3);
+        }
+
+        .btn-register {
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            color: #fff;
+            font-weight: 800;
+            padding: 12px;
+            border: none;
+            width: 100%;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 14px;
+            text-transform: uppercase;
+            box-shadow: 0 4px 15px rgba(34,197,94,0.4);
+            margin-top: 10px;
+        }
+
+        .back-link { text-align: center; margin-top: 15px; font-size: 12px; }
+        .back-link a { color: #fbbf24; text-decoration: none; font-weight: 700; }
+
+        /* Floating Bottom Navigation Bar */
+        .floating-bottom-bar {
+            position: fixed;
+            bottom: 0; left: 0; width: 100%;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(251, 191, 36, 0.3);
+            display: flex;
+            justify-content: space-around;
+            padding: 8px 6px;
+            z-index: 9999;
+        }
+        .float-nav-btn {
+            background: #1e293b;
+            border: 1px solid #38bdf8;
+            color: #38bdf8;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+        .float-nav-btn.gold { border-color: #fbbf24; color: #fbbf24; background: rgba(251,191,36,0.1); }
+    </style>
 </head>
 <body>
 
-    <header>
-        <div class="logo-text">IOIS PLATFORM</div>
-        <p style="color: #aaa; font-size: 13px; margin-top: 5px;">Secure Registration Portal</p>
-    </header>
+    <div class="floating-bottom-bar">
+        <a href="index.html" class="float-nav-btn gold">🏠 होम पेज</a>
+        <a href="login.html" class="float-nav-btn">🔑 लॉगिन करें</a>
+        <a href="https://wa.me/918877490845?text=Hello%20IOIS%20Support" target="_blank" class="float-nav-btn" style="border-color: #22c55e; color: #4ade80;">💬 सपोर्ट</a>
+    </div>
 
-    <nav>
-        <a href="index.html">🏠 होम</a>
-        <a href="register.html" class="active">📝 रजिस्ट्रेशन</a>
-        <a href="login.html">🔑 लॉगिन</a>
-        <a href="dashboard.html">📊 डैशबोर्ड</a>
-        <a href="admin.html" style="background:#dc3545; color:#fff;">🛡️ एडमिन पैनल</a>
-    </nav>
+    <div class="container">
+        
+        <div class="brand-header">
+            <div class="logo-wrapper">
+                <div class="logo-main-text">IOIS PLATFORM</div>
+                <div class="logo-sub-text">Indian Online Income Supporting System</div>
+            </div>
+        </div>
 
-    <div class="container" style="max-width: 650px;">
-        <h2>📝 नया सदस्य रजिस्ट्रेशन फॉर्म</h2>
-        <form id="regForm" onsubmit="submitRegistration(event)">
+        <div class="main-heading">📝 नया रजिस्ट्रेशन फॉर्म</div>
+        <div class="sub-heading">अपनी सही जानकारी दर्ज करें ताकि आपकी अर्निंग और रेफरल तुरंत ट्रैक हो सके।</div>
+
+        <form id="registerForm" onsubmit="handleRegistration(event)">
             
             <div class="form-group">
-                <label>अपना पसंदीदा प्लान चुनें (Select Plan Tier)</label>
-                <select id="cardTier" required>
-                    <option value="Tiranga Silver Card (₹10)">Tiranga Silver Card (₹10) - 7% Payout</option>
-                    <option value="Pro Starter Pass (₹49)">Pro Starter Pass (₹49) - Basic Tools</option>
-                    <option value="Executive Pass (₹99)">Executive Pass (₹99) - Standard Package</option>
-                    <option value="Smart Agency Pass (₹199)">Smart Agency Pass (₹199) - Mid-Level Access</option>
-                    <option value="Business Growth Pass (₹299)">Business Growth Pass (₹299) - Growth Toolkit</option>
-                    <option value="Diamond Agency Pass (₹499)">Diamond Agency Pass (₹499) - Advanced Pass</option>
-                    <option value="VIP Mastermind Pass (₹999)">VIP Mastermind Pass (₹999) - Ultimate Access</option>
+                <label>पूरा नाम (Full Name)</label>
+                <input type="text" id="fullName" required placeholder="अपना पूरा नाम लिखें">
+            </div>
+
+            <div class="form-group">
+                <label>व्हाट्सएप नंबर (WhatsApp Number)</label>
+                <input type="tel" id="whatsapp" required placeholder="10 अंकों का मोबाइल नंबर (लॉगिन आईडी बनेगा)">
+            </div>
+
+            <div class="form-group">
+                <label>पासवर्ड सेट करें (Password)</label>
+                <input type="password" id="password" required placeholder="सुरक्षित पासवर्ड बनाएं">
+            </div>
+
+            <div class="form-group">
+                <label>चुना गया प्लान (Selected Plan)</label>
+                <select id="selectedPlan">
+                    <option value="Digital Starter Kit (₹10)">Digital Starter Kit - ₹10 (70% Comm.)</option>
+                    <option value="Pro Elite Pass (₹49)">Pro Elite Pass - ₹49</option>
+                    <option value="Executive Master (₹99)">Executive Master - ₹99</option>
+                    <option value="Smart Agency Pro (₹199)">Smart Agency Pro - ₹199</option>
+                    <option value="Business Growth Hub (₹299)">Business Growth Hub - ₹299</option>
+                    <option value="Diamond Apex Agency (₹499)">Diamond Apex Agency - ₹499</option>
+                    <option value="VIP Supreme Mastermind (₹999)">VIP Supreme Mastermind - ₹999</option>
                 </select>
             </div>
 
             <div class="form-group">
-                <label>पूरा नाम (Full Name)</label>
-                <input type="text" id="fullName" placeholder="अपना पूरा नाम दर्ज करें" required>
+                <label>पेमेंट रिसीव करने का विवरण (UPI ID / Bank A/c)</label>
+                <input type="text" id="paymentDetails" required placeholder="अपनी UPI ID या घरवाले का बैंक खाता विवरण दें">
             </div>
 
             <div class="form-group">
-                <label>प्रोफाइल फोटो अपलोड करें (Profile Picture)</label>
-                <input type="file" id="userPhoto" accept="image/*" required style="padding: 10px;">
+                <label>रेफरल कोड / यूजरनेम (यदि हो)</label>
+                <input type="text" id="referralCode" placeholder="रेफर करने वाले का व्हाट्सएप नंबर या आईडी">
             </div>
 
-            <div class="form-group">
-                <label>ईमेल आईडी (Email Address)</label>
-                <input type="email" id="email" placeholder="example@gmail.com" required>
-            </div>
-
-            <div class="form-group">
-                <label>व्हाट्सएप नंबर (WhatsApp Number - 10 Digits)</label>
-                <input type="tel" id="whatsapp" placeholder="अपना व्हाट्सएप नंबर दर्ज करें" pattern="[0-9]{10}" required>
-            </div>
-
-            <div class="form-group">
-                <label>स्पॉन्सर आईडी / रेफरल आईडी (Sponsor ID)</label>
-                <input type="text" id="sponsorId" value="IOISPLATFORM" required>
-            </div>
-
-            <div class="form-group">
-                <label>पेमेंट रिसीविंग जानकारी (खुद का या परिवार का UPI / Bank A/c + IFSC)</label>
-                <input type="text" id="paymentInfo" placeholder="UPI ID या बैंक खाता विवरण दर्ज करें" required>
-            </div>
-
-            <div class="form-group">
-                <label>सुरक्षित पासवर्ड बनाएं (Create Password)</label>
-                <input type="password" id="password" placeholder="अपना मजबूत पासवर्ड बनाएं" required>
-            </div>
-
-            <button type="submit">सफलतापूर्वक रजिस्टर करें और ID प्राप्त करें</button>
+            <button type="submit" class="btn-register">रजिस्टर करें & आगे बढ़ें ➔</button>
         </form>
+
+        <div class="back-link">
+            पहिले से अकाउंट बना हुआ है? <a href="login.html">यहाँ लॉगिन करें</a>
+        </div>
+
     </div>
 
-    <footer>
-        <p>Official WhatsApp: +91 8877490845 | 100% Trusted System</p>
-    </footer>
-
     <script>
-        function submitRegistration(event) {
-            event.preventDefault();
-
-            const photoInput = document.getElementById('userPhoto');
-            if (photoInput.files && photoInput.files[0]) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    processReg(e.target.result);
-                };
-                reader.readAsDataURL(photoInput.files[0]);
-            } else {
-                processReg("");
+        // होम पेज से यदि कोई प्लान चुना गया है तो उसे ऑटोमैटिक सेलेक्ट करना
+        window.addEventListener('DOMContentLoaded', () => {
+            const prefilled = localStorage.getItem('prefilledPlan');
+            if (prefilled) {
+                const selectBox = document.getElementById('selectedPlan');
+                for (let i = 0; i < selectBox.options.length; i++) {
+                    if (selectBox.options[i].text.includes(prefilled.split(' ')[0])) {
+                        selectBox.selectedIndex = i;
+                        break;
+                    }
+                }
             }
-        }
 
-        function processReg(photoData) {
-            const userId = 'IOIS' + Math.floor(100000 + Math.random() * 900000);
-            const joinDate = new Date().toLocaleString();
+            // URL से रेफरल कोड डिटेक्ट करना (जैसे register.html?ref=9876543210)
+            const urlParams = new URLSearchParams(window.location.search);
+            const refParam = urlParams.get('ref');
+            if (refParam) {
+                document.getElementById('referralCode').value = refParam;
+            }
+        });
+
+        function handleRegistration(event) {
+            event.preventDefault();
             
-            const cardTier = document.getElementById('cardTier').value;
-            const fullName = document.getElementById('fullName.value').value || document.getElementById('fullName').value;
-            const email = document.getElementById('email').value;
-            const whatsapp = document.getElementById('whatsapp').value;
-            const sponsorId = document.getElementById('sponsorId').value;
-            const paymentInfo = document.getElementById('paymentInfo').value;
-            const password = document.getElementById('password').value;
-
-            const userData = { userId, fullName, email, whatsapp, sponsorId, paymentInfo, password, cardTier, joinDate, photo: photoData };
+            const name = document.getElementById('fullName').value.trim();
+            const whatsapp = document.getElementById('whatsapp').value.trim();
+            const password = document.getElementById('password').value.trim();
+            const plan = document.getElementById('selectedPlan').value;
+            const payment = document.getElementById('paymentDetails').value.trim();
+            const ref = document.getElementById('referralCode').value.trim() || 'DIRECT';
             
-            localStorage.setItem(userId, JSON.stringify(userData));
-            localStorage.setItem('currentUser', userId);
+            const joinDate = new Date().toLocaleDateString('hi-IN');
 
-            // Telegram Bot Notification API
-            const botToken = "8838741922:AAFGoIvjohnF8FvEiW84h3SxaX2NeANLC50";
-            const chatId = "964524685";
-            const message = `🔔 *New Trusted Registration!*\n🆔 ID: ${userId}\n👤 Name: ${fullName}\n📱 WhatsApp: ${whatsapp}\n📦 Plan: ${cardTier}`;
-            fetch(`https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}&parse_mode=Markdown`).catch(err=>console.log(err));
+            const userData = {
+                name: name,
+                whatsapp: whatsapp,
+                password: password,
+                plan: plan,
+                payment: payment,
+                referredBy: ref,
+                joinDate: joinDate,
+                status: 'Pending Verification',
+                earnings: 0,
+                directReferrals: 0
+            };
 
-            alert(`🎉 बहुत-बधाई हो! आपका रजिस्ट्रेशन सफल रहा।\n\nआपकी यूनिक यूजर आईडी (इसे कॉपी कर लें):\n👉 ${userId}\n\nअब आपको आपके डैशबोर्ड पर ले जाया जा रहा है।`);
+            // यूजर का डेटा सुरक्षित रूप से स्टोर करना (डेटा डिलीट नहीं होगा)
+            localStorage.setItem('user_' + whatsapp, JSON.stringify(userData));
+            localStorage.setItem('currentUser', whatsapp);
+
+            // एडमिन या ग्लोबल यूजर लिस्ट में जोड़ना (बिना पुराना डेटा हटाए)
+            let allUsers = JSON.parse(localStorage.getItem('iois_all_users') || '[]');
+            // चेक करें कि यह नंबर पहले से तो नहीं है
+            if (!allUsers.includes(whatsapp)) {
+                allUsers.push(whatsapp);
+                localStorage.setItem('iois_all_users', JSON.stringify(allUsers));
+            }
+
+            alert('रजिस्ट्रेशन सफल! अब आप डैशबोर्ड पर जा सकते हैं।');
             window.location.href = 'dashboard.html';
         }
     </script>
