@@ -3,55 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IOIS Platform - Dainik Samachar & News Updates</title>
-    <link rel="stylesheet" href="style.css">
+    <title>IOIS - ताजा जानकारी व न्यूज़</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, sans-serif; }
+        body { background: #0b0f19; color: #fff; padding: 15px; }
+        .container { max-width: 600px; margin: 0 auto; }
+        .header { text-align: center; margin-bottom: 20px; border-bottom: 2px solid #fbbf24; padding-bottom: 10px; }
+        .header img { width: 50px; height: 50px; border-radius: 50%; border: 2px solid #fbbf24; }
+        .header h2 { color: #fbbf24; font-size: 16px; }
+
+        .news-card { background: #1e293b; border-left: 4px solid #38bdf8; border-radius: 10px; padding: 12px; margin-bottom: 12px; }
+        .news-card h4 { color: #fbbf24; font-size: 14px; margin-bottom: 4px; }
+        .news-card p { font-size: 12px; color: #cbd5e1; }
+        .news-date { font-size: 10px; color: #94a3b8; margin-top: 6px; display: block; }
+
+        .back-btn { display: block; text-align: center; background: #334155; color: #fff; text-decoration: none; padding: 10px; border-radius: 10px; margin-top: 20px; font-weight: bold; }
+    </style>
 </head>
 <body>
-
-    <header>
-        <div class="logo-text">IOIS PLATFORM</div>
-        <p style="color: #aaa; letter-spacing: 1px; font-size: 13px; margin-top: 5px;">दैनिक समाचार पत्र एवं लाइव न्यूज़ अपडेट्स</p>
-    </header>
-
-    <nav>
-        <a href="index.html">🏠 होम</a>
-        <a href="news.html" class="active">📰 दैनिक समाचार</a>
-        <a href="register.html">📝 रजिस्ट्रेशन</a>
-        <a href="login.html">🔑 लॉगिन</a>
-        <a href="dashboard.html">📊 डैशबोर्ड</a>
-        <a href="admin.html" style="background:#dc3545; color:#fff;">🛡️ एडमिन पैनल</a>
-    </nav>
-
     <div class="container">
-        <h2 style="text-align: center; margin-bottom: 25px; color: #ff9933;">📰 ताजा दैनिक समाचार और मुख्य अपडेट्स</h2>
-        
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
-            
-            <div style="background: rgba(255,255,255,0.03); padding: 20px; border-radius: 10px; border-left: 4px solid #ff9933;">
-                <span style="font-size: 11px; background: #ff9933; color: #000; padding: 2px 8px; border-radius: 4px; font-weight: bold;">राष्ट्रीय खबर</span>
-                <h3 style="color:#fff; margin: 10px 0; font-size: 18px;">डिजिटल इंडिया और ऑनलाइन रोजगार योजनाओं का विस्तार</h3>
-                <p style="font-size: 13px; color: #ccc; line-height: 1.6;">देशभर के युवाओं के लिए घर बैठे डिजिटल सेवाओं और ऑनलाइन माध्यमों से रोजगार पाने के नए अवसर तेजी से बढ़ रहे हैं।</p>
-            </div>
-
-            <div style="background: rgba(255,255,255,0.03); padding: 20px; border-radius: 10px; border-left: 4px solid #138808;">
-                <span style="font-size: 11px; background: #138808; color: #fff; padding: 2px 8px; border-radius: 4px; font-weight: bold;">टेक्नोलॉजी</span>
-                <h3 style="color:#fff; margin: 10px 0; font-size: 18px;">AI और ऑटोमेशन टूल्स का ग्रामीण क्षेत्रों में बढ़ता उपयोग</h3>
-                <p style="font-size: 13px; color: #ccc; line-height: 1.6;">छोटे गाँवों और काश्तकारों के युवा अब आधुनिक वेबसाइट्स और एआई टूल्स के जरिए अपने बिजनेस को आगे बढ़ा रहे हैं।</p>
-            </div>
-
-            <div style="background: rgba(255,255,255,0.03); padding: 20px; border-radius: 10px; border-left: 4px solid #ffb84d;">
-                <span style="font-size: 11px; background: #ffb84d; color: #000; padding: 2px 8px; border-radius: 4px; font-weight: bold;">जॉब एवं करियर</span>
-                <h3 style="color:#fff; margin: 10px 0; font-size: 18px;">नई सरकारी वैकेंसियों के लिए आवेदन प्रक्रिया शुरू</h3>
-                <p style="font-size: 13px; color: #ccc; line-height: 1.6;">विभिन्न विभागों में निकली नई नौकरियों के लिए छात्र आधिकारिक पोर्टल के माध्यम से समय पर अपना फॉर्म सबमिट करें।</p>
-            </div>
-
+        <div class="header">
+            <img src="logo.png" alt="Logo">
+            <h2>IOIS - ताज़ा ब्रेकिंग न्यूज़ व अपडेट</h2>
         </div>
+
+        <div class="news-card">
+            <h4>🚀 IOIS प्लेटफार्म पर नया अपडेट लॉन्च</h4>
+            <p>अब सभी मेंबर्स बिना GPS के सीधे अपने शहर का नाम लिखकर लाइव मौसम और तापमान का जायजा ले सकते हैं।</p>
+            <span class="news-date">📅 आज | 10 मिनट पहले</span>
+        </div>
+
+        <div class="news-card">
+            <h4>💼 युवाओं के लिए नई ऑनलाइन जॉब्स की घोषणा</h4>
+            <p>घर बैठे डिजिटल वर्क करके पैसे कमाने के नए विकल्प जोड़े गए हैं। जॉब पोर्टल पर जाकर डायरेक्ट आवेदन करें।</p>
+            <span class="news-date">📅 कल</span>
+        </div>
+
+        <div class="news-card">
+            <h4>💡 डिजिटल साक्षरता और कमाई कैंपेन शुरू</h4>
+            <p>गांव के युवाओं को ऑनलाइन सिस्टम से जोड़ने के लिए विशेष ट्रेनिंग और रेफरल प्रोग्राम को आसान बनाया गया है।</p>
+            <span class="news-date">📅 3 दिन पहले</span>
+        </div>
+
+        <a href="index.html" class="back-btn">🏠 होम पेज पर वापस जाएं</a>
     </div>
-
-    <footer>
-        <p>Official WhatsApp Support: +91 8877490845 | 100% Trusted News Source</p>
-        <p style="margin-top: 15px; color: #777;">&copy; 2026 IOIS Platform. All Rights Reserved.</p>
-    </footer>
-
 </body>
 </html>
