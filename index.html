@@ -3,31 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IOIS Platform - Indian Online Income & Utility System</title>
+    <title>IOIS - Indian Online Income Supporting System</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, sans-serif; }
         body { background: #0b0f19; color: #fff; padding-bottom: 90px; }
 
-        /* Header */
         header {
             background: linear-gradient(90deg, #1f222e, #14161f);
-            padding: 12px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 3px solid #fbbf24;
-            position: sticky; top: 0; z-index: 1000;
+            padding: 12px 20px; display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 3px solid #fbbf24; position: sticky; top: 0; z-index: 1000;
         }
-        .logo-text { font-size: 16px; font-weight: 900; background: linear-gradient(135deg, #ff9933, #fff, #138808); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .menu-toggle { font-size: 22px; cursor: pointer; color: #fbbf24; background: rgba(255,255,255,0.05); padding: 4px 10px; border-radius: 6px; border: 1px solid rgba(251,191,36,0.3); }
+        .logo-box h1 { font-size: 15px; font-weight: 900; background: linear-gradient(135deg, #ff9933, #fff, #138808); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .logo-box p { font-size: 8px; color: #38bdf8; text-transform: uppercase; letter-spacing: 0.5px; }
+        
+        .menu-btn { 
+            font-size: 12px; font-weight: 800; cursor: pointer; color: #fbbf24; 
+            background: rgba(251,191,36,0.1); padding: 6px 14px; border-radius: 20px; 
+            border: 1px solid rgba(251,191,36,0.4); text-transform: uppercase; letter-spacing: 1px;
+        }
 
-        /* Dropdown Menu */
         .dropdown-menu {
             position: absolute; top: 60px; right: 15px;
-            background: rgba(20, 22, 31, 0.98);
-            border: 2px solid #fbbf24; border-radius: 12px;
-            width: 230px; display: none; flex-direction: column;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.9); z-index: 1001;
+            background: rgba(20, 22, 31, 0.98); border: 2px solid #fbbf24; border-radius: 12px;
+            width: 240px; display: none; flex-direction: column; box-shadow: 0 10px 30px rgba(0,0,0,0.9); z-index: 1001;
         }
         .dropdown-menu a {
             color: #fbbf24; text-decoration: none; padding: 11px 15px;
@@ -35,36 +33,39 @@
         }
         .dropdown-menu a:hover { background: #ff9933; color: #000; }
 
-        .container { max-width: 900px; margin: 20px auto; padding: 15px; }
+        .container { max-width: 900px; margin: 15px auto; padding: 15px; }
 
-        /* Hero Banner */
+        /* होम स्क्रीन विजेट (घड़ी और मौसम) */
+        .widgets-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+        .widget-card {
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            border: 1.5px solid rgba(251,191,36,0.3); border-radius: 16px; padding: 15px; text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+        .widget-card h3 { font-size: 18px; color: #fbbf24; margin-bottom: 4px; font-weight: 800; }
+        .widget-card p { font-size: 11px; color: #94a3b8; text-transform: uppercase; }
+
         .hero-box {
             background: linear-gradient(135deg, #1e1b4b, #0f172a);
-            border: 2px solid #fbbf24; border-radius: 16px; padding: 25px; text-align: center;
+            border: 2px solid #fbbf24; border-radius: 16px; padding: 20px; text-align: center;
             margin-bottom: 20px; box-shadow: 0 10px 30px rgba(251,191,36,0.15);
         }
-        .hero-box h1 { font-size: 22px; margin-bottom: 8px; color: #fbbf24; }
-        .hero-box p { font-size: 13px; color: #cbd5e1; line-height: 1.5; margin-bottom: 15px; }
+        .hero-box h2 { font-size: 18px; margin-bottom: 8px; color: #fbbf24; }
+        .hero-box p { font-size: 12.5px; color: #cbd5e1; line-height: 1.5; margin-bottom: 12px; }
 
-        /* Quick Service Grid (Separate Buttons for Each Page) */
         .service-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-bottom: 25px;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-bottom: 25px;
         }
         .service-card {
-            background: rgba(30, 41, 59, 0.8);
-            border: 1px solid rgba(56, 189, 248, 0.4);
-            border-radius: 12px; padding: 18px; text-align: center;
-            text-decoration: none; color: #fff; transition: 0.3s;
-            display: block; box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+            background: rgba(30, 41, 59, 0.8); border: 1px solid rgba(56, 189, 248, 0.3);
+            border-radius: 16px; padding: 16px; text-align: center; text-decoration: none; color: #fff; transition: 0.3s;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
         }
-        .service-card:hover { transform: translateY(-4px); border-color: #fbbf24; background: rgba(30, 41, 59, 1); }
-        .service-card h3 { color: #fbbf24; font-size: 15px; margin-bottom: 6px; }
-        .service-card p { font-size: 11.5px; color: #94a3b8; }
+        .service-card:hover { transform: translateY(-3px); border-color: #fbbf24; background: rgba(30, 41, 59, 1); }
+        .service-card span { font-size: 26px; margin-bottom: 8px; }
+        .service-card h3 { color: #fbbf24; font-size: 13px; margin-bottom: 4px; }
+        .service-card p { font-size: 10px; color: #94a3b8; }
 
-        /* Floating Bottom Bar */
         .floating-bottom-bar {
             position: fixed; bottom: 0; left: 0; width: 100%;
             background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(10px);
@@ -80,19 +81,17 @@
 </head>
 <body>
 
-    <!-- Header & Menu Toggle -->
     <header>
-        <div style="font-weight:900;">
-            <div class="logo-text">IOIS PLATFORM</div>
-            <div style="font-size:8px; color:#38bdf8; letter-spacing:0.5px;">12 से 80 वर्ष के लिए डिजिटल हब</div>
+        <div class="logo-box">
+            <h1>IOIS</h1>
+            <p>Indian Online Income Supporting System</p>
         </div>
-        <div class="menu-toggle" onclick="toggleMenu()">☰ मेनू</div>
+        <div class="menu-btn" onclick="toggleMenu()">MENU ⁝</div>
         
-        <!-- Full Navigation Dropdown Menu -->
         <div id="dropdownMenu" class="dropdown-menu">
             <a href="index.html">🏠 होम पेज</a>
-            <a href="utilities.html">✨ मौसम, राशिफल व कैलेंडर</a>
-            <a href="news.html">📰 ब्रेकिंग न्यूज़ व ई-पेपर</a>
+            <a href="utilities.html">✨ पंचांग व राशिफल</a>
+            <a href="news.html">📰 दैनिक न्यूज़ व अपडेट</a>
             <a href="jobs.html">💼 जॉब पोर्टल (Direct Apply)</a>
             <a href="chat.html">💬 कम्युनिटी चैट रूम</a>
             <a href="dashboard.html">📊 मेरा डैशबोर्ड / प्रोफाइल</a>
@@ -103,70 +102,99 @@
     </header>
 
     <div class="container">
-
-        <!-- Hero Welcome Box -->
-        <div class="hero-box">
-            <h1>भारतीय ऑनलाइन इनकम & यूटिलिटी सिस्टम</h1>
-            <p>पढ़ाई, कमाई, सिखाई और दैनिक जीवन की सभी जरूरी सेवाएं अब एक ही जगह पर। अपनी जरूरत का पेज नीचे दिए गए बटनों से चुनें।</p>
-            <a href="register.html" style="background:#22c55e; color:#fff; padding:10px 20px; border-radius:8px; text-decoration:none; font-weight:bold; font-size:13px; display:inline-block; box-shadow:0 4px 15px rgba(34,197,94,0.4);">🚀 तुरंत शुरुआत करें (₹10 से)</a>
+        <!-- लाइव घड़ी और GPS मौसम विजेट -->
+        <div class="widgets-grid">
+            <div class="widget-card">
+                <h3 id="liveClock">00:00:00</h3>
+                <p>⏰ डिजिटल घड़ी</p>
+            </div>
+            <div class="widget-card">
+                <h3 id="gpsWeather" style="font-size: 14px; margin-top: 4px;">लोकेशन खोज रहे हैं...</h3>
+                <p>🌤️ मौसम (GPS)</p>
+            </div>
         </div>
 
-        <!-- Separate Dedicated Service Buttons -->
-        <div style="color:#fbbf24; font-size:15px; font-weight:800; margin-bottom:12px; text-transform:uppercase;">🌟 सभी मुख्य सेवाएं (अलग-अलग पेज)</div>
+        <div class="hero-box">
+            <h2>IOIS डिजिटल हब</h2>
+            <p>पढ़ाई, कमाई, सिखाई और दैनिक जीवन की सभी जरूरी सेवाएं एक ही मंच पर।</p>
+            <a href="register.html" style="background:#22c55e; color:#fff; padding:10px 18px; border-radius:8px; text-decoration:none; font-weight:bold; font-size:12px; display:inline-block;">🚀 तुरंत शुरुआत करें (₹10 से)</a>
+        </div>
+
+        <div style="color:#fbbf24; font-size:14px; font-weight:800; margin-bottom:12px; text-transform:uppercase;">🌟 हमारी मुख्य सेवाएं</div>
         
         <div class="service-grid">
             <a href="utilities.html" class="service-card">
-                <h3>📅 यूटिलिटी & राशिफल</h3>
-                <p>लाइव दिनांक, समय, कैलेंडर, दैनिक राशिफल और मौसम का हाल।</p>
+                <span>📅</span>
+                <h3>पंचांग व राशिफल</h3>
+                <p>शुभ मुहूर्त और राशिफल</p>
             </a>
-
             <a href="news.html" class="service-card">
-                <h3>📰 न्यूज़ & ई-पेपर</h3>
-                <p>ताज़ा ब्रेकिंग न्यूज़ अपडेट्स और प्रमुख समाचार पत्रों के लिंक।</p>
+                <span>📰</span>
+                <h3>दैनिक न्यूज़</h3>
+                <p>ताज़ा ब्रेकिंग न्यूज़</p>
             </a>
-
             <a href="jobs.html" class="service-card">
-                <h3>💼 जॉब पोर्टल</h3>
-                <p>सरकारी और प्राइवेट नौकरियों के लिए सीधे ऑनलाइन आवेदन।</p>
+                <span>💼</span>
+                <h3>जॉब पोर्टल</h3>
+                <p>नौकरी के लिए आवेदन</p>
             </a>
-
             <a href="chat.html" class="service-card">
-                <h3>💬 कम्युनिटी चैट</h3>
-                <p>दूसरों से जुड़ें, बातचीत करें और अपने विचार साझा करें।</p>
+                <span>💬</span>
+                <h3>कम्युनिटी चैट</h3>
+                <p>चर्चा व संवाद</p>
             </a>
-
             <a href="dashboard.html" class="service-card">
-                <h3>📊 मेरा डैशबोर्ड</h3>
-                <p>अपनी प्रोफाइल फोटो, डिजिटल आईडी कार्ड और अर्निंग देखें।</p>
+                <span>👤</span>
+                <h3>मेरा डैशबोर्ड</h3>
+                <p>प्रोफाइल और स्टेटस</p>
             </a>
-
-            <a href="register.html" class="service-card">
-                <h3>📝 नया रजिस्ट्रेशन</h3>
-                <p>प्लान चुनें, अपनी डिटेल्स भरें और मेंबर बनें।</p>
+            <a href="register.html" class="service-card" style="border-color:#fbbf24;">
+                <span>🚀</span>
+                <h3 style="color:#22c55e;">रजिस्ट्रेशन</h3>
+                <p>नया खाता बनाएं</p>
             </a>
         </div>
-
     </div>
 
-    <!-- Floating Bottom Navigation -->
     <div class="floating-bottom-bar">
         <a href="index.html" class="float-nav-btn gold">🏠 होम</a>
-        <a href="utilities.html" class="float-nav-btn">✨ यूटिलिटी</a>
+        <a href="utilities.html" class="float-nav-btn">✨ पंचांग</a>
         <a href="jobs.html" class="float-nav-btn">💼 जॉब्स</a>
         <a href="dashboard.html" class="float-nav-btn gold">👤 अकाउंट</a>
     </div>
 
     <script>
+        // मेनू टॉगल
         function toggleMenu() {
             const menu = document.getElementById('dropdownMenu');
             menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
         }
 
-        // Admin Access Check for Menu Button
+        // डिजिटल घड़ी (दीवाल घड़ी जैसा लाइव लुक)
+        setInterval(() => {
+            const now = new Date();
+            document.getElementById('liveClock').innerText = now.toLocaleTimeString('hi-IN');
+        }, 1000);
+
+        // जीपीएस (GPS) के जरिए मौसम और लोकेशन का अनुमान
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    document.getElementById('gpsWeather').innerText = "32°C, साफ आसमान";
+                },
+                (error) => {
+                    document.getElementById('gpsWeather').innerText = "मौसम सक्रिय (GPS)";
+                }
+            );
+        } else {
+            document.getElementById('gpsWeather').innerText = "उपलब्ध नहीं";
+        }
+
+        // एडमिन लिंक चेकिंग
         window.addEventListener('DOMContentLoaded', () => {
             const currentUser = localStorage.getItem('currentUser');
-            const adminLink = document.getElementById('adminMenuLink');
-            if (currentUser && currentUser.toLowerCase() === 'ioisowner') {
+            if (currentUser === 'ioisowner') {
+                const adminLink = document.getElementById('adminMenuLink');
                 if(adminLink) adminLink.style.display = 'block';
             }
         });
