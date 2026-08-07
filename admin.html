@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IOIS Platform - Admin Panel</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo-text">IOIS ADMIN PANEL</div>
+        <p>Manage Registrations & Users</p>
+    </header>
+
+    <nav>
+        <a href="index.html">🏠 होम</a>
+        <a href="register.html">📝 रजिस्ट्रेशन</a>
+        <a href="login.html">🔑 लॉगिन</a>
+        <a href="dashboard.html">📊 डैशबोर्ड</a>
+        <a href="admin.html" class="active" style="background:#dc3545;">🛡️ एडमिन पैनल</a>
+    </nav>
+
+    <div class="container" style="max-width: 900px;">
+        <h2>👥 सभी रजिस्टर्ड मेंबर्स की सूची</h2>
+        <div id="userList" style="margin-top: 20px;">
+            <!-- यहाँ ऑटोमैटिक यूजर्स दिखेंगे -->
+        </div>
+    </div>
+
+    <footer>
+        <p>IOIS Admin Secured Panel</p>
+    </footer>
+
+    <script>
+        const listDiv = document.getElementById('userList');
+        let html = '<table border="1" width="100%" cellpadding="8" style="border-collapse:collapse; text-align:left; font-size:14px;"><tr><th>Photo</th><th>User ID</th><th>Name</th><th>WhatsApp</th><th>Plan</th><th>Payment Info</th></tr>';
+        
+        let count = 0;
+        for (let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+            if (key.startsWith('IOIS')) {
+                const u = JSON.parse(localStorage.getItem(key));
+                html += `<tr><td><img src="${u.photo}" width="40" height="40" style="border-radius:50%; object-fit:cover;"></td><td>${u.userId}</td><td>${u.fullName}</td><td>${u.whatsapp}</td><td>${u.cardTier}</td><td>${u.paymentInfo}</td></tr>`;
+                count++;
+            }
+        }
+        html += '</table>';
+        if(count === 0) {
+            listDiv.innerHTML = '<p style="text-align:center; color:#777;">अभी तक कोई नया रजिस्ट्रेशन नहीं हुआ है।</p>';
+        } else {
+            listDiv.innerHTML = `<p style="margin-bottom:10px; font-weight:bold;">कुल रजिस्टर्ड यूजर: ${count}</p>` + html;
+        }
+    </script>
+</body>
+</html>
