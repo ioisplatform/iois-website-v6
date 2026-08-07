@@ -4,124 +4,138 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IOIS - INDIAN ONLINE INCOME SUPPORTING SYSTEM</title>
-    <!-- ब्राउज़र टैब के लिए लोगो (Favicon) -->
     <link rel="icon" type="image/png" href="logo.png">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, sans-serif; }
         
         body { 
-            /* कमरे की दीवार जैसा प्रीमियम बैकग्राउंड लुक */
-            background: linear-gradient(135deg, #1b263b, #0d1b2a);
-            color: #f8f9fa; 
+            background: linear-gradient(135deg, #16222a, #3a6073); /* कमरे की दीवार का शानदार लुक */
+            color: #fff; 
             min-height: 100vh;
-            padding-bottom: 40px;
+            padding-bottom: 30px;
         }
 
         .room-container {
             max-width: 480px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 15px;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
 
-        /* हेडर और लोगो स्टाइल */
+        /* ब्रैंडेड हेडर और लोगो */
         .brand-header {
             text-align: center;
-            margin-bottom: 20px;
-            background: rgba(20, 30, 48, 0.8);
-            padding: 15px;
+            margin-bottom: 15px;
+            background: rgba(15, 23, 42, 0.85);
+            padding: 12px;
             border-radius: 16px;
-            border: 2px solid #f1c40f;
+            border: 2px solid #fbbf24;
             width: 100%;
             box-shadow: 0 8px 25px rgba(0,0,0,0.6);
         }
         .brand-logo {
-            width: 70px;
-            height: 70px;
+            width: 65px; height: 65px;
             border-radius: 50%;
-            border: 2px solid #f1c40f;
+            border: 2px solid #fbbf24;
             object-fit: cover;
-            margin-bottom: 8px;
-            box-shadow: 0 4px 10px rgba(241, 196, 15, 0.4);
+            margin-bottom: 6px;
         }
         .brand-header h1 {
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 900;
-            color: #f1c40f;
-            letter-spacing: 0.5px;
+            color: #fbbf24;
             text-transform: uppercase;
         }
 
-        /* दीवार की घड़ी और डिजिटल घड़ी का सेक्शन */
+        /* घड़ी और डिजिटल घड़ी सेक्शन */
         .wall-display {
             display: flex;
             justify-content: space-between;
             align-items: center;
             width: 100%;
-            background: rgba(255, 255, 255, 0.05);
-            padding: 12px 20px;
+            background: rgba(255, 255, 255, 0.07);
+            padding: 10px 18px;
             border-radius: 16px;
             margin-bottom: 15px;
-            border: 1px solid rgba(241, 196, 15, 0.3);
+            border: 1px solid rgba(251, 191, 36, 0.3);
         }
         
-        /* एनालॉग दीवार घड़ी */
+        /* 1 से 12 अंकों वाली प्रीमियम एनालॉग घड़ी */
         .analog-clock {
-            width: 65px; height: 65px; border: 4px solid #f1c40f; border-radius: 50%;
+            width: 70px; height: 70px; border: 4px solid #fbbf24; border-radius: 50%;
             position: relative; background: #fff; box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
         }
-        .hand {
-            position: absolute; bottom: 50%; left: 50%; transform-origin: bottom; background: #000; border-radius: 4px;
+        .clock-number {
+            position: absolute; font-size: 9px; font-weight: 900; color: #000;
         }
-        .hour-hand { width: 3px; height: 16px; background: #333; transform: translateX(-50%); }
-        .minute-hand { width: 2px; height: 22px; background: #555; transform: translateX(-50%); }
-        .second-hand { width: 1px; height: 26px; background: #e74c3c; transform: translateX(-50%); }
-        .center-dot { width: 6px; height: 6px; background: #f1c40f; border-radius: 50%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+        /* अंकों की पोजीशन */
+        .n12 { top: 2px; left: 30px; }
+        .n3 { top: 27px; right: 4px; }
+        .n6 { bottom: 2px; left: 32px; }
+        .n9 { top: 27px; left: 4px; }
 
-        .digital-clock-box {
-            text-align: right;
-        }
-        .digital-clock { font-size: 20px; font-weight: bold; color: #f1c40f; font-family: monospace; }
-        .clock-label { font-size: 9px; color: #a0aec0; text-transform: uppercase; letter-spacing: 1px; }
+        .hand { position: absolute; bottom: 50%; left: 50%; transform-origin: bottom; background: #000; border-radius: 4px; }
+        .hour-hand { width: 3px; height: 16px; background: #222; transform: translateX(-50%); }
+        .minute-hand { width: 2px; height: 22px; background: #444; transform: translateX(-50%); }
+        .second-hand { width: 1px; height: 26px; background: #ef4444; transform: translateX(-50%); }
+        .center-dot { width: 6px; height: 6px; background: #fbbf24; border-radius: 50%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
 
-        /* खिड़की जैसी आइकॉन (लाइव मौसम) */
+        .digital-clock-box { text-align: right; }
+        .digital-clock { font-size: 19px; font-weight: bold; color: #fbbf24; font-family: monospace; }
+        .clock-label { font-size: 9px; color: #cbd5e1; text-transform: uppercase; }
+
+        /* खिड़की जैसी आइकॉन (जैसा मौसम, वैसा माहौल) */
         .window-weather {
             width: 100%;
-            height: 100px;
-            border: 6px solid #4a5568;
+            height: 110px;
+            border: 7px solid #334155;
             border-radius: 18px;
             background: linear-gradient(to bottom, #38bdf8, #bae6fd);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            margin-bottom: 25px;
-            box-shadow: inset 0 0 15px rgba(0,0,0,0.4), 0 5px 15px rgba(0,0,0,0.3);
+            margin-bottom: 15px;
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.5), 0 5px 15px rgba(0,0,0,0.3);
             color: #0f172a;
             position: relative;
             overflow: hidden;
+            transition: 0.5s;
         }
-        .window-frame-line {
-            position: absolute; width: 100%; height: 2px; background: #4a5568; top: 50%;
-        }
-        .weather-info {
-            background: rgba(255, 255, 255, 0.85);
-            padding: 4px 12px;
-            border-radius: 12px;
+        .window-frame-vertical { position: absolute; height: 100%; width: 3px; background: #334155; left: 50%; }
+        .window-frame-horizontal { position: absolute; width: 100%; height: 3px; background: #334155; top: 50%; }
+        
+        .weather-card-content {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 5px 14px;
+            border-radius: 10px;
             font-weight: 800;
             font-size: 13px;
-            z-index: 2;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            z-index: 3;
+            text-align: center;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
         }
-        .weather-sub { font-size: 10px; font-weight: 700; color: #334155; margin-top: 2px; z-index: 2; }
 
-        /* मोबाइल होम स्क्रीन ऐप आइकॉन ग्रिड */
+        /* शहर सर्च करने का बॉक्स (बिना GPS के) */
+        .city-search-box {
+            display: flex; gap: 8px; width: 100%; margin-bottom: 20px;
+        }
+        .city-search-box input {
+            flex: 1; padding: 10px 14px; border-radius: 10px; border: 1px solid #fbbf24;
+            background: rgba(15, 23, 42, 0.9); color: #fff; font-size: 13px; outline: none;
+        }
+        .city-search-box button {
+            background: #fbbf24; color: #000; border: none; padding: 0 16px;
+            border-radius: 10px; font-weight: 800; cursor: pointer; font-size: 12px;
+        }
+
+        /* मोबाइल ऐप आइकॉन ग्रिड (सभी जरूरी पेजों के लिए) */
         .app-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
+            gap: 14px;
             width: 100%;
         }
         .app-icon {
@@ -130,45 +144,37 @@
             align-items: center;
             text-decoration: none;
             color: #fff;
-            transition: transform 0.2s;
         }
-        .app-icon:active { transform: scale(0.95); }
-        
         .icon-box {
-            width: 70px;
-            height: 70px;
-            background: linear-gradient(135deg, rgba(255,255,255,0.15), rgba(255,255,255,0.05));
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 30px;
-            border: 1px solid rgba(241, 196, 15, 0.4);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-            margin-bottom: 6px;
+            width: 65px; height: 65px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(8px);
+            border-radius: 18px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 26px;
+            border: 1px solid rgba(251, 191, 36, 0.4);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.4);
+            margin-bottom: 5px;
         }
-        .icon-label { 
-            font-size: 11px; 
-            font-weight: 600; 
-            text-align: center; 
-            color: #cbd5e1;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.8);
-        }
+        .icon-label { font-size: 11px; font-weight: 600; text-align: center; color: #e2e8f0; }
     </style>
 </head>
 <body>
     <div class="room-container">
         
-        <!-- ब्रैंडेड हेडर और लोगो (फोटोज जैसी हाई क्वालिटी गोल्ड थीम) -->
+        <!-- लोगो और नाम -->
         <div class="brand-header">
-            <img src="logo.png" alt="IOIS Logo" class="brand-logo" onerror="this.src='https://via.placeholder.com/70?text=IOIS'">
+            <img src="logo.png" alt="IOIS Logo" class="brand-logo" onerror="this.src='https://via.placeholder.com/65?text=IOIS'">
             <h1>IOIS - INDIAN ONLINE INCOME SUPPORTING SYSTEM</h1>
         </div>
 
-        <!-- दीवार वाली एनालॉग घड़ी और डिजिटल घड़ी -->
+        <!-- घड़ी (1 से 12 अंक सहित) और डिजिटल घड़ी -->
         <div class="wall-display">
             <div class="analog-clock">
+                <span class="clock-number n12">12</span>
+                <span class="clock-number n3">3</span>
+                <span class="clock-number n6">6</span>
+                <span class="clock-number n9">9</span>
                 <div class="hand hour-hand" id="hourHand"></div>
                 <div class="hand minute-hand" id="minuteHand"></div>
                 <div class="hand second-hand" id="secondHand"></div>
@@ -176,122 +182,122 @@
             </div>
             <div class="digital-clock-box">
                 <div class="digital-clock" id="digitalClock">00:00:00</div>
-                <div class="clock-label">लाइव डिजिटल घड़ी</div>
+                <div class="clock-label">लाइव घड़ी</div>
             </div>
         </div>
+
+        <!-- शहर सर्च करने का विकल्प (बिना GPS) -->
+        <div class="city-search-box">
+            <input type="text" id="cityInput" placeholder="अपना शहर/गाँव लिखें (जैसे: Patna)...">
+            <button onclick="searchWeather()">सर्च</button>
+        </div>
         
-        <!-- खिड़की जैसी डिजाइन वाला लाइव मौसम विजेट -->
-        <div class="window-weather" id="weatherWidget">
-            <div class="window-frame-line"></div>
-            <div class="weather-info" id="tempText">मौसम लोड हो रहा है...</div>
-            <div class="weather-sub" id="cityText">GPS लोकेशन</div>
+        <!-- खिड़की जैसी डिजाइन (मौसम के अनुसार माहौल) -->
+        <div class="window-weather" id="windowBox">
+            <div class="window-frame-vertical"></div>
+            <div class="window-frame-horizontal"></div>
+            <div class="weather-card-content" id="weatherDisplay">शहर का नाम लिखकर सर्च करें</div>
         </div>
 
-        <!-- मोबाइल होम स्क्रीन जैसे ऐप आइकॉन (सभी जरूरी पेजों के लिए) -->
+        <!-- ऐप जैसे आइकॉन और सभी पेजों के लिंक -->
         <div class="app-grid">
+            <a href="plans.html" class="app-icon">
+                <div class="icon-box" style="border-color:#22c55e;">💰</div>
+                <div class="icon-label">प्लान्स & रेफरल</div>
+            </a>
+            <a href="utilities.html" class="app-icon">
+                <div class="icon-box">✨</div>
+                <div class="icon-label">पंचांग व राशिफल</div>
+            </a>
+            <a href="news.html" class="app-icon">
+                <div class="icon-box">📰</div>
+                <div class="icon-label">ताजा जानकारी</div>
+            </a>
             <a href="dashboard.html" class="app-icon">
                 <div class="icon-box">📊</div>
                 <div class="icon-label">डैशबोर्ड</div>
             </a>
             <a href="jobs.html" class="app-icon">
                 <div class="icon-box">💼</div>
-                <div class="icon-label">जॉब्स पोर्टल</div>
-            </a>
-            <a href="news.html" class="app-icon">
-                <div class="icon-box">📰</div>
-                <div class="icon-label">दैनिक न्यूज़</div>
-            </a>
-            <a href="utilities.html" class="app-icon">
-                <div class="icon-box">📅</div>
-                <div class="icon-label">पंचांग व राशिफल</div>
+                <div class="icon-label">जॉब पोर्टल</div>
             </a>
             <a href="chat.html" class="app-icon">
                 <div class="icon-box">💬</div>
-                <div class="icon-label">कम्युनिटी चैट</div>
+                <div class="icon-label">चैट रूम</div>
             </a>
             <a href="register.html" class="app-icon">
-                <div class="icon-box" style="border-color: #22c55e;">🚀</div>
-                <div class="icon-label" style="color: #22c55e;">रजिस्टर</div>
+                <div class="icon-box" style="border-color:#38bdf8;">🚀</div>
+                <div class="icon-label">रजिस्टर</div>
             </a>
             <a href="login.html" class="app-icon">
                 <div class="icon-box">🔑</div>
                 <div class="icon-label">लॉगिन</div>
             </a>
             <a href="admin.html" class="app-icon">
-                <div class="icon-box" style="border-color: #e74c3c;">🛡️</div>
+                <div class="icon-box" style="border-color:#ef4444;">🛡️</div>
                 <div class="icon-label">एडमिन पैनल</div>
-            </a>
-            <a href="utilities.html" class="app-icon">
-                <div class="icon-box">⚙️</div>
-                <div class="icon-label">अन्य सेवाएं</div>
             </a>
         </div>
     </div>
     
     <script>
-        // घड़ी को चलाने का जावास्क्रिप्ट कोड (एनालॉग और डिजिटल दोनों)
+        // घड़ी स्क्रिप्ट
         setInterval(() => {
             const now = new Date();
-            
-            // डिजिटल घड़ी अपडेट
             document.getElementById('digitalClock').innerText = now.toLocaleTimeString('hi-IN');
 
-            // एनालॉग घड़ी की सुइयां घुमाना
-            const hours = now.getHours();
-            const minutes = now.getMinutes();
-            const seconds = now.getSeconds();
-
-            const secondDeg = (seconds / 60) * 360;
-            const minuteDeg = ((minutes + seconds / 60) / 60) * 360;
-            const hourDeg = ((hours % 12 + minutes / 60) / 12) * 360;
-
-            document.getElementById('secondHand').style.transform = `translateX(-50%) rotate(${secondDeg}deg)`;
-            document.getElementById('minuteHand').style.transform = `translateX(-50%) rotate(${minuteDeg}deg)`;
-            document.getElementById('hourHand').style.transform = `translateX(-50%) rotate(${hourDeg}deg)`;
+            const h = now.getHours() % 12, m = now.getMinutes(), s = now.getSeconds();
+            document.getElementById('secondHand').style.transform = `translateX(-50%) rotate(${(s/60)*360}deg)`;
+            document.getElementById('minuteHand').style.transform = `translateX(-50%) rotate(${(m/60)*360}deg)`;
+            document.getElementById('hourHand').style.transform = `translateX(-50%) rotate(${((h + m/60)/12)*360}deg)`;
         }, 1000);
 
-        // लाइव GPS मौसम और शहर का नाम फेच करने का कोड
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-                async (position) => {
-                    const lat = position.coords.latitude;
-                    const lon = position.coords.longitude;
-                    try {
-                        // Open-Meteo वेदर एपीआई
-                        const weatherRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`);
-                        const weatherData = await weatherRes.json();
-                        
-                        if (weatherData && weatherData.current_weather) {
-                            const temp = weatherData.current_weather.temperature;
-                            
-                            // Nominatim से शहर का नाम पाना
-                            fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`)
-                                .then(res => res.json())
-                                .then(locData => {
-                                    let cityName = "आपका क्षेत्र";
-                                    if (locData && locData.address) {
-                                        cityName = locData.address.city || locData.address.town || locData.address.village || locData.address.county || "लाइव लोकेशन";
-                                    }
-                                    document.getElementById('tempText').innerText = `${temp}°C | साफ मौसम`;
-                                    document.getElementById('cityText').innerText = cityName;
-                                })
-                                .catch(() => {
-                                    document.getElementById('tempText').innerText = `${temp}°C तापमान`;
-                                    document.getElementById('cityText').innerText = "लाइव मौसम (GPS)";
-                                });
-                        }
-                    } catch (err) {
-                        document.getElementById('tempText').innerText = "मौसम लोड नहीं हुआ";
-                    }
-                },
-                (error) => {
-                    document.getElementById('tempText').innerText = "लोकेशन अनुमति दें";
-                    document.getElementById('cityText').innerText = "GPS बंद है";
+        // शहर के अनुसार मौसम और खिड़की का माहौल बदलना
+        async function searchWeather() {
+            const city = document.getElementById('cityInput').value.trim() || "Patna";
+            const display = document.getElementById('weatherDisplay');
+            const windowBox = document.getElementById('windowBox');
+            
+            display.innerHTML = "खोज रहे हैं...";
+            try {
+                const geoRes = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(city)}&count=1`);
+                const geoData = await geoRes.json();
+                
+                if(!geoData.results) {
+                    display.innerHTML = "शहर नहीं मिला!";
+                    return;
                 }
-            );
-        } else {
-            document.getElementById('tempText').innerText = "GPS समर्थित नहीं";
+                
+                const { latitude, longitude, name, country } = geoData.results[0];
+                const weatherRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true`);
+                const weatherData = await weatherRes.json();
+                
+                const temp = weatherData.current_weather.temperature;
+                const code = weatherData.current_weather.weathercode;
+
+                let condition = "साफ मौसम ☀️";
+                let bgGradient = "linear-gradient(to bottom, #38bdf8, #bae6fd)"; // धूप वाला माहौल
+
+                if (code >= 51 && code <= 67) {
+                    condition = "बारिश हो रही है 🌧️";
+                    bgGradient = "linear-gradient(to bottom, #475569, #94a3b8)"; // बारिश वाला मटमैला माहौल
+                } else if (code >= 71) {
+                    condition = "बर्फबारी ❄️";
+                    bgGradient = "linear-gradient(to bottom, #e2e8f0, #cbd5e1)";
+                } else if (code >= 1 && code <= 3) {
+                    condition = "आंशिक बादल ⛅";
+                    bgGradient = "linear-gradient(to bottom, #64748b, #cbd5e1)";
+                }
+
+                windowBox.style.background = bgGradient;
+                display.innerHTML = `📍 ${name} (${temp}°C)<br><span style="font-size:11px; color:#334155;">${condition}</span>`;
+            } catch(e) {
+                display.innerHTML = "त्रुटि हुई, पुनः प्रयास करें";
+            }
         }
+        
+        // डिफ़ॉल्ट पटना का मौसम लोड करें
+        window.onload = () => { searchWeather(); };
     </script>
 </body>
 </html>
