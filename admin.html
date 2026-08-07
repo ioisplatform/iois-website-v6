@@ -6,46 +6,89 @@
     <title>एडमिन पैनल - IOIS Platform</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, sans-serif; }
-        body { background: #0b0f19; color: #fff; padding: 20px; }
+        body { background: #0b0f19; color: #fff; padding: 20px; padding-bottom: 60px; }
         
         h2 { color: #fbbf24; text-align: center; margin-bottom: 20px; border-bottom: 2px solid #fbbf24; padding-bottom: 10px; }
         
+        /* Admin Login Box */
+        #adminLoginBox {
+            max-width: 360px; margin: 80px auto; background: #1e293b; 
+            border: 2px solid #fbbf24; padding: 25px; border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.8); text-align: center;
+        }
+        #adminLoginBox h3 { color: #fbbf24; margin-bottom: 15px; font-size: 18px; }
+        .form-group { margin-bottom: 15px; text-align: left; }
+        .form-group label { display: block; font-size: 12px; color: #38bdf8; font-weight: bold; margin-bottom: 5px; }
+        .form-group input { width: 100%; padding: 10px; background: #0f172a; border: 1px solid #fbbf24; border-radius: 8px; color: #fff; font-size: 14px; }
+        .btn-admin-login { background: #22c55e; color: #fff; border: none; padding: 10px; width: 100%; border-radius: 8px; font-weight: bold; cursor: pointer; text-transform: uppercase; font-size: 14px; }
+
+        /* Dashboard Content Style */
+        #adminDashboard { display: none; }
         .user-card { 
             background: #1e293b; padding: 15px; border-radius: 10px; margin-bottom: 15px; 
-            border-left: 5px solid #38bdf8; display: flex; justify-content: space-between; align-items: center;
+            border-left: 5px solid #38bdf8; display: flex; flex-direction: column; gap: 10px;
         }
-        .user-info { font-size: 14px; }
+        @media(min-width: 600px) {
+            .user-card { flex-direction: row; justify-content: space-between; align-items: center; }
+        }
+        .user-info { font-size: 13px; line-height: 1.5; }
         .user-info b { color: #fbbf24; }
-        
-        .btn-action { 
-            padding: 8px 12px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; margin-left: 5px; 
-        }
+        .proof-img { width: 60px; height: 60px; object-fit: cover; border-radius: 6px; border: 1px solid #fbbf24; cursor: pointer; }
+        .btn-action { padding: 8px 12px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; margin-right: 5px; font-size: 12px; }
         .btn-approve { background: #22c55e; color: #fff; }
         .btn-delete { background: #dc3545; color: #fff; }
-
-        .back-btn { 
-            display: block; width: 200px; margin: 20px auto; padding: 10px; text-align: center; 
-            background: #38bdf8; color: #000; text-decoration: none; border-radius: 20px; font-weight: bold;
-        }
+        .back-btn { display: block; width: 200px; margin: 20px auto; padding: 10px; text-align: center; background: #38bdf8; color: #000; text-decoration: none; border-radius: 20px; font-weight: bold; }
     </style>
 </head>
 <body>
 
-    <h2>🛡️ IOIS एडमिन कंट्रोल पैनल</h2>
-    <div id="userListContainer"></div>
-    <a href="index.html" class="back-btn">🏠 होम पेज पर जाएं</a>
+    <!-- 1. Admin Login Section (यदि ओनर लॉगिन नहीं है) -->
+    <div id="adminLoginBox">
+        <h3>🛡️ ओनर एडमिन लॉगिन</h3>
+        <div class="form-group">
+            <label>एडमिन पासवर्ड दर्ज करें</label>
+            <input type="password" id="adminPasswordInput" placeholder="गुप्त पासवर्ड लिखें">
+        </div>
+        <button class="btn-admin-login" onclick="verifyAdminLogin()">लॉगिन करें ➔</button>
+        <br><br>
+        <a href="index.html" style="color:#38bdf8; font-size:12px; text-decoration:none;">🏠 होम पेज पर वापस जाएं</a>
+    </div>
+
+    <!-- 2. Main Admin Panel (लॉगिन होने के बाद दिखेगा) -->
+    <div id="adminDashboard">
+        <h2>🛡️ IOIS एडमिन कंट्रोल पैनल (पेमेंट वेरीफिकेशन)</h2>
+        <div id="userListContainer"></div>
+        <a href="index.html" class="back-btn">🏠 होम पेज पर जाएं</a>
+    </div>
 
     <script>
-        // एक्सेस सुरक्षा चेक
+        // चेक करें कि क्या पहले से ओनर लॉगिन है या नहीं
         window.addEventListener('DOMContentLoaded', () => {
             const currentUser = localStorage.getItem('currentUser');
-            if (currentUser !== 'ioisowner') {
-                alert('एक्सेस डिनाइड! सिर्फ ओनर ही इसे देख सकते हैं।');
-                window.location.href = 'login.html';
-            } else {
-                loadUsers();
+            if (currentUser === 'ioisowner') {
+                showPanel();
             }
         });
+
+        // पासवर्ड से लॉगिन वेरीफाई करने का फंक्शन
+        function verifyAdminLogin() {
+            const pass = document.getElementById('adminPasswordInput').value.trim();
+            
+            // यहाँ आप अपना गुप्त एडमिन पासवर्ड सेट कर सकते हैं (फिलहाल 'admin123' रखा है)
+            // आप चाहें तो इसे बदल भी सकते हैं
+            if (pass === 'admin123' || pass === '8877490845') {
+                localStorage.setItem('currentUser', 'ioisowner');
+                showPanel();
+            } else {
+                alert('गलत पासवर्ड! कृपया सही पासवर्ड दर्ज करें।');
+            }
+        }
+
+        function showPanel() {
+            document.getElementById('adminLoginBox').style.display = 'none';
+            document.getElementById('adminDashboard').style.display = 'block';
+            loadUsers();
+        }
 
         function loadUsers() {
             const container = document.getElementById('userListContainer');
@@ -53,6 +96,11 @@
             
             const allUsers = JSON.parse(localStorage.getItem('iois_all_users') || '[]');
             
+            if(allUsers.length === 0) {
+                container.innerHTML = '<p style="text-align:center; color:#94a3b8;">अभी कोई नया रजिस्ट्रेशन नहीं हुआ है।</p>';
+                return;
+            }
+
             allUsers.forEach(whatsapp => {
                 const userData = JSON.parse(localStorage.getItem('user_' + whatsapp));
                 if (userData) {
@@ -63,7 +111,11 @@
                             <b>नाम:</b> ${userData.name}<br>
                             <b>व्हाट्सएप:</b> ${whatsapp}<br>
                             <b>प्लान:</b> ${userData.plan}<br>
-                            <b>स्टेटस:</b> <span id="status_${whatsapp}">${userData.status}</span>
+                            <b>UTR नंबर:</b> <span style="color:#38bdf8;">${userData.utr || 'उपलब्ध नहीं'}</span><br>
+                            <b>स्टेटस:</b> <span id="status_${whatsapp}" style="color:${userData.status === 'Active' ? '#22c55e' : '#fbbf24'};">${userData.status}</span>
+                        </div>
+                        <div>
+                            ${userData.paymentProof ? `<a href="${userData.paymentProof}" target="_blank"><img src="${userData.paymentProof}" class="proof-img" title="बड़ा देखने के लिए क्लिक करें"></a>` : 'स्क्रीनशॉट नहीं'}
                         </div>
                         <div>
                             <button class="btn-action btn-approve" onclick="approveUser('${whatsapp}')">Approve</button>
@@ -80,7 +132,8 @@
             userData.status = 'Active';
             localStorage.setItem('user_' + whatsapp, JSON.stringify(userData));
             document.getElementById('status_' + whatsapp).innerText = 'Active';
-            alert('यूजर एक्टिवेट कर दिया गया है!');
+            document.getElementById('status_' + whatsapp).style.color = '#22c55e';
+            alert('यूजर का पेमेंट वेरीफाई करके अकाउंट एक्टिवेट कर दिया गया है!');
         }
 
         function deleteUser(whatsapp) {
