@@ -3,53 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IOIS Platform - Admin Panel</title>
-    <link rel="stylesheet" href="style.css">
+    <title>एडमिन पैनल - IOIS Platform</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, sans-serif; }
+        body { background: #0b0f19; color: #fff; padding: 20px; }
+        
+        h2 { color: #fbbf24; text-align: center; margin-bottom: 20px; border-bottom: 2px solid #fbbf24; padding-bottom: 10px; }
+        
+        .user-card { 
+            background: #1e293b; padding: 15px; border-radius: 10px; margin-bottom: 15px; 
+            border-left: 5px solid #38bdf8; display: flex; justify-content: space-between; align-items: center;
+        }
+        .user-info { font-size: 14px; }
+        .user-info b { color: #fbbf24; }
+        
+        .btn-action { 
+            padding: 8px 12px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; margin-left: 5px; 
+        }
+        .btn-approve { background: #22c55e; color: #fff; }
+        .btn-delete { background: #dc3545; color: #fff; }
+
+        .back-btn { 
+            display: block; width: 200px; margin: 20px auto; padding: 10px; text-align: center; 
+            background: #38bdf8; color: #000; text-decoration: none; border-radius: 20px; font-weight: bold;
+        }
+    </style>
 </head>
 <body>
 
-    <header>
-        <div class="logo-text">IOIS ADMIN PANEL</div>
-        <p>Manage Registrations & Users</p>
-    </header>
-
-    <nav>
-        <a href="index.html">🏠 होम</a>
-        <a href="register.html">📝 रजिस्ट्रेशन</a>
-        <a href="login.html">🔑 लॉगिन</a>
-        <a href="dashboard.html">📊 डैशबोर्ड</a>
-        <a href="admin.html" class="active" style="background:#dc3545;">🛡️ एडमिन पैनल</a>
-    </nav>
-
-    <div class="container" style="max-width: 900px;">
-        <h2>👥 सभी रजिस्टर्ड मेंबर्स की सूची</h2>
-        <div id="userList" style="margin-top: 20px;">
-            <!-- यहाँ ऑटोमैटिक यूजर्स दिखेंगे -->
-        </div>
-    </div>
-
-    <footer>
-        <p>IOIS Admin Secured Panel</p>
-    </footer>
+    <h2>🛡️ IOIS एडमिन कंट्रोल पैनल</h2>
+    <div id="userListContainer"></div>
+    <a href="index.html" class="back-btn">🏠 होम पेज पर जाएं</a>
 
     <script>
-        const listDiv = document.getElementById('userList');
-        let html = '<table border="1" width="100%" cellpadding="8" style="border-collapse:collapse; text-align:left; font-size:14px;"><tr><th>Photo</th><th>User ID</th><th>Name</th><th>WhatsApp</th><th>Plan</th><th>Payment Info</th></tr>';
-        
-        let count = 0;
-        for (let i = 0; i < localStorage.length; i++) {
-            const key = localStorage.key(i);
-            if (key.startsWith('IOIS')) {
-                const u = JSON.parse(localStorage.getItem(key));
-                html += `<tr><td><img src="${u.photo}" width="40" height="40" style="border-radius:50%; object-fit:cover;"></td><td>${u.userId}</td><td>${u.fullName}</td><td>${u.whatsapp}</td><td>${u.cardTier}</td><td>${u.paymentInfo}</td></tr>`;
-                count++;
+        // एक्सेस सुरक्षा चेक
+        window.addEventListener('DOMContentLoaded', () => {
+            const currentUser = localStorage.getItem('currentUser');
+            if (currentUser !== 'ioisowner') {
+                alert('एक्सेस डिनाइड! सिर्फ ओनर ही इसे देख सकते हैं।');
+                window.location.href = 'login.html';
+            } else {
+                loadUsers();
             }
+        });
+
+        function loadUsers() {
+            const container = document.getElementById('userListContainer');
+            container.innerHTML = '';
+            
+            const allUsers = JSON.parse(localStorage.getItem('iois_all_users') || '[]');
+            
+            allUsers.forEach(whatsapp => {
+                const userData = JSON.parse(localStorage.getItem('user_' + whatsapp));
+                if (userData) {
+                    const div = document.createElement('div');
+                    div.className = 'user-card';
+                    div.innerHTML = `
+                        <div class="user-info">
+                            <b>नाम:</b> ${userData.name}<br>
+                            <b>व्हाट्सएप:</b> ${whatsapp}<br>
+                            <b>प्लान:</b> ${userData.plan}<br>
+                            <b>स्टेटस:</b> <span id="status_${whatsapp}">${userData.status}</span>
+                        </div>
+                        <div>
+                            <button class="btn-action btn-approve" onclick="approveUser('${whatsapp}')">Approve</button>
+                            <button class="btn-action btn-delete" onclick="deleteUser('${whatsapp}')">Delete</button>
+                        </div>
+                    `;
+                    container.appendChild(div);
+                }
+            });
         }
-        html += '</table>';
-        if(count === 0) {
-            listDiv.innerHTML = '<p style="text-align:center; color:#777;">अभी तक कोई नया रजिस्ट्रेशन नहीं हुआ है।</p>';
-        } else {
-            listDiv.innerHTML = `<p style="margin-bottom:10px; font-weight:bold;">कुल रजिस्टर्ड यूजर: ${count}</p>` + html;
+
+        function approveUser(whatsapp) {
+            let userData = JSON.parse(localStorage.getItem('user_' + whatsapp));
+            userData.status = 'Active';
+            localStorage.setItem('user_' + whatsapp, JSON.stringify(userData));
+            document.getElementById('status_' + whatsapp).innerText = 'Active';
+            alert('यूजर एक्टिवेट कर दिया गया है!');
+        }
+
+        function deleteUser(whatsapp) {
+            if(confirm('क्या आप वाकई इस यूजर को डिलीट करना चाहते हैं?')) {
+                localStorage.removeItem('user_' + whatsapp);
+                let allUsers = JSON.parse(localStorage.getItem('iois_all_users'));
+                allUsers = allUsers.filter(u => u !== whatsapp);
+                localStorage.setItem('iois_all_users', JSON.stringify(allUsers));
+                loadUsers();
+            }
         }
     </script>
 </body>
