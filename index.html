@@ -4,173 +4,337 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IOIS Platform - Indian Online Income Supporting System</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, sans-serif; }
+        body { background: #0b0f19; color: #fff; padding-bottom: 80px; }
+
+        /* Professional Header */
+        header {
+            background: linear-gradient(90deg, #1f222e, #14161f, #1f222e);
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid #fbbf24;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.8);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo-container { display: flex; align-items: center; gap: 10px; }
+        .logo-badge {
+            width: 40px; height: 40px;
+            background: linear-gradient(45deg, #ff9933, #138808);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 20px; font-weight: 900; color: #fff;
+            border: 2px solid #fbbf24;
+        }
+
+        /* 🇮🇳 तिरंगे के रंगों वाला 3D प्रीमियम टेक्स्ट */
+        .indian-tricolor-text {
+            background: linear-gradient(135deg, #ff9933 0%, #ffffff 50%, #138808 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 900;
+            text-shadow: 0 2px 10px rgba(255,153,51,0.3);
+        }
+
+        .logo-text { font-size: 18px; font-weight: 900; letter-spacing: 1px; }
+        .brand-subtitle { font-size: 9px; color: #38bdf8; font-weight: 700; letter-spacing: 0.5px; }
+
+        /* Menu & Navigation */
+        .menu-toggle { font-size: 24px; cursor: pointer; color: #fbbf24; background: rgba(255,255,255,0.05); padding: 5px 10px; border-radius: 6px; border: 1px solid rgba(251,191,36,0.3); }
+        
+        .dropdown-menu {
+            position: absolute; top: 65px; right: 15px;
+            background: rgba(20, 22, 31, 0.98);
+            border: 2px solid #fbbf24; border-radius: 10px;
+            width: 220px; display: none; flex-direction: column;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.9); z-index: 1001;
+        }
+        .dropdown-menu a {
+            color: #fbbf24; text-decoration: none; padding: 10px 15px;
+            font-weight: 600; border-bottom: 1px solid rgba(255,255,255,0.1); font-size: 13px;
+        }
+        .dropdown-menu a:hover { background: #ff9933; color: #000; }
+
+        .container { max-width: 900px; margin: 20px auto; padding: 15px; }
+
+        /* Marquee Live Announcement */
+        .marquee-box {
+            background: linear-gradient(135deg, #7f1d1d, #b91c1c);
+            border: 1px solid #f87171; border-radius: 8px;
+            padding: 8px 12px; margin-bottom: 20px;
+            color: #fef2f2; font-size: 12px; font-weight: 700;
+            display: flex; align-items: center; box-shadow: 0 4px 12px rgba(185,28,28,0.4);
+        }
+        .marquee-box marquee { color: #fde047; }
+
+        /* Live Utilities Grid (Weather, Horoscope, News, Jobs) */
+        .utility-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+        .utility-card {
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid rgba(56, 189, 248, 0.4);
+            border-radius: 10px; padding: 12px; text-align: center;
+        }
+        .utility-card h4 { color: #38bdf8; font-size: 13px; margin-bottom: 5px; }
+        .utility-card p { font-size: 11.5px; color: #cbd5e1; }
+
+        /* Pricing & Commission Grid */
+        .section-title { color: #fbbf24; font-size: 16px; font-weight: 800; margin: 20px 0 12px 0; text-transform: uppercase; border-left: 4px solid #fbbf24; padding-left: 8px; }
+        
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 15px;
+        }
+        .price-card {
+            background: linear-gradient(145deg, #1f222e, #101218);
+            border: 2px solid rgba(251, 191, 36, 0.4);
+            border-radius: 12px; padding: 18px; text-align: center;
+            cursor: pointer; transition: 0.3s; position: relative;
+        }
+        .price-card:hover { transform: translateY(-4px); border-color: #38bdf8; box-shadow: 0 8px 25px rgba(56,189,248,0.3); }
+
+        .comm-badge {
+            position: absolute; top: 12px; right: 12px;
+            background: rgba(34, 197, 94, 0.2); color: #4ade80;
+            border: 1px solid #4ade80; font-size: 10.5px; font-weight: 700;
+            padding: 2px 8px; border-radius: 10px;
+        }
+
+        /* Card Showcase Section (Silver, Gold, Platinum 3D Textures) */
+        .card-showcase {
+            margin-top: 30px;
+            background: rgba(15, 23, 42, 0.9);
+            border: 2px solid #fbbf24; border-radius: 14px; padding: 20px;
+        }
+        .preview-card {
+            border-radius: 12px; padding: 18px; color: #fff; margin-top: 15px; position: relative;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.8);
+        }
+        .card-silver { background: linear-gradient(135deg, #333, #111); border-top: 3px solid #c0c0c0; }
+        .card-gold { background: linear-gradient(135deg, #bf953f, #aa771c); color: #000; border-top: 3px solid #fff; }
+        .card-platinum { background: linear-gradient(135deg, #101820, #2c3e50); border-top: 3px solid #00f2fe; }
+
+        /* Modal Box */
+        .modal {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85); backdrop-filter: blur(5px);
+            justify-content: center; align-items: center; z-index: 2000; padding: 15px;
+        }
+        .modal-content {
+            background: #14161f; border: 2px solid #fbbf24; padding: 20px;
+            border-radius: 14px; width: 100%; max-width: 420px; position: relative; text-align: center;
+        }
+        .close-btn { position: absolute; top: 10px; right: 15px; font-size: 22px; color: #fbbf24; cursor: pointer; }
+
+        /* Floating Bottom Bar */
+        .floating-bottom-bar {
+            position: fixed; bottom: 0; left: 0; width: 100%;
+            background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(251, 191, 36, 0.3);
+            display: flex; justify-content: space-around; padding: 8px 6px; z-index: 9999;
+        }
+        .float-nav-btn {
+            background: #1e293b; border: 1px solid #38bdf8; color: #38bdf8;
+            padding: 6px 14px; border-radius: 20px; font-size: 11px; font-weight: 700; text-decoration: none;
+        }
+        .float-nav-btn.gold { border-color: #fbbf24; color: #fbbf24; background: rgba(251,191,36,0.1); }
+
+        footer { text-align: center; padding: 20px; font-size: 11px; color: #64748b; margin-top: 30px; border-top: 1px solid #1e293b; }
+    </style>
 </head>
 <body>
 
-    <!-- Professional Header with IOIS Logo & 3-Line Menu -->
+    <!-- Header with Tricolor Branding -->
     <header>
         <div class="logo-container">
             <div class="logo-badge">I</div>
             <div>
-                <div class="logo-text">IOIS PLATFORM</div>
+                <div class="logo-text indian-tricolor-text">IOIS PLATFORM</div>
                 <div class="brand-subtitle">Indian Online Income Supporting System</div>
             </div>
         </div>
-        
-        <!-- Corner 3 Line Menu Button -->
         <div class="menu-toggle" onclick="toggleMenu()">☰</div>
         
-        <!-- Dropdown Menu -->
         <div id="dropdownMenu" class="dropdown-menu">
             <a href="index.html">🏠 होम पेज</a>
-            <a href="news.html">📰 दैनिक समाचार</a>
-            <a href="register.html">📝 रजिस्ट्रेशन</a>
-            <a href="login.html">🔑 लॉगिन</a>
+            <a href="register.html">📝 रजिस्ट्रेशन करें</a>
+            <a href="login.html">🔑 लॉगिन करें</a>
             <a href="dashboard.html">📊 डैशबोर्ड</a>
-            <!-- Admin Panel Link: Only visible to 'ioisowner' -->
             <a href="admin.html" id="adminMenuLink" style="display:none; background:#dc3545; color:#fff;">🛡️ एडमिन पैनल (Owner)</a>
         </div>
     </header>
 
     <div class="container">
-        <div style="text-align: center; margin-bottom: 25px;">
-            <h1 style="font-size: 28px;" class="gradient-text">भारतीय ऑनलाइन इनकम एंड यूटिलिटी सिस्टम</h1>
-            <p style="color: #ccc; font-size: 14px; margin-top: 6px;">अपनी आवश्यकतानुसार सही मेंबरशिप चुनें और 50% से 75% तक कमीशन कमाना शुरू करें।</p>
+
+        <!-- Live Announcement Marquee -->
+        <div class="marquee-box">
+            <span>🚨 लाइव अपडेट:</span>
+            <marquee scrollamount="4">बधाई हो! आज हमारे मेंबर्स ने रेफरल प्रोग्राम से ₹50,000+ की कमाई की है। मात्र ₹10 से शुरुआत करें और 70% तक कमीशन पाएं!</marquee>
         </div>
 
-        <h2 style="font-size: 20px; color: #ffd700; margin-bottom: 15px; text-align: center;">💎 प्रीमियम मेंबरशिप प्लान्स & जीरो-कॉस्ट डिजिटल सर्विसेज</h2>
+        <div style="text-align: center; margin-bottom: 20px;">
+            <h1 class="indian-tricolor-text" style="font-size: 24px;">भारतीय ऑनलाइन इनकम एंड यूटिलिटी सिस्टम</h1>
+            <p style="color: #94a3b8; font-size: 12.5px; margin-top: 5px;">पढ़ाई, जॉब अपडेट्स, मौसम, राशिफल और हाई-कमीशन अर्निंग का एकमात्र भरोसेमंद डिजिटल हब।</p>
+        </div>
+
+        <!-- Live Utilities Bar (Weather, Horoscope, News, Jobs) -->
+        <div class="utility-grid">
+            <div class="utility-card">
+                <h4>🌦️ मौसम का हाल</h4>
+                <p>तापमान: 32°C (साफ और अनुकूल)</p>
+            </div>
+            <div class="utility-card">
+                <h4>🔮 दैनिक राशिफल</h4>
+                <p>आज का दिन निवेश और नई शुरुआत के लिए उत्तम है।</p>
+            </div>
+            <div class="utility-card">
+                <h4>📰 ताजा समाचार</h4>
+                <p>डिजिटल इंडिया मिशन के तहत नए ऑनलाइन अवसर लाइव।</p>
+            </div>
+            <div class="utility-card">
+                <h4>💼 जॉब पोर्टल</h4>
+                <p>हाल ही में 15+ सरकारी व प्राइवेट नौकरियां पब्लिश हुई हैं।</p>
+            </div>
+        </div>
+
+        <!-- Pricing & Commission Structure (₹10 to ₹999) -->
+        <div class="section-title">💎 सभी मेंबरशिप प्लान्स और 50%-75% कमीशन चार्ट</div>
         
-        <!-- Unique Membership Plans Grid -->
         <div class="pricing-grid">
-            <div class="price-card" onclick="openPlanModal('Digital Starter Kit', '₹10', 'शामिल है: 3D सिल्वर टेक्स्ट डिजिटल आईडी कार्ड, 3 Professional CV Templates और 70% (₹7) डायरेक्ट रेफरल कमीशन!')">
-                <h3 style="color:#138808; font-size:16px;">Digital Starter Kit</h3>
-                <p style="font-size: 22px; font-weight:bold; color:#ff9933; margin:6px 0;">₹10</p>
-                <p style="font-size: 12px; color:#bbb;">कमीशन: ₹7 (70%)</p>
+            <div class="price-card" onclick="openPlanModal('Digital Starter Kit', '₹10', 'शामिल है: 3D सिल्वर टेक्स्ट डिजिटल आईडी कार्ड, 3 CV Templates और 70% (₹7) डायरेक्ट रेफरल कमीशन!')">
+                <div class="comm-badge">70% Comm (₹7)</div>
+                <h3 style="color:#fbbf24; font-size:15px;">Digital Starter Kit</h3>
+                <p style="font-size: 22px; font-weight:900; color:#fff; margin:6px 0;">₹10</p>
+                <p style="font-size: 11.5px; color:#94a3b8;">क्लिक करके डेमो और डिटेल्स देखें</p>
             </div>
 
-            <div class="price-card" onclick="openPlanModal('Pro Elite Pass', '₹49', 'शामिल है: एडवांस डिजिटल टूल्स, जॉब पोर्टल लिंक्स और लगभग 50% कमीशन!')">
-                <h3 style="color:#138808; font-size:16px;">Pro Elite Pass</h3>
-                <p style="font-size: 22px; font-weight:bold; color:#ff9933; margin:6px 0;">₹49</p>
-                <p style="font-size: 12px; color:#bbb;">कमीशन: ₹25 (approx 50%)</p>
+            <div class="price-card" onclick="openPlanModal('Pro Elite Pass', '₹49', 'शामिल है: एडवांस डिजिटल टूल्स, जॉब लिंक्स और लगभग 50% (₹25) कमीशन।')">
+                <div class="comm-badge">50% Comm (₹25)</div>
+                <h3 style="color:#fbbf24; font-size:15px;">Pro Elite Pass</h3>
+                <p style="font-size: 22px; font-weight:900; color:#fff; margin:6px 0;">₹49</p>
+                <p style="font-size: 11.5px; color:#94a3b8;">क्लिक करके डेमो और डिटेल्स देखें</p>
             </div>
 
-            <div class="price-card" onclick="openPlanModal('Executive Master', '₹99', 'शामिल है: प्रीमियम ग्राफिक्स बंडल, पोस्टर डिजाइनिंग और 60% कमीशन!')">
-                <h3 style="color:#138808; font-size:16px;">Executive Master</h3>
-                <p style="font-size: 22px; font-weight:bold; color:#ff9933; margin:6px 0;">₹99</p>
-                <p style="font-size: 12px; color:#bbb;">कमीशन: ₹60 (60%)</p>
+            <div class="price-card" onclick="openPlanModal('Executive Master', '₹99', 'शामिल है: प्रीमियम ग्राफिक्स बंडल और 60% (₹60) रेफरल कमीशन।')">
+                <div class="comm-badge">60% Comm (₹60)</div>
+                <h3 style="color:#fbbf24; font-size:15px;">Executive Master</h3>
+                <p style="font-size: 22px; font-weight:900; color:#fff; margin:6px 0;">₹99</p>
+                <p style="font-size: 11.5px; color:#94a3b8;">क्लिक करके डेमो और डिटेल्स देखें</p>
             </div>
 
-            <div class="price-card" onclick="openPlanModal('Smart Agency Pro', '₹199', 'शामिल है: एडवांस्ड एजेंसी टूल्स, बैनर डिजाइन सपोर्ट और 65% कमीशन!')">
-                <h3 style="color:#138808; font-size:16px;">Smart Agency Pro</h3>
-                <p style="font-size: 22px; font-weight:bold; color:#ff9933; margin:6px 0;">₹199</p>
-                <p style="font-size: 12px; color:#bbb;">कमीशन: ₹130 (65%)</p>
+            <div class="price-card" onclick="openPlanModal('Smart Agency Pro', '₹199', 'शामिल है: एडवांस्ड एजेंसी टूल्स और 65% (₹130) कमीशन।')">
+                <div class="comm-badge">65% Comm (₹130)</div>
+                <h3 style="color:#fbbf24; font-size:15px;">Smart Agency Pro</h3>
+                <p style="font-size: 22px; font-weight:900; color:#fff; margin:6px 0;">₹199</p>
+                <p style="font-size: 11.5px; color:#94a3b8;">क्लिक करके डेमो और डिटेल्स देखें</p>
             </div>
 
-            <div class="price-card" onclick="openPlanModal('Business Growth Hub', '₹299', 'शामिल है: एक्सक्लूसिव मार्केटिंग मटेरियल, लीड जनरेशन और 67% कमीशन!')">
-                <h3 style="color:#138808; font-size:16px;">Business Growth Hub</h3>
-                <p style="font-size: 22px; font-weight:bold; color:#ff9933; margin:6px 0;">₹299</p>
-                <p style="font-size: 12px; color:#bbb;">कमीशन: ₹200 (67%)</p>
+            <div class="price-card" onclick="openPlanModal('Business Growth Hub', '₹299', 'शामिल है: मार्केटिंग मटेरियल और 67% (₹200) कमीशन।')">
+                <div class="comm-badge">67% Comm (₹200)</div>
+                <h3 style="color:#fbbf24; font-size:15px;">Business Growth Hub</h3>
+                <p style="font-size: 22px; font-weight:900; color:#fff; margin:6px 0;">₹299</p>
+                <p style="font-size: 11.5px; color:#94a3b8;">क्लिक करके डेमो और डिटेल्स देखें</p>
             </div>
 
-            <div class="price-card" onclick="openPlanModal('Diamond Apex Agency', '₹499', 'शामिल है: प्रीमियम 3D होलोग्राफिक एजेंसी आईडी कार्ड और 70% कमीशन!')">
-                <h3 style="color:#138808; font-size:16px;">Diamond Apex Agency</h3>
-                <p style="font-size: 22px; font-weight:bold; color:#ff9933; margin:6px 0;">₹499</p>
-                <p style="font-size: 12px; color:#bbb;">कमीशन: ₹350 (70%)</p>
+            <div class="price-card" onclick="openPlanModal('Diamond Apex Agency', '₹499', 'शामिल है: होलोग्राफिक एजेंसी कार्ड और 70% (₹350) कमीशन।')">
+                <div class="comm-badge">70% Comm (₹350)</div>
+                <h3 style="color:#fbbf24; font-size:15px;">Diamond Apex Agency</h3>
+                <p style="font-size: 22px; font-weight:900; color:#fff; margin:6px 0;">₹499</p>
+                <p style="font-size: 11.5px; color:#94a3b8;">क्लिक करके डेमो और डिटेल्स देखें</p>
             </div>
 
-            <div class="price-card" onclick="openPlanModal('VIP Supreme Mastermind', '₹999', 'शामिल है: अल्टीमेट AI पास, अनलिमिटेड डाउनलोड्स और 75% (₹750) मैक्सिमम कमीशन!')">
-                <h3 style="color:#138808; font-size:16px;">VIP Supreme Mastermind</h3>
-                <p style="font-size: 22px; font-weight:bold; color:#ff9933; margin:6px 0;">₹999</p>
-                <p style="font-size: 12px; color:#bbb;">कमीशन: ₹750 (75%)</p>
+            <div class="price-card" onclick="openPlanModal('VIP Supreme Mastermind', '₹999', 'शामिल है: अल्टीमेट AI पास और अधिकतम 75% (₹750) रेफरल कमीशन!')">
+                <div class="comm-badge" style="background:rgba(251,191,36,0.2); color:#fbbf24; border-color:#fbbf24;">75% Comm (₹750)</div>
+                <h3 style="color:#fbbf24; font-size:15px;">VIP Supreme Mastermind</h3>
+                <p style="font-size: 22px; font-weight:900; color:#fff; margin:6px 0;">₹999</p>
+                <p style="font-size: 11.5px; color:#94a3b8;">क्लिक करके डेमो और डिटेल्स देखें</p>
             </div>
         </div>
+
+        <!-- Premium Card Showcase Section -->
+        <div class="card-showcase">
+            <h3 style="color:#fbbf24; font-size:16px; text-align:center; margin-bottom:5px;">✨ यूनिक और प्रीमियम डिजिटल आईडी कार्ड्स का नमूना</h3>
+            <p style="text-align:center; font-size:11.5px; color:#94a3b8;">हर मेंबर को प्रोफाइल फोटो और यूनिक आईडी के साथ लग्जरी टेक्सचर कार्ड मिलता है।</p>
+            
+            <div class="preview-card card-silver">
+                <div style="font-size:10px; color:#38bdf8; font-weight:bold;">IOIS SILVER TIER (₹10 Plan)</div>
+                <div style="font-size:15px; font-weight:bold; margin-top:4px;" class="indian-tricolor-text">सिल्वर 3D ग्लोसी टेक्स्ट कार्ड</div>
+                <div style="font-size:11px; color:#cbd5e1; margin-top:4px;">बेसिक मेंबर्स के लिए हाई-क्वालिटी डिजिटल पहचान।</div>
+            </div>
+
+            <div class="preview-card card-platinum">
+                <div style="font-size:10px; color:#00f2fe; font-weight:bold;">IOIS PLATINUM MASTER (₹999 Plan)</div>
+                <div style="font-size:15px; font-weight:bold; margin-top:4px; color:#00f2fe;">प्लैटिनम होलोग्राफिक लग्जरी कार्ड</div>
+                <div style="font-size:11px; color:#cbd5e1; margin-top:4px;">शीर्ष लीडर्स और एजेंसियों के लिए अल्टीमेट प्रीमियम लुक।</div>
+            </div>
+        </div>
+
     </div>
 
-    <!-- 🌟 Referral System & Unique Premium Cards Showcase Section -->
-    <div class="container referral-section">
-        <div style="text-align: center;">
-            <span style="background: rgba(255,153,51,0.2); color: #ff9933; padding: 6px 15px; border-radius: 20px; font-size: 12px; font-weight: bold; border: 1px solid #ff9933;">🚀 हाई-कमीशन रेफरल प्रोग्राम</span>
-            <h2 style="font-size: 24px; margin-top: 12px;" class="gradient-text">हर रेफरल पर 50% से 75% तक की धमाकेदार कमाई!</h2>
-            <p style="color: #ccc; font-size: 14px; margin-top: 5px;">रजिस्ट्रेशन के बाद हर मेंबर को यूनिक, प्रीमियम और लग्जरी टेक्सचर वाला डिजिटल कार्ड मिलता है। नीचे कार्ड पर क्लिक करके डेमो देखें:</p>
-        </div>
-
-        <div class="card-showcase-grid">
-            <!-- 1. Silver Card Demo -->
-            <div class="base-card card-silver" onclick="openPlanModal('Digital Starter Kit', '₹10', 'शामिल है: 3D सिल्वर टेक्स्ट डिजिटल आईडी कार्ड, 3 Professional CV Templates और 70% (₹7) डायरेक्ट रेफरल कमीशन!')">
-                <div class="commission-tag">70% Commission (₹7)</div>
-                <div class="card-chip"></div>
-                <div style="font-size: 11px; letter-spacing: 1px; opacity: 0.8;">IOIS SILVER TIER</div>
-                <h3 style="font-size: 18px; margin: 5px 0; color: #e0e0e0;">Digital Starter Kit</h3>
-                <p style="font-size: 20px; font-weight: 900; color: #ff9933;">₹10</p>
-                <div style="margin-top: 15px; font-size: 12px; border-top: 1px dashed rgba(255,255,255,0.2); padding-top: 8px; display: flex; justify-content: space-between;">
-                    <span>✨ Silver Glossy Text</span>
-                    <span style="color: #ffd700;">डेमो देखें ➔</span>
-                </div>
-            </div>
-
-            <!-- 2. Gold Card Demo -->
-            <div class="base-card card-gold" onclick="openPlanModal('Business Growth Hub', '₹299', 'शामिल है: प्रीमियम गोल्ड टेक्सचर डिजिटल कार्ड, एक्सक्लूसिव मार्केटिंग मटेरियल और 67% (₹200) रेफरल कमीशन!')">
-                <div class="commission-tag" style="background:#000; color:#ffd700;">67% Commission (₹200)</div>
-                <div class="card-chip"></div>
-                <div style="font-size: 11px; letter-spacing: 1px; color: #333; font-weight: bold;">IOIS GOLDEN APEX</div>
-                <h3 style="font-size: 18px; margin: 5px 0; color: #111;">Business Growth Hub</h3>
-                <p style="font-size: 20px; font-weight: 900; color: #000;">₹299</p>
-                <div style="margin-top: 15px; font-size: 12px; border-top: 1px dashed rgba(0,0,0,0.2); padding-top: 8px; display: flex; justify-content: space-between; font-weight: 600;">
-                    <span>👑 Gold Luxury Finish</span>
-                    <span>डेमो देखें ➔</span>
-                </div>
-            </div>
-
-            <!-- 3. Platinum Card Demo -->
-            <div class="base-card card-platinum" onclick="openPlanModal('VIP Supreme Mastermind', '₹999', 'शामिल है: अल्टीमेट प्लैटिनम 3D होलोग्राफिक कार्ड, AI पास और 75% (₹750) मैक्सिमम रेफरल कमीशन!')">
-                <div class="commission-tag" style="background:#00f2fe; color:#000; border:none;">75% Commission (₹750)</div>
-                <div class="card-chip" style="background: linear-gradient(135deg, #00f2fe, #4facfe);"></div>
-                <div style="font-size: 11px; letter-spacing: 1px; color: #00f2fe; font-weight: bold;">IOIS VIP PLATINUM</div>
-                <h3 style="font-size: 18px; margin: 5px 0; color: #fff;">VIP Supreme Mastermind</h3>
-                <p style="font-size: 20px; font-weight: 900; color: #00f2fe;">₹999</p>
-                <div style="margin-top: 15px; font-size: 12px; border-top: 1px dashed rgba(255,255,255,0.2); padding-top: 8px; display: flex; justify-content: space-between;">
-                    <span>💎 Platinum Holographic</span>
-                    <span style="color: #00f2fe;">डेमो देखें ➔</span>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal Popup with Service Details & 3D Demo Card Quality -->
+    <!-- Modal Popup -->
     <div id="planModal" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal()">&times;</span>
-            <h3 id="modalTitle" style="color: #ffd700; margin-bottom: 10px; font-size: 20px;">Plan Title</h3>
+            <h3 id="modalTitle" style="color: #fbbf24; margin-bottom: 10px; font-size: 18px;">Plan Title</h3>
+            <p id="modalDetails" style="font-size: 12.5px; color: #cbd5e1; margin-bottom: 15px; line-height: 1.4; background: rgba(0,0,0,0.4); padding: 10px; border-radius: 6px; text-align: left;"></p>
             
-            <p id="modalDetails" style="font-size: 13px; color: #ddd; margin-bottom: 15px; line-height: 1.5; background: rgba(0,0,0,0.4); padding: 10px; border-radius: 6px; text-align: left;"></p>
-            
-            <div style="font-size: 12px; color: #ffd700; font-weight: bold; margin-bottom: 5px; text-align: left;">✨ रजिस्ट्रेशन के बाद मिलने वाले 3D कार्ड की झलक (Demo):</div>
-            <div class="demo-id-card">
-                <div class="demo-id-header">
-                    <span style="font-size: 10px; color: #ff9933; font-weight: bold;">IOIS VERIFIED DIGITAL ID</span>
-                    <span style="font-size: 10px; background: #138808; color: #fff; padding: 2px 6px; border-radius: 4px;" id="demoCardPlanName">Starter</span>
-                </div>
-                <div style="display: flex; align-items: center; gap: 12px; text-align: left;">
-                    <div style="width: 40px; height: 40px; background: linear-gradient(45deg,#ff9933,#138808); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #000;">I</div>
-                    <div>
-                        <div style="font-size: 14px; font-weight: bold; color: #fff;">आपका नाम यहाँ होगा</div>
-                        <div style="font-size: 11px; color: #138808; font-weight: bold;">ID: IOIS-2026-XXXX</div>
-                    </div>
-                </div>
-                <div style="margin-top: 10px; font-size: 10px; color: #aaa; border-top: 1px dashed rgba(255,255,255,0.1); pt-2;">🔒 High Quality Glossy Holographic Texture</div>
-            </div>
-
             <input type="hidden" id="selectedPlanInput">
-            <button onclick="proceedToRegister()" style="background: linear-gradient(45deg, #138808, #ffd700); color: #000; font-weight: bold; padding: 12px; border: none; width: 100%; border-radius: 6px; cursor: pointer; font-size: 15px; margin-top: 10px;">इस प्लान के साथ रजिस्टर करें</button>
+            <button onclick="proceedToRegister()" style="background: linear-gradient(135deg, #22c55e, #16a34a); color: #fff; font-weight: bold; padding: 11px; border: none; width: 100%; border-radius: 8px; cursor: pointer; font-size: 14px;">इस प्लान से रजिस्ट्रेशन करें ➔</button>
         </div>
     </div>
 
+    <!-- Floating Bottom Navigation -->
+    <div class="floating-bottom-bar">
+        <a href="register.html" class="float-nav-btn gold">🚀 Join Now</a>
+        <a href="login.html" class="float-nav-btn">🔑 Login</a>
+        <a href="https://wa.me/918877490845?text=Hello%20IOIS%20Support" target="_blank" class="float-nav-btn" style="border-color:#22c55e; color:#4ade80;">💬 Support</a>
+    </div>
+
     <footer>
-        <p>Indian Online Income Supporting System (IOIS PLATFORM)</p>
-        <p style="margin-top: 5px; color: #777;">Official Support: +91 8877490845 | &copy; 2026 All Rights Reserved.</p>
+        Indian Online Income Supporting System (IOIS PLATFORM) • All Rights Reserved.
     </footer>
 
-    <script src="script.js"></script>
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('dropdownMenu');
+            menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
+        }
+
+        // Admin Access Check
+        window.addEventListener('DOMContentLoaded', () => {
+            const currentUser = localStorage.getItem('currentUser');
+            const adminLink = document.getElementById('adminMenuLink');
+            if (currentUser && currentUser.toLowerCase() === 'ioisowner') {
+                if(adminLink) adminLink.style.display = 'block';
+            }
+        });
+
+        function openPlanModal(planName, price, details) {
+            document.getElementById('modalTitle').innerText = planName + " (" + price + ")";
+            document.getElementById('modalDetails').innerText = details;
+            document.getElementById('selectedPlanInput').value = planName + " (" + price + ")";
+            document.getElementById('planModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('planModal').style.display = 'none';
+        }
+
+        function proceedToRegister() {
+            const chosenPlan = document.getElementById('selectedPlanInput').value;
+            localStorage.setItem('prefilledPlan', chosenPlan);
+            window.location.href = 'register.html';
+        }
+    </script>
 </body>
 </html>
