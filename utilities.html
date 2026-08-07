@@ -3,45 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IOIS - पंचांग व राशिफल</title>
+    <title>IOIS - कुंडली, ग्रह स्थिति व पंचांग</title>
     <link rel="icon" type="image/png" href="logo.png">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, sans-serif; }
         body { background: #0b0f19; color: #fff; padding: 15px; }
         .container { max-width: 600px; margin: 0 auto; }
-        .header { text-align: center; margin-bottom: 20px; border-bottom: 2px solid #fbbf24; padding-bottom: 10px; }
+        .header { text-align: center; margin-bottom: 20px; border-bottom: 2px solid #fbbf24; padding-bottom: 10px; background: rgba(15, 23, 42, 0.85); padding: 15px; border-radius: 14px; }
         .header img { width: 50px; height: 50px; border-radius: 50%; border: 2px solid #fbbf24; }
-        .header h2 { color: #fbbf24; font-size: 16px; }
+        .header h2 { color: #fbbf24; font-size: 15px; margin-top: 5px; }
 
-        .box { background: #1e293b; border: 1px solid #fbbf24; border-radius: 12px; padding: 15px; margin-bottom: 15px; }
+        .box { background: #1e293b; border: 1px solid rgba(251,191,36,0.4); border-radius: 12px; padding: 15px; margin-bottom: 15px; }
         .box h3 { color: #38bdf8; margin-bottom: 10px; font-size: 15px; }
         
-        select { width: 100%; padding: 10px; border-radius: 8px; background: #0f172a; color: #fff; border: 1px solid #fbbf24; font-size: 14px; margin-bottom: 10px; }
-        .result-box { background: #0f172a; padding: 12px; border-radius: 8px; font-size: 13px; color: #cbd5e1; margin-top: 10px; border-left: 4px solid #fbbf24; }
+        select { width: 100%; padding: 10px; border-radius: 8px; background: #0f172a; color: #fff; border: 1px solid #fbbf24; font-size: 13.5px; margin-bottom: 10px; outline: none; }
+        .result-box { background: #0f172a; padding: 12px; border-radius: 8px; font-size: 12.5px; color: #cbd5e1; margin-top: 10px; border-left: 4px solid #fbbf24; line-height: 1.6; }
 
-        .back-btn { display: block; text-align: center; background: #334155; color: #fff; text-decoration: none; padding: 10px; border-radius: 10px; margin-top: 20px; font-weight: bold; }
+        /* सोलर सिस्टम / ग्रह स्थिति बॉक्स */
+        .planet-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 10px; }
+        .planet-card { background: #0f172a; border: 1px solid rgba(255,255,255,0.1); padding: 8px; border-radius: 8px; text-align: center; font-size: 11.5px; }
+        .planet-card span { display: block; color: #fbbf24; font-weight: bold; margin-top: 2px; }
+
+        .back-btn { display: block; text-align: center; background: #334155; color: #fff; text-decoration: none; padding: 11px; border-radius: 10px; margin-top: 20px; font-weight: bold; font-size: 13px; }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
             <img src="logo.png" alt="Logo">
-            <h2>IOIS - पंचांग व दैनिक राशिफल</h2>
+            <h2>IOIS - कुंडली, ग्रह स्थिति व पंचांग</h2>
         </div>
 
         <div class="box">
-            <h3>📅 आज का पंचांग</h3>
-            <p style="font-size: 13px; line-height: 1.6;">
-                <strong>तिथि:</strong> शुक्ल पक्ष एकादशी<br>
-                <strong>नक्षत्र:</strong> रोहिणी<br>
-                <strong>शुभ मुहूर्त:</strong> सुबह 11:45 से दोपहर 12:35 तक<br>
-                <strong>राहुकाल:</strong> दोपहर 01:30 से 03:00 तक
-            </p>
+            <h3>🪐 वास्तविक ग्रहों की स्थिति (Solar Planetary Positions)</h3>
+            <p style="font-size:12px; color:#cbd5e1; margin-bottom:8px;">वर्तमान समय में आकाशीय मंडल में ग्रहों की चाल:</p>
+            <div class="planet-grid">
+                <div class="planet-card">सूर्य ☀️<span style="color:#22c55e;">उच्च / मेष</span></div>
+                <div class="planet-card">चंद्रमा 🌙<span>वृषभ राशि</span></div>
+                <div class="planet-card">मंगल ♂️<span>मिथुन राशि</span></div>
+                <div class="planet-card">बुध ☿<span>वृष (वक्री)</span></div>
+                <div class="planet-card">गुरु ♃<span>मेष राशि</span></div>
+                <div class="planet-card">शनि ♄<span>कुंभ (स्वगृही)</span></div>
+            </div>
         </div>
 
         <div class="box">
-            <h3>✨ अपनी राशि चुनें और सटीक राशिफल जानें</h3>
-            <select id="rashiSelect" onchange="showRashifal()">
+            <h3>✨ कुंडली मिलान एवं राशि फल विश्लेषण</h3>
+            <select id="rashiSelect" onchange="showKundliDetails()">
                 <option value="">-- अपनी राशि चुनें --</option>
                 <option value="मेष">मेष (Aries)</option>
                 <option value="वृषभ">वृषभ (Taurus)</option>
@@ -56,37 +64,50 @@
                 <option value="कुंभ">कुंभ (Aquarius)</option>
                 <option value="मीन">मीन (Pisces)</option>
             </select>
-            <div class="result-box" id="rashifalResult">कृपया ऊपर दी गई सूची से अपनी राशि चुनें।</div>
+            <div class="result-box" id="kundliResult">अपनी सटीक कुंडली और ग्रह फल देखने के लिए ऊपर दी गई सूची से राशि चुनें।</div>
+        </div>
+
+        <div class="box">
+            <h3>📅 आज का संपूर्ण पंचांग</h3>
+            <p style="font-size: 12.5px; line-height: 1.6;">
+                <strong>विक्रम संवत:</strong> 2083 | <strong>अयन:</strong> उत्तरायण<br>
+                <strong>तिथि:</strong> शुक्ल पक्ष एकादशी<br>
+                <strong>नक्षत्र:</strong> रोहिणी (शुभ)<br>
+                <strong>शुभ मुहूर्त (अभिजीत):</strong> सुबह 11:45 से दोपहर 12:35 तक<br>
+                <strong>राहुकाल:</strong> दोपहर 01:30 से 03:00 तक (इस दौरान नया काम न करें)
+            </p>
         </div>
 
         <a href="index.html" class="back-btn">🏠 होम पेज पर वापस जाएं</a>
     </div>
 
     <script>
-        function showRashifal() {
+        function showKundliDetails() {
             const rashi = document.getElementById('rashiSelect').value;
-            const res = document.getElementById('rashifalResult');
-            if(!rashi) {
-                res.innerHTML = "कृपया अपनी राशि चुनें।";
-                return;
-            }
+            const res = document.getElementById('kundliResult');
+            if(!rashi) { res.innerHTML = "कृपया अपनी राशि चुनें।"; return; }
             
-            const predictions = {
-                "मेष": "आज धन लाभ के योग बन रहे हैं। परिवार में खुशहाली रहेगी और कार्यक्षेत्र में सफलता मिलेगी।",
-                "वृषभ": "व्यापार में नए अवसर मिलेंगे। सेहत का ध्यान रखें और अनजान लोगों पर ज्यादा भरोसा न करें.",
-                "मिथुन": "विद्यार्थियों के लिए दिन उत्तम है। रुका हुआ पैसा वापस मिल सकता है.",
-                "कर्क": "मानसिक शांति बनी रहेगी। मित्रों का पूरा सहयोग मिलेगा, यात्रा टालें।",
-                "सिंह": "आत्मविश्वास में वृद्धि होगी। ऑफिस में ओथोरिटी बढ़ेगी, दिन शानदार है।",
-                "कन्या": "खर्चों पर नियंत्रण रखें। परिवार के साथ धार्मिक स्थल की यात्रा हो सकती है।",
-                "तुला": "सफलता आपके कदम चूमेगी। ऑनलाइन बिजनेस या कार्यों में विशेष लाभ मिलेगा।",
-                "वृश्चिक": "छुपकर विरोध करने वालों से सावधान रहें। धैर्य से काम लें, समय अनुकूल होगा।",
-                "धनु": "भाग्य का पूरा साथ मिलेगा। नई नौकरी या प्रोजेक्ट की शुरुआत के लिए बेहतरीन दिन है।",
-                "मकर": "कार्यभार अधिक हो सकता है। सेहत का ख्याल रखें, मेहनत का फल अवश्य मिलेगा।",
-                "कुंभ": "आय के नए स्रोत खुलेंगे। वैवाहिक जीवन सुखमय रहेगा और मित्रों से भेंट होगी।",
-                "मीन": "मन प्रसन्न रहेगा। रचनात्मक कार्यों में रुचि बढ़ेगी और पुराना अटका काम पूरा होगा।"
+            const data = {
+                "मेष": { color: "लाल (Red)", num: "9", time: "सुबह 08:00 से 10:00", text: "आत्मविश्वास में वृद्धि होगी। धन लाभ के प्रबल योग हैं। संपत्ति से जुड़ा मामला पक्ष में रहेगा।" },
+                "वृषभ": { color: "सफेद (White)", num: "6", time: "दोपहर 12:00 से 02:00", text: "व्यापार में नया अनुबंध हो सकता है। पारिवारिक जीवन सुखमय और सेहत उत्तम रहेगी।" },
+                "मिथुन": { color: "हरा (Green)", num: "5", time: "शाम 04:00 से 06:00", text: "विद्यार्थियों के लिए स्वर्णकाल। रुका हुआ धन अचानक वापस मिलेगा। यात्रा सुखद रहेगी।" },
+                "कर्क": { color: "पीला (Yellow)", num: "2", time: "सुबह 09:00 से 11:00", text: "मानसिक शांति बनी रहेगी। माता का आशीर्वाद फलदायी होगा। ऑनलाइन कार्यों में विशेष सफलता।" },
+                "सिंह": { color: "सुनहरा (Golden)", num: "1", time: "दोपहर 01:00 से 03:00", text: "कार्यक्षेत्र में आपका प्रभाव बढ़ेगा। अधिकारियों का पूरा सहयोग प्राप्त होगा।" },
+                "कन्या": { color: "पर्पल (Purple)", num: "5", time: "सुबह 10:00 से 12:00", text: "खर्चों पर नियंत्रण रखें। सोचे हुए कार्य समय पर पूरे होंगे। धार्मिक कार्यों में रुचि बढ़ेगी।" },
+                "तुला": { color: "गुलाबी (Pink)", num: "7", time: "शाम 05:00 से 07:00", text: "सफलता आपके कदम चूमेगी। साझेदारी के बिजनेस में भारी मुनाफा होने के योग हैं।" },
+                "वृश्चिक": { color: "मैरून (Maroon)", num: "9", time: "दोपहर 02:00 से 04:00", text: "गुप्त शत्रुओं से सावधान रहें। धैर्य से निर्णय लें, शाम तक स्थिति पूरी तरह आपके अनुकूल हो जाएगी।" },
+                "धनु": { color: "केसरिया (Saffron)", num: "3", time: "सुबह 07:00 से 09:00", text: "भाग्य का पूर्ण सहयोग मिलेगा। नई नौकरी या बड़े प्रोजेक्ट की शुरुआत के लिए बेहतरीन दिन।" },
+                "मकर": { color: "नीला (Blue)", num: "8", time: "शाम 03:00 से 05:00", text: "कड़ी मेहनत का फल अवश्य मिलेगा। वरिष्ठ जनों की सलाह से बड़ा आर्थिक लाभ होगा।" },
+                "कुंभ": { color: "आसमानी (Sky Blue)", num: "4", time: "सुबह 11:00 से 01:00", text: "आय के नए स्रोत खुलेंगे। मित्रों से भेंट होगी और मन प्रसन्न रहेगा।" },
+                "मीन": { color: "सुनहरा पीला", num: "3", time: "दोपहर 12:00 से 02:00", text: "रचनात्मक कार्यों में मन लगेगा। रुका हुआ पुराना पैसा मिलने से आर्थिक स्थिति मजबूत होगी।" }
             };
-            
-            res.innerHTML = `<strong>${rashi} राशि का आज का राशिफल:</strong><br>${predictions[rashi]}`;
+
+            const info = data[rashi];
+            res.innerHTML = `<strong>🌟 ${rashi} राशि का संपूर्ण कुंडली फल:</strong><br>
+            • <strong>शुभ समय:</strong> ${info.time}<br>
+            • <strong>शुभ रंग:</strong> <span style="color:#fbbf24; font-weight:bold;">${info.color}</span><br>
+            • <strong>भाग्यशाली अंक:</strong> <span style="color:#38bdf8; font-weight:bold;">${info.num}</span><br>
+            • <strong>विस्तृत भविष्यवाणी:</strong> ${info.text}`;
         }
     </script>
 </body>
