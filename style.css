@@ -42,19 +42,26 @@ header {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 20px;
+    font-size: 22px;
     font-weight: 900;
     color: #000;
     box-shadow: 0 0 15px rgba(255,153,51,0.6);
     border: 2px solid #ffd700;
 }
 
-.logo-text, h1, h2, h3 {
+.logo-text {
     background: linear-gradient(45deg, #ff9933, #ffffff, #138808, #ffd700);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
     font-weight: 900;
+    font-size: 20px;
+}
+
+.brand-subtitle {
+    font-size: 10px;
+    color: #ffd700;
+    letter-spacing: 0.5px;
+    font-weight: 600;
 }
 
 /* 3 Line Hamburger Menu */
@@ -72,11 +79,11 @@ header {
     position: absolute;
     top: 75px;
     right: 20px;
-    background: rgba(20, 22, 31, 0.95);
+    background: rgba(20, 22, 31, 0.98);
     backdrop-filter: blur(15px);
     border: 2px solid #ffd700;
     border-radius: 10px;
-    width: 220px;
+    width: 230px;
     display: none;
     flex-direction: column;
     box-shadow: 0 15px 35px rgba(0,0,0,0.9);
@@ -90,6 +97,7 @@ header {
     font-weight: 600;
     border-bottom: 1px solid rgba(255,255,255,0.1);
     transition: 0.3s;
+    font-size: 14px;
 }
 
 .dropdown-menu a:hover {
@@ -97,33 +105,12 @@ header {
     color: #000;
 }
 
-/* Live Ticker Bar */
-.ticker-wrap {
-    background: linear-gradient(90deg, #ff9933, #ffffff, #138808);
-    color: #000;
-    font-weight: 800;
-    padding: 12px;
-    overflow: hidden;
-    white-space: nowrap;
-}
-
-.ticker {
-    display: inline-block;
-    animation: ticker 35s linear infinite;
-}
-
-@keyframes ticker {
-    0% { transform: translateX(100%); }
-    100% { transform: translateX(-100%); }
-}
-
 .container {
     max-width: 1000px;
     margin: 30px auto;
-    background: rgba(20, 22, 31, 0.8);
+    background: rgba(20, 22, 31, 0.85);
     backdrop-filter: blur(20px);
-    border: 2px solid;
-    border-image: linear-gradient(135deg, rgba(255,153,51,0.6), rgba(255,255,255,0.2), rgba(19,136,8,0.6)) 1;
+    border: 2px solid rgba(255,153,51,0.5);
     padding: 30px;
     border-radius: 16px;
     box-shadow: 0 20px 40px rgba(0,0,0,0.8);
@@ -154,28 +141,6 @@ header {
     box-shadow: 0 12px 30px rgba(255, 215, 0, 0.4);
 }
 
-/* Service Comparison Table */
-.comparison-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    background: rgba(11, 12, 16, 0.8);
-    border-radius: 8px;
-    overflow: hidden;
-}
-
-.comparison-table th, .comparison-table td {
-    padding: 12px;
-    text-align: center;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-    font-size: 14px;
-}
-
-.comparison-table th {
-    background: rgba(255, 153, 51, 0.2);
-    color: #ffd700;
-}
-
 /* Modal Popup Window */
 .modal {
     display: none;
@@ -191,13 +156,15 @@ header {
 .modal-content {
     background: #14161f;
     border: 2px solid #ffd700;
-    padding: 30px;
+    padding: 25px;
     border-radius: 14px;
     width: 90%;
-    max-width: 500px;
+    max-width: 480px;
     text-align: center;
     box-shadow: 0 20px 50px rgba(0,0,0,0.9);
     position: relative;
+    max-height: 90vh;
+    overflow-y: auto;
 }
 
 .close-btn {
@@ -206,6 +173,27 @@ header {
     font-size: 24px;
     color: #ff9933;
     cursor: pointer;
+}
+
+/* 3D Demo Card Inside Modal */
+.demo-id-card {
+    background: linear-gradient(135deg, #1f222e, #0b0c10);
+    border: 2px solid #ffd700;
+    border-radius: 12px;
+    padding: 15px;
+    margin: 15px 0;
+    box-shadow: 0 10px 25px rgba(255,215,0,0.2);
+    position: relative;
+    transform: perspective(1000px) rotateX(2deg);
+}
+
+.demo-id-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding-bottom: 8px;
+    margin-bottom: 10px;
 }
 
 footer {
