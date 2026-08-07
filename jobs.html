@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>जॉब पोर्टल - IOIS Platform</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, sans-serif; }
+        body { background: #0b0f19; color: #fff; padding-bottom: 80px; }
+        header { background: #14161f; padding: 12px 20px; display: flex; justify-content: space-between; border-bottom: 3px solid #fbbf24; }
+        .container { max-width: 800px; margin: 15px auto; padding: 10px; }
+        .job-card { background: #1e293b; border: 1px solid #38bdf8; border-radius: 10px; padding: 15px; margin-bottom: 15px; }
+        .job-card h3 { color: #fbbf24; font-size: 16px; margin-bottom: 5px; }
+        .job-card p { font-size: 12.5px; color: #cbd5e1; margin-bottom: 10px; }
+        .apply-btn { background: #22c55e; color: #fff; padding: 8px 15px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 12px; display: inline-block; }
+        .floating-bottom-bar { position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(15, 23, 42, 0.95); border-top: 1px solid rgba(251, 191, 36, 0.3); display: flex; justify-content: space-around; padding: 8px; z-index: 9999; }
+        .float-nav-btn { background: #1e293b; border: 1px solid #38bdf8; color: #38bdf8; padding: 6px 14px; border-radius: 20px; font-size: 11px; font-weight: 700; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="index.html" style="color:#fbbf24; font-weight:900; text-decoration:none;">⚡ IOIS जॉब पोर्टल</a>
+        <a href="dashboard.html" style="color:#38bdf8; font-size:12px; font-weight:bold; text-decoration:none;">👤 डैशबोर्ड</a>
+    </header>
+
+    <div class="container">
+        <h2 style="color:#fbbf24; margin-bottom:15px; font-size:18px;">💼 ताजा सरकारी व प्राइवेट नौकरियां (Direct Apply)</h2>
+
+        <div class="job-card">
+            <h3>डिजिटल डेटा एंट्री ऑपरेटर (Work From Home)</h3>
+            <p>योग्यता: 10वीं पास | सैलरी: ₹12,000 से ₹25,000 प्रति माह। स्मार्टफोन से काम करें।</p>
+            <a href="https://wa.me/918877490845?text=Sir%20I%20want%20to%20apply%20for%20Data%20Entry%20Job" target="_blank" class="apply-btn">तुरंत आवेदन करें ➔</a>
+        </div>
+
+        <div class="job-card">
+            <h3>ग्रामीण डिजिटल मित्र (IOIS Partner Program)</h3>
+            <p>योग्यता: कोई भी नागरिक | अपने गांव में ऑनलाइन सर्विसेज देकर रोजाना ₹500 से ₹1000 कमाएं।</p>
+            <a href="register.html" class="apply-btn">पार्टनर बनें ➔</a>
+        </div>
+    </div>
+
+    <div class="floating-bottom-bar">
+        <a href="index.html" class="float-nav-btn" style="border-color:#fbbf24; color:#fbbf24;">🏠 होम</a>
+        <a href="utilities.html" class="float-nav-btn">✨ यूटिलिटी</a>
+        <a href="dashboard.html" class="float-nav-btn">📊 अकाउंट</a>
+    </div>
+</body>
+</html>
