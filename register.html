@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IOIS Platform - Registration</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo-text">IOIS PLATFORM</div>
+        <p>Indian Online Income Supporting System</p>
+    </header>
+
+    <div class="container">
+        <h2>New Member Registration</h2>
+        <form id="regForm" onsubmit="submitRegistration(event)">
+            
+            <div class="form-group">
+                <label>Fixed User ID (Auto Generated)</label>
+                <input type="text" id="userId" readonly style="background: #e9ecef; font-weight: bold;">
+            </div>
+
+            <div class="form-group">
+                <label>Joining Date & Time</label>
+                <input type="text" id="joinDate" readonly style="background: #e9ecef;">
+            </div>
+
+            <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" id="fullName" placeholder="अपना पूरा नाम दर्ज करें" required>
+            </div>
+
+            <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" id="email" placeholder="example@gmail.com" required>
+            </div>
+
+            <div class="form-group">
+                <label>WhatsApp Number</label>
+                <input type="tel" id="whatsapp" placeholder="10 अंकों का व्हाट्सएप नंबर" pattern="[0-9]{10}" required>
+            </div>
+
+            <div class="form-group">
+                <label>Sponsor ID / Referral ID</label>
+                <input type="text" id="sponsorId" value="IOISPLATFORM" required>
+            </div>
+
+            <div class="form-group">
+                <label>Payment Receiving Info (Self or Family UPI/Bank)</label>
+                <input type="text" id="paymentInfo" placeholder="UPI ID या बैंक खाता + IFSC (घर के सदस्य का भी डाल सकते हैं)" required>
+            </div>
+
+            <div class="form-group">
+                <label>Create Password</label>
+                <input type="password" id="password" placeholder="सुरक्षित पासवर्ड बनाएं" required>
+            </div>
+
+            <button type="submit">Register Now (₹10 Starter Kit)</button>
+
+            <div class="links-row">
+                <a href="login.html">Already have an account? Login</a>
+                <a href="index.html">Back to Home</a>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // Auto generate User ID and Timestamp
+        document.getElementById('userId').value = 'IOIS' + Math.floor(100000 + Math.random() * 900000);
+        document.getElementById('joinDate').value = new Date().toLocaleString();
+
+        // Telegram Bot Integration Function
+        function submitRegistration(event) {
+            event.preventDefault();
+
+            const userId = document.getElementById('userId').value;
+            const joinDate = document.getElementById('joinDate').value;
+            const fullName = document.getElementById('fullName').value;
+            const email = document.getElementById('email').value;
+            const whatsapp = document.getElementById('whatsapp').value;
+            const sponsorId = document.getElementById('sponsorId').value;
+            const paymentInfo = document.getElementById('paymentInfo').value;
+
+            // Telegram API Details
+            const botToken = "8838741922:AAFGoIvjohnF8FvEiW84h3SxaX2NeANLC50";
+            const chatId = "964524685";
+            
+            const message = `🔔 *New IOIS Registration!* 🔔\n\n` +
+                            `🆔 *User ID:* ${userId}\n` +
+                            `👤 *Name:* ${fullName}\n` +
+                            `📧 *Email:* ${email}\n` +
+                            `📱 *WhatsApp:* ${whatsapp}\n` +
+                            `🤝 *Sponsor ID:* ${sponsorId}\n` +
+                            `💳 *Payment Info:* ${paymentInfo}\n` +
+                            `📅 *Date:* ${joinDate}\n` +
+                            `⚡ *Status:* Pending Verification`;
+
+            const url = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}&parse_mode=Markdown`;
+
+            // Send data to Telegram
+            fetch(url)
+            .then(response => {
+                if(response.ok) {
+                    alert('रजिस्ट्रेशन सफल रहा! आपका यूजर आईडी है: ' + userId + '\nअब ₹10 का भुगतान करके व्हाट्सएप पर स्क्रीनशॉट भेजें।');
+                    window.location.href = 'login.html';
+                } else {
+                    alert('टेलीग्राम नोटिफिकेशन भेजने में समस्या आई, लेकिन आपका डेटा सुरक्षित है।');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('पंजीकरण पूरा हुआ!');
+                window.location.href = 'login.html';
+            });
+        }
+    </script>
+</body>
+</html>
