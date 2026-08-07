@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IOIS Platform - Registration</title>
+    <title>IOIS Platform - Secure Registration</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <header>
         <div class="logo-text">IOIS PLATFORM</div>
-        <p>Indian Online Income Supporting System</p>
+        <p style="color: #aaa; font-size: 13px; margin-top: 5px;">Secure Registration Portal</p>
     </header>
 
     <nav>
@@ -18,40 +18,44 @@
         <a href="register.html" class="active">📝 रजिस्ट्रेशन</a>
         <a href="login.html">🔑 लॉगिन</a>
         <a href="dashboard.html">📊 डैशबोर्ड</a>
-        <a href="admin.html" style="background:#dc3545;">🛡️ एडमिन पैनल</a>
+        <a href="admin.html" style="background:#dc3545; color:#fff;">🛡️ एडमिन पैनल</a>
     </nav>
 
-    <div class="container" style="max-width: 600px;">
-        <h2>📝 नया रजिस्ट्रेशन फॉर्म</h2>
+    <div class="container" style="max-width: 650px;">
+        <h2>📝 नया सदस्य रजिस्ट्रेशन फॉर्म</h2>
         <form id="regForm" onsubmit="submitRegistration(event)">
             
             <div class="form-group">
-                <label>प्लान / सर्विस चुनें (Plan Selection)</label>
+                <label>अपना पसंदीदा प्लान चुनें (Select Plan Tier)</label>
                 <select id="cardTier" required>
                     <option value="Tiranga Silver Card (₹10)">Tiranga Silver Card (₹10) - 7% Payout</option>
-                    <option value="Diamond Agency Pass (₹499)">Diamond Agency Pass (₹499)</option>
-                    <option value="VIP Mastermind Pass (₹999)">VIP Mastermind Pass (₹999)</option>
+                    <option value="Pro Starter Pass (₹49)">Pro Starter Pass (₹49) - Basic Tools</option>
+                    <option value="Executive Pass (₹99)">Executive Pass (₹99) - Standard Package</option>
+                    <option value="Smart Agency Pass (₹199)">Smart Agency Pass (₹199) - Mid-Level Access</option>
+                    <option value="Business Growth Pass (₹299)">Business Growth Pass (₹299) - Growth Toolkit</option>
+                    <option value="Diamond Agency Pass (₹499)">Diamond Agency Pass (₹499) - Advanced Pass</option>
+                    <option value="VIP Mastermind Pass (₹999)">VIP Mastermind Pass (₹999) - Ultimate Access</option>
                 </select>
             </div>
 
             <div class="form-group">
                 <label>पूरा नाम (Full Name)</label>
-                <input type="text" id="fullName" placeholder="अपना नाम दर्ज करें" required>
+                <input type="text" id="fullName" placeholder="अपना पूरा नाम दर्ज करें" required>
             </div>
 
             <div class="form-group">
                 <label>प्रोफाइल फोटो अपलोड करें (Profile Picture)</label>
-                <input type="file" id="userPhoto" accept="image/*" required>
+                <input type="file" id="userPhoto" accept="image/*" required style="padding: 10px;">
             </div>
 
             <div class="form-group">
-                <label>ईमेल आईडी (Email)</label>
+                <label>ईमेल आईडी (Email Address)</label>
                 <input type="email" id="email" placeholder="example@gmail.com" required>
             </div>
 
             <div class="form-group">
-                <label>व्हाट्सएप नंबर (WhatsApp Number)</label>
-                <input type="tel" id="whatsapp" placeholder="10 अंकों का नंबर" pattern="[0-9]{10}" required>
+                <label>व्हाट्सएप नंबर (WhatsApp Number - 10 Digits)</label>
+                <input type="tel" id="whatsapp" placeholder="अपना व्हाट्सएप नंबर दर्ज करें" pattern="[0-9]{10}" required>
             </div>
 
             <div class="form-group">
@@ -60,21 +64,21 @@
             </div>
 
             <div class="form-group">
-                <label>पेमेंट रिसीविंग जानकारी (खुद का या घर के सदस्य का UPI / Bank + IFSC)</label>
-                <input type="text" id="paymentInfo" placeholder="UPI ID या बैंक खाता विवरण" required>
+                <label>पेमेंट रिसीविंग जानकारी (खुद का या परिवार का UPI / Bank A/c + IFSC)</label>
+                <input type="text" id="paymentInfo" placeholder="UPI ID या बैंक खाता विवरण दर्ज करें" required>
             </div>
 
             <div class="form-group">
-                <label>पासवर्ड बनाएं (Password)</label>
-                <input type="password" id="password" placeholder="सुरक्षित पासवर्ड दर्ज करें" required>
+                <label>सुरक्षित पासवर्ड बनाएं (Create Password)</label>
+                <input type="password" id="password" placeholder="अपना मजबूत पासवर्ड बनाएं" required>
             </div>
 
-            <button type="submit">रजिस्टर करें और यूजर आईडी प्राप्त करें</button>
+            <button type="submit">सफलतापूर्वक रजिस्टर करें और ID प्राप्त करें</button>
         </form>
     </div>
 
     <footer>
-        <p>Official WhatsApp: +91 8877490845</p>
+        <p>Official WhatsApp: +91 8877490845 | 100% Trusted System</p>
     </footer>
 
     <script>
@@ -94,12 +98,11 @@
         }
 
         function processReg(photoData) {
-            // रजिस्ट्रेशन पूरा होने के बाद ही यूजर आईडी जनरेट होगी
             const userId = 'IOIS' + Math.floor(100000 + Math.random() * 900000);
             const joinDate = new Date().toLocaleString();
             
             const cardTier = document.getElementById('cardTier').value;
-            const fullName = document.getElementById('fullName').value;
+            const fullName = document.getElementById('fullName.value').value || document.getElementById('fullName').value;
             const email = document.getElementById('email').value;
             const whatsapp = document.getElementById('whatsapp').value;
             const sponsorId = document.getElementById('sponsorId').value;
@@ -108,18 +111,16 @@
 
             const userData = { userId, fullName, email, whatsapp, sponsorId, paymentInfo, password, cardTier, joinDate, photo: photoData };
             
-            // वेबसाइट के इंटरनल स्टोरेज (LocalStorage) में सेव करना
             localStorage.setItem(userId, JSON.stringify(userData));
             localStorage.setItem('currentUser', userId);
 
-            // टेलीग्राम बोट ऑटो नोटिफिकेशन
+            // Telegram Bot Notification API
             const botToken = "8838741922:AAFGoIvjohnF8FvEiW84h3SxaX2NeANLC50";
             const chatId = "964524685";
-            const message = `🔔 *New Registration!*\n🆔 ID: ${userId}\n👤 Name: ${fullName}\n📱 WhatsApp: ${whatsapp}\n📦 Plan: ${cardTier}`;
+            const message = `🔔 *New Trusted Registration!*\n🆔 ID: ${userId}\n👤 Name: ${fullName}\n📱 WhatsApp: ${whatsapp}\n📦 Plan: ${cardTier}`;
             fetch(`https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}&parse_mode=Markdown`).catch(err=>console.log(err));
 
-            // यूजर को उसकी आईडी कॉपी करने योग्य फॉर्मेट में दिखाना
-            alert(`🎉 बधाई हो! आपका रजिस्ट्रेशन सफल रहा।\n\nआपकी परमानेंट यूजर आईडी यह है (इसे कॉपी कर लें):\n👉 ${userId}\n\nअब आपको डैशबोर्ड पर भेजा जा रहा है।`);
+            alert(`🎉 बहुत-बधाई हो! आपका रजिस्ट्रेशन सफल रहा।\n\nआपकी यूनिक यूजर आईडी (इसे कॉपी कर लें):\n👉 ${userId}\n\nअब आपको आपके डैशबोर्ड पर ले जाया जा रहा है।`);
             window.location.href = 'dashboard.html';
         }
     </script>
