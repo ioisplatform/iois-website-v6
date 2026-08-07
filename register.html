@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IOIS Platform - Registration</title>
+    <title>IOIS Platform - Home</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -13,108 +13,64 @@
         <p>Indian Online Income Supporting System</p>
     </header>
 
-    <div class="container">
-        <h2>New Member Registration</h2>
-        <form id="regForm" onsubmit="submitRegistration(event)">
-            
-            <div class="form-group">
-                <label>Fixed User ID (Auto Generated)</label>
-                <input type="text" id="userId" readonly style="background: #e9ecef; font-weight: bold;">
-            </div>
+    <nav>
+        <a href="index.html" class="active">🏠 होम</a>
+        <a href="register.html">📝 रजिस्ट्रेशन</a>
+        <a href="login.html">🔑 लॉगिन</a>
+        <a href="dashboard.html">📊 डैशबोर्ड</a>
+        <a href="admin.html" style="background:#dc3545;">🛡️ एडमिन पैनल</a>
+    </nav>
 
-            <div class="form-group">
-                <label>Joining Date & Time</label>
-                <input type="text" id="joinDate" readonly style="background: #e9ecef;">
-            </div>
-
-            <div class="form-group">
-                <label>Full Name</label>
-                <input type="text" id="fullName" placeholder="अपना पूरा नाम दर्ज करें" required>
-            </div>
-
-            <div class="form-group">
-                <label>Email Address</label>
-                <input type="email" id="email" placeholder="example@gmail.com" required>
-            </div>
-
-            <div class="form-group">
-                <label>WhatsApp Number</label>
-                <input type="tel" id="whatsapp" placeholder="10 अंकों का व्हाट्सएप नंबर" pattern="[0-9]{10}" required>
-            </div>
-
-            <div class="form-group">
-                <label>Sponsor ID / Referral ID</label>
-                <input type="text" id="sponsorId" value="IOISPLATFORM" required>
-            </div>
-
-            <div class="form-group">
-                <label>Payment Receiving Info (Self or Family UPI/Bank)</label>
-                <input type="text" id="paymentInfo" placeholder="UPI ID या बैंक खाता + IFSC (घर के सदस्य का भी डाल सकते हैं)" required>
-            </div>
-
-            <div class="form-group">
-                <label>Create Password</label>
-                <input type="password" id="password" placeholder="सुरक्षित पासवर्ड बनाएं" required>
-            </div>
-
-            <button type="submit">Register Now (₹10 Starter Kit)</button>
-
-            <div class="links-row">
-                <a href="login.html">Already have an account? Login</a>
-                <a href="index.html">Back to Home</a>
-            </div>
-        </form>
+    <!-- लाइव अनाउंसमेंट (बिना दीपक के, सर्विस इनफॉर्मेशन के साथ) -->
+    <div class="ticker-wrap">
+        <div class="ticker">
+            📢 सूचना: IOIS प्लेटफार्म पर ₹10 के डिजिटल किट से जुड़ें और पाएं 3 CV Templates, ChatGPT Prompts और प्रति रेफर ₹7 (70% कमीशन) तुरंत! &nbsp;&nbsp;|&nbsp;&nbsp; 🚀 जॉब्स और दैनिक राशिफल लाइव अपडेट!
+        </div>
     </div>
 
-    <script>
-        // Auto generate User ID and Timestamp
-        document.getElementById('userId').value = 'IOIS' + Math.floor(100000 + Math.random() * 900000);
-        document.getElementById('joinDate').value = new Date().toLocaleString();
+    <div class="container">
+        <div style="text-align: center; margin-bottom: 30px;">
+            <h1 class="logo-text" style="font-size: 34px;">भारतीय ऑनलाइन इनकम सपोर्टिंग सिस्टम</h1>
+            <p style="margin-top: 10px; color: #555;">पढ़ाई की सामग्री, दैनिक राशिफल, जॉब अलर्ट और सबसे कम कीमत वाले डिजिटल प्लान्स का एकमात्र मंच।</p>
+        </div>
 
-        // Telegram Bot Integration Function
-        function submitRegistration(event) {
-            event.preventDefault();
+        <h2>🎯 हमारे मुख्य प्लान्स (क्लिक करके जानें क्या मिलेगा)</h2>
+        <div class="pricing-grid">
+            <div class="price-card" onclick="alert('📦 ₹10 प्लान:\n- 3D सिल्वर टेक्स्ट डिजिटल आईडी कार्ड\n- 3 Professional CV/Resume Templates\n- 10 Smart ChatGPT Email Prompts\n- 20+ Important Government/Job Links\n💰 कमिशन: प्रति रेफर ₹7 (70% इंस्टेंट UPI पआउट!)')">
+                <h3 style="color:#138808;">Tiranga Silver Card</h3>
+                <p style="font-size: 22px; font-weight:bold; color:#ff9933; margin:10px 0;">₹10 (One-Time)</p>
+                <p>क्लिक करें और पूरी जानकारी देखें (क्या मिलेगा और कितना कमीशन है)</p>
+            </div>
 
-            const userId = document.getElementById('userId').value;
-            const joinDate = document.getElementById('joinDate').value;
-            const fullName = document.getElementById('fullName').value;
-            const email = document.getElementById('email').value;
-            const whatsapp = document.getElementById('whatsapp').value;
-            const sponsorId = document.getElementById('sponsorId').value;
-            const paymentInfo = document.getElementById('paymentInfo').value;
+            <div class="price-card" onclick="alert('📦 ₹499 डायमंड एजेंसी पास:\n- प्रीमियम 3D डिजिटल एजेंसी आईडी कार्ड\n- एडवांस डिजिटल मार्केटिंग टूल्स\n- हायर लेवल रेफरल नेटवर्क एक्सेस\n💰 कमिशन: भारी भरकम डायरेक्ट और टीम कमीशन!')">
+                <h3 style="color:#138808;">Diamond Agency Pass</h3>
+                <p style="font-size: 22px; font-weight:bold; color:#ff9933; margin:10px 0;">₹499</p>
+                <p>क्लिक करें और पूरी जानकारी देखें (क्या मिलेगा और कितना कमीशन है)</p>
+            </div>
 
-            // Telegram API Details
-            const botToken = "8838741922:AAFGoIvjohnF8FvEiW84h3SxaX2NeANLC50";
-            const chatId = "964524685";
-            
-            const message = `🔔 *New IOIS Registration!* 🔔\n\n` +
-                            `🆔 *User ID:* ${userId}\n` +
-                            `👤 *Name:* ${fullName}\n` +
-                            `📧 *Email:* ${email}\n` +
-                            `📱 *WhatsApp:* ${whatsapp}\n` +
-                            `🤝 *Sponsor ID:* ${sponsorId}\n` +
-                            `💳 *Payment Info:* ${paymentInfo}\n` +
-                            `📅 *Date:* ${joinDate}\n` +
-                            `⚡ *Status:* Pending Verification`;
+            <div class="price-card" onclick="alert('📦 ₹999 VIP Mastermind Pass:\n- कंपलीट फ्रीलांसिंग & AI पास\n- अनलिमिटेड डिजिटल एसेट्स डाउनलोड\n- टॉप प्रायोरिटी सपोर्ट और मैक्सिमम अर्निंग!')">
+                <h3 style="color:#138808;">VIP Mastermind Pass</h3>
+                <p style="font-size: 22px; font-weight:bold; color:#ff9933; margin:10px 0;">₹999</p>
+                <p>क्लिक करें और पूरी जानकारी देखें (क्या मिलेगा और कितना कमीशन है)</p>
+            </div>
+        </div>
 
-            const url = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}&parse_mode=Markdown`;
+        <!-- लाइव विजेट्स -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 30px;">
+            <div style="background:#f9f9f9; padding:15px; border-radius:6px; border-left:4px solid #ff9933;">
+                <h3>💼 ताजा जॉब अलर्ट</h3>
+                <p style="margin-top:8px; font-size:14px;">सरकारी और प्राइवेट जॉब्स की नई लिस्ट अपडेट कर दी गई है। डैशबोर्ड से चेक करें।</p>
+            </div>
+            <div style="background:#f9f9f9; padding:15px; border-radius:6px; border-left:4px solid #138808;">
+                <h3>🔮 दैनिक राशिफल</h3>
+                <p style="margin-top:8px; font-size:14px;">आज का दिन सभी मेष, वृषभ और मिथुन राशि के जातकों के लिए आर्थिक रूप से शुभ रहेगा।</p>
+            </div>
+        </div>
+    </div>
 
-            // Send data to Telegram
-            fetch(url)
-            .then(response => {
-                if(response.ok) {
-                    alert('रजिस्ट्रेशन सफल रहा! आपका यूजर आईडी है: ' + userId + '\nअब ₹10 का भुगतान करके व्हाट्सएप पर स्क्रीनशॉट भेजें।');
-                    window.location.href = 'login.html';
-                } else {
-                    alert('टेलीग्राम नोटिफिकेशन भेजने में समस्या आई, लेकिन आपका डेटा सुरक्षित है।');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('पंजीकरण पूरा हुआ!');
-                window.location.href = 'login.html';
-            });
-        }
-    </script>
+    <footer>
+        <p>Official WhatsApp: +91 8877490845 | Email: IOISPLATFORM@gmail.com</p>
+        <p>UPI ID: 8877490845@SPICEPAY (VIKAS KUMAR)</p>
+    </footer>
 </body>
 </html>
