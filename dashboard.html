@@ -2,125 +2,81 @@
 <html lang="hi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IOIS Platform - Platinum Digital ATM ID Card & Dashboard</title>
-    <link rel="stylesheet" href="style.css">
+    <title>मेरा डैशबोर्ड - IOIS Platform</title>
     <style>
-        /* Platinum ATM 3D Card Style */
-        .platinum-atm-card {
-            width: 100%;
-            max-width: 420px;
-            height: 250px;
-            margin: 20px auto;
-            background: linear-gradient(135deg, #2c3e50 0%, #bdc3c7 50%, #2c3e50 100%);
-            border-radius: 16px;
-            padding: 20px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.8), inset 0 2px 4px rgba(255,255,255,0.6);
-            border: 2px solid #ffd700;
-            position: relative;
-            color: #fff;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-        .atm-chip {
-            width: 45px;
-            height: 35px;
-            background: linear-gradient(135deg, #ffd700, #ffb84d);
-            border-radius: 6px;
-            box-shadow: inset 0 1px 2px rgba(0,0,0,0.5);
-        }
-        .card-number {
-            font-family: monospace;
-            font-size: 20px;
-            letter-spacing: 3px;
-            color: #ffd700;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.9);
-        }
+        body { background: #0b0f19; color: #fff; font-family: sans-serif; padding: 20px; }
+        .container { max-width: 500px; margin: auto; background: #1e293b; padding: 20px; border-radius: 15px; }
+        .profile-pic { width: 120px; height: 120px; border-radius: 50%; border: 3px solid #fbbf24; margin: 0 auto 15px; display: block; object-fit: cover; }
+        .form-group { margin-bottom: 15px; }
+        input { width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #475569; background: #0f172a; color: #fff; }
+        button { background: #22c55e; color: #fff; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; }
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="logo-text">IOIS PLATFORM</div>
-        <p style="color: #ffd700; font-size: 13px; margin-top: 5px;">Platinum Digital Member Dashboard</p>
-    </header>
-
-    <nav>
-        <a href="index.html">🏠 होम</a>
-        <a href="news.html">📰 दैनिक समाचार</a>
-        <a href="dashboard.html" class="active">📊 डैशबोर्ड</a>
-        <a href="#" onclick="logout()">🚪 लॉगआउट</a>
-    </nav>
-
-    <div class="container">
-        <h2 style="text-align: center; margin-bottom: 20px;">🎉 आपका प्रीमियम प्लेटिनम डिजिटल आईडी कार्ड</h2>
+    <div class="container" id="dashboardContent">
+        <h2 style="text-align:center; color:#fbbf24;">नमस्ते, <span id="userNameDisplay"></span>!</h2>
+        <img id="profilePreview" class="profile-pic" src="https://via.placeholder.com/120" alt="Profile">
         
-        <!-- Platinum ATM Style Card Output -->
-        <div class="platinum-atm-card">
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-                <h3 style="font-size: 16px; color:#ffd700; margin:0;">IOIS PLATINUM PASS</h3>
-                <span id="cardTierBadge" style="background:#ff9933; color:#000; font-size:10px; font-weight:bold; padding:3px 8px; border-radius:4px;">VIP ACCESS</span>
-            </div>
-            <div style="display: flex; align-items: center; gap: 15px;">
-                <div class="atm-chip"></div>
-                <div>
-                    <img id="userAvatar" src="" alt="Photo" style="width: 50px; height: 50px; border-radius: 50%; border: 2px solid #ffd700; object-fit: cover; display:none;">
-                </div>
-            </div>
-            <div class="card-number" id="dispUserId">IOIS------</div>
-            <div style="display: flex; justify-content: space-between; font-size: 12px; color: #e0e0e0;">
-                <div>
-                    <p style="font-size: 10px; color: #aaa;">CARD HOLDER</p>
-                    <b id="dispName" style="color: #fff; font-size: 14px;">Loading...</b>
-                </div>
-                <div>
-                    <p style="font-size: 10px; color: #aaa;">WHATSAPP</p>
-                    <b id="dispWhatsapp" style="color: #ffd700;">----------</b>
-                </div>
-            </div>
+        <div class="form-group">
+            <label>प्रोफाइल फोटो बदलें:</label>
+            <input type="file" id="profileImageInput" accept="image/*" onchange="uploadPhoto()">
         </div>
 
-        <!-- Referral Section -->
-        <div style="background: rgba(255,255,255,0.04); padding: 20px; border-radius: 10px; margin-top: 30px; border: 1px solid rgba(255,215,0,0.3);">
-            <h3 style="color: #ffd700; margin-bottom: 10px;">🔗 आपका यूनिक रेफरल लिंक (Share & Earn)</h3>
-            <input type="text" id="refLink" readonly style="margin-bottom: 10px; background:#0b0c10; color:#ffd700; font-weight:bold;">
-            <button onclick="copyLink()">लिंक कॉपी करें</button>
+        <div class="form-group">
+            <label>नाम:</label>
+            <input type="text" id="editName">
+        </div>
+
+        <div class="form-group">
+            <label>पेमेंट डिटेल्स (UPI/Bank):</label>
+            <input type="text" id="editPayment">
+        </div>
+
+        <button onclick="saveProfile()">प्रोफाइल सुरक्षित करें</button>
+        <button onclick="logout()" style="background:#dc3545;">लॉगआउट</button>
+        
+        <div id="adminPanelBtn" style="margin-top:20px; display:none;">
+            <a href="admin.html" style="color:#fbbf24;">🛡️ एडमिन पैनल (सिर्फ ओनर के लिए)</a>
         </div>
     </div>
 
-    <footer>
-        <p>Official WhatsApp Support: +91 8877490845 | 100% Trusted Platform</p>
-        <p style="margin-top: 10px; color: #777;">&copy; 2026 IOIS Platform. All Rights Reserved.</p>
-    </footer>
-
     <script>
-        const currentId = localStorage.getItem('currentUser');
-        if(!currentId) {
-            alert('कृपया पहले लॉगिन करें!');
-            window.location.href = 'login.html';
-        } else {
-            const data = JSON.parse(localStorage.getItem(currentId));
-            if(data) {
-                document.getElementById('dispUserId').innerText = data.userId;
-                document.getElementById('dispName').innerText = data.fullName;
-                document.getElementById('dispWhatsapp').innerText = data.whatsapp;
-                document.getElementById('cardTierBadge').innerText = data.cardTier;
-                document.getElementById('refLink').value = window.location.origin + "/register.html?ref=" + data.userId;
-                
-                if(data.photo) {
-                    const av = document.getElementById('userAvatar');
-                    av.src = data.photo;
-                    av.style.display = 'block';
-                }
+        let currentUser = localStorage.getItem('currentUser');
+
+        window.onload = () => {
+            if (!currentUser) window.location.href = 'login.html';
+            
+            // ओनर चेक (ओनर को ही एडमिन पैनल बटन दिखेगा)
+            if (currentUser === 'ioisowner') {
+                document.getElementById('adminPanelBtn').style.display = 'block';
             }
+
+            const userData = JSON.parse(localStorage.getItem('user_' + currentUser));
+            document.getElementById('userNameDisplay').innerText = userData.name;
+            document.getElementById('editName').value = userData.name;
+            document.getElementById('editPayment').value = userData.payment;
+            if(userData.photo) document.getElementById('profilePreview').src = userData.photo;
+        };
+
+        function uploadPhoto() {
+            const file = document.getElementById('profileImageInput').files[0];
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                document.getElementById('profilePreview').src = e.target.result;
+                let userData = JSON.parse(localStorage.getItem('user_' + currentUser));
+                userData.photo = e.target.result;
+                localStorage.setItem('user_' + currentUser, JSON.stringify(userData));
+            };
+            reader.readAsDataURL(file);
         }
 
-        function copyLink() {
-            const copyText = document.getElementById("refLink");
-            copyText.select();
-            document.execCommand("copy");
-            alert("रेफरल लिंक सफलतापूर्वक कॉपी हो गया!");
+        function saveProfile() {
+            let userData = JSON.parse(localStorage.getItem('user_' + currentUser));
+            userData.name = document.getElementById('editName').value;
+            userData.payment = document.getElementById('editPayment').value;
+            localStorage.setItem('user_' + currentUser, JSON.stringify(userData));
+            alert('प्रोफाइल अपडेट हो गई!');
         }
 
         function logout() {
