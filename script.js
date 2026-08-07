@@ -4,18 +4,47 @@ function toggleMenu() {
     menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
 }
 
-// Check Admin Privileges (Only show Admin Panel if user is Vikas or admin ID)
+// Check Admin Privileges & Session Handler
 window.addEventListener('DOMContentLoaded', () => {
     const currentUser = localStorage.getItem('currentUser');
     const adminLink = document.getElementById('adminMenuLink');
     
-    // यहाँ आप अपनी एडमिन आईडी सेट कर सकते हैं (जैसे 'IOIS123456' या आपका नंबर)
-    if (currentUser && (currentUser === 'IOISADMIN' || currentUser.includes('8877490845') || localStorage.getItem(currentUser)?.whatsapp === '8877490845')) {
+    // एडमिन आईडी 'ioisowner' सेट की गई है
+    if (currentUser && currentUser.toLowerCase() === 'ioisowner') {
         if(adminLink) adminLink.style.display = 'block';
     } else {
         if(adminLink) adminLink.style.display = 'none';
     }
 });
+
+// Login Validation Logic
+function handleLogin(event) {
+    event.preventDefault();
+    const usernameInput = document.getElementById('username').value.trim();
+    const passwordInput = document.getElementById('password').value.trim();
+
+    // एडमिन लॉगिन चेक
+    if (usernameInput === 'ioisowner' && passwordInput === 'iois1234567890') {
+        localStorage.setItem('currentUser', 'ioisowner');
+        alert('एडमिन लॉगिन सफल!');
+        window.location.href = 'admin.html';
+        return;
+    }
+
+    // सामान्य यूजर लॉगिन चेक (लोकल स्टोरेज से)
+    const storedUser = localStorage.getItem(usernameInput);
+    if (storedUser) {
+        const userData = JSON.parse(storedUser);
+        if (userData.password === passwordInput) {
+            localStorage.setItem('currentUser', usernameInput);
+            alert('लॉगिन सफल!');
+            window.location.href = 'dashboard.html';
+            return;
+        }
+    }
+    
+    alert('गलत यूजरनेम या पासवर्ड! कृपया पुनः प्रयास करें।');
+}
 
 // Plan Click Modal Handler
 function openPlanModal(planName, price, details) {
