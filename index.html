@@ -1,169 +1,52 @@
-<!DOCTYPE html>
-<html lang="hi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IOIS Platform - Professional Income & Utility Hub</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-
-    <!-- Professional Header with Logo & 3-Line Menu -->
-    <header>
-        <div class="logo-container">
-            <div class="logo-badge">I</div>
-            <div>
-                <div class="logo-text" style="font-size: 22px;">IOIS PLATFORM</div>
-                <p style="font-size: 10px; color: #ffd700; letter-spacing: 1px;">100% Trusted & Verified</p>
-            </div>
-        </div>
-        
-        <!-- Corner 3 Line Menu Button -->
-        <div class="menu-toggle" onclick="toggleMenu()">☰</div>
-        
-        <!-- Dropdown Menu -->
-        <div id="dropdownMenu" class="dropdown-menu">
-            <a href="index.html">🏠 होम पेज</a>
-            <a href="news.html">📰 दैनिक समाचार</a>
-            <a href="register.html">📝 रजिस्ट्रेशन</a>
-            <a href="login.html">🔑 लॉगिन</a>
-            <a href="dashboard.html">📊 डैशबोर्ड</a>
-            <a href="admin.html" id="adminMenuLink" style="display:none; background:#dc3545; color:#fff;">🛡️ एडमिन पैनल</a>
-        </div>
-    </header>
-
-    <!-- लाइव अनाउंसमेंट पट्टी -->
-    <div class="ticker-wrap">
-        <div class="ticker">
-            🌟 IOIS प्लेटफ़ॉर्म में आपका स्वागत है | ₹10 से ₹999 तक के सभी 7 प्रीमियम प्लांस और सर्विसेज उपलब्ध | तुरंत ज्वाइन करें और लाभ उठाएं!
-        </div>
+<!-- 🌟 Referral System & Unique Premium Cards Showcase -->
+<div class="container referral-section">
+    <div style="text-align: center;">
+        <span style="background: rgba(255,153,51,0.2); color: #ff9933; padding: 6px 15px; border-radius: 20px; font-size: 12px; font-weight: bold; border: 1px solid #ff9933;">🚀 हाई-कमीशन रेफरल प्रोग्राम</span>
+        <h2 style="font-size: 26px; margin-top: 12px;" class="gradient-text">हर रेफरल पर 50% से 75% तक की धमाकेदार कमाई!</h2>
+        <p style="color: #ccc; font-size: 14px; margin-top: 5px;">रजिस्ट्रेशन के बाद हर मेंबर को उनके प्लान के अनुसार यूनिक, प्रीमियम और लग्जरी टेक्सचर वाला डिजिटल कार्ड मिलता है।</p>
     </div>
 
-    <div class="container">
-        <div style="text-align: center; margin-bottom: 25px;">
-            <h1 style="font-size: 30px;">भारतीय ऑनलाइन इनकम एंड यूटिलिटी सिस्टम</h1>
-            <p style="color: #ccc; font-size: 14px; margin-top: 8px;">अपनी आवश्यकतानुसार सही प्लान चुनें और डायरेक्ट अपनी डिजिटल जर्नी शुरू करें।</p>
-        </div>
-
-        <!-- 📊 सर्विस कैलकुलेटर चार्ट (Comparison Chart) -->
-        <h2 style="font-size: 20px; color: #ffd700; margin-bottom: 10px; text-align: center;">📈 सर्विस कैलकुलेटर और प्लान तुलना चार्ट</h2>
-        <div style="overflow-x: auto;">
-            <table class="comparison-table">
-                <tr>
-                    <th>प्लान का नाम</th>
-                    <th>मूल्य (Price)</th>
-                    <th>मुख्य डिजिटल लाभ</th>
-                    <th>रेफरल कमीशन</th>
-                </tr>
-                <tr>
-                    <td><b>Tiranga Silver</b></td>
-                    <td style="color:#ff9933;">₹10</td>
-                    <td>3D डिजिटल आईडी + 3 CV Templates</td>
-                    <td>₹7 (70%)</td>
-                </tr>
-                <tr>
-                    <td><b>Pro Starter</b></td>
-                    <td style="color:#ff9933;">₹49</td>
-                    <td>बेसिक टूल्स और जॉब लिंक्स</td>
-                    <td>हाई-स्पीड कमीशन</td>
-                </tr>
-                <tr>
-                    <td><b>Executive Pass</b></td>
-                    <td style="color:#ff9933;">₹99</td>
-                    <td>ग्राफिक्स बंडल और ऑटोमेशन गाइड</td>
-                    <td>आकर्षक इंसेंटिव</td>
-                </tr>
-                <tr>
-                    <td><b>Smart Agency</b></td>
-                    <td style="color:#ff9933;">₹199</td>
-                    <td>एडवांस्ड पोस्टर डिजाइन सपोर्ट</td>
-                    <td>लेवल अर्निंग</td>
-                </tr>
-                <tr>
-                    <td><b>Business Growth</b></td>
-                    <td style="color:#ff9933;">₹299</td>
-                    <td>मार्केटिंग मटेरियल और लीड्स</td>
-                    <td>शानदार टीम कमीशन</td>
-                </tr>
-                <tr>
-                    <td><b>Diamond Agency</b></td>
-                    <td style="color:#ff9933;">₹499</td>
-                    <td>प्रीमियम 3D एजेंसी आईडी कार्ड</td>
-                    <td>भारी-भरकम पआउट</td>
-                </tr>
-                <tr>
-                    <td><b>VIP Mastermind</b></td>
-                    <td style="color:#ff9933;">₹999</td>
-                    <td>अल्टीमेट AI और फ्रीलांसिंग पास</td>
-                    <td>टॉप प्रायोरिटी मैक्सिमम</td>
-                </tr>
-            </table>
-        </div>
-
-        <h2 style="font-size: 22px; margin: 30px 0 15px 0; text-align: center;">🎯 अपने पसंद के प्लान पर क्लिक करें (रजिस्ट्रेशन और विवरण)</h2>
+    <!-- Card Showcase Grid -->
+    <div class="card-showcase-grid">
         
-        <!-- 7 Different Plans Clickable Grid -->
-        <div class="pricing-grid">
-            <div class="price-card" onclick="openPlanModal('Tiranga Silver Card', '₹10', 'शामिल है: 3D सिल्वर टेक्स्ट डिजिटल आईडी कार्ड, 3 Professional CV Templates और ChatGPT Prompts।')">
-                <h3 style="color:#138808; font-size:17px;">Tiranga Silver</h3>
-                <p style="font-size: 22px; font-weight:bold; color:#ff9933; margin:6px 0;">₹10</p>
-                <p style="font-size: 12px; color:#bbb;">क्लिक करके विवरण देखें</p>
-            </div>
-
-            <div class="price-card" onclick="openPlanModal('Pro Starter Pass', '₹49', 'शामिल है: बेसिक डिजिटल एसेट्स, टूल्स और सरकारी जॉब पोर्टल लिंक्स एक्सेस।')">
-                <h3 style="color:#138808; font-size:17px;">Pro Starter</h3>
-                <p style="font-size: 22px; font-weight:bold; color:#ff9933; margin:6px 0;">₹49</p>
-                <p style="font-size: 12px; color:#bbb;">क्लिक करके विवरण देखें</p>
-            </div>
-
-            <div class="price-card" onclick="openPlanModal('Executive Pass', '₹99', 'शामिल है: स्टैंडर्ड ग्राफिक्स, पोस्टर बंडल और व्हाट्सएप ऑटोमेशन गाइड।')">
-                <h3 style="color:#138808; font-size:17px;">Executive Pass</h3>
-                <p style="font-size: 22px; font-weight:bold; color:#ff9933; margin:6px 0;">₹99</p>
-                <p style="font-size: 12px; color:#bbb;">क्लिक करके विवरण देखें</p>
-            </div>
-
-            <div class="price-card" onclick="openPlanModal('Smart Agency Pass', '₹199', 'शामिल है: एडवांस्ड पोस्टर और बैनर डिजाइन सपोर्ट, बेहतर रेफरल नेटवर्क सिस्टम।')">
-                <h3 style="color:#138808; font-size:17px;">Smart Agency</h3>
-                <p style="font-size: 22px; font-weight:bold; color:#ff9933; margin:6px 0;">₹199</p>
-                <p style="font-size: 12px; color:#bbb;">क्लिक करके विवरण देखें</p>
-            </div>
-
-            <div class="price-card" onclick="openPlanModal('Business Growth Pass', '₹299', 'शामिल है: प्रीमियम मार्केटिंग मटेरियल और लीड जनरेशन स्ट्रैटेजी।')">
-                <h3 style="color:#138808; font-size:17px;">Business Growth</h3>
-                <p style="font-size: 22px; font-weight:bold; color:#ff9933; margin:6px 0;">₹299</p>
-                <p style="font-size: 12px; color:#bbb;">क्लिक करके विवरण देखें</p>
-            </div>
-
-            <div class="price-card" onclick="openPlanModal('Diamond Agency Pass', '₹499', 'शामिल है: प्रीमियम 3D डिजिटल एजेंसी आईडी कार्ड और एडवांस्ड डिजिटल मार्केटिंग टूल्स।')">
-                <h3 style="color:#138808; font-size:17px;">Diamond Agency</h3>
-                <p style="font-size: 22px; font-weight:bold; color:#ff9933; margin:6px 0;">₹499</p>
-                <p style="font-size: 12px; color:#bbb;">क्लिक करके विवरण देखें</p>
-            </div>
-
-            <div class="price-card" onclick="openPlanModal('VIP Mastermind Pass', '₹999', 'शामिल है: कंपलीट फ्रीलांसिंग और AI पास, अनलिमिटेड डिजिटल एसेट्स डाउनलोड।')">
-                <h3 style="color:#138808; font-size:17px;">VIP Mastermind</h3>
-                <p style="font-size: 22px; font-weight:bold; color:#ff9933; margin:6px 0;">₹999</p>
-                <p style="font-size: 12px; color:#bbb;">क्लिक करके विवरण देखें</p>
+        <!-- 1. Digital Starter Kit Card (Silver Text Texture) -->
+        <div class="base-card card-silver" onclick="openPlanModal('Digital Starter Kit', '₹10', 'शामिल है: 3D सिल्वर टेक्स्ट डिजिटल आईडी कार्ड, 3 Professional CV Templates और 70% (₹7) डायरेक्ट रेफरल कमीशन!')">
+            <div class="commission-tag">70% Commission (₹7)</div>
+            <div class="card-chip"></div>
+            <div style="font-size: 11px; letter-spacing: 1px; opacity: 0.8;">IOIS SILVER TIER</div>
+            <h3 style="font-size: 18px; margin: 5px 0; color: #e0e0e0;">Digital Starter Kit</h3>
+            <p style="font-size: 20px; font-weight: 900; color: #ff9933;">₹10 <span style="font-size: 12px; color:#aaa; font-weight:normal;">/ lifetime</span></p>
+            <div style="margin-top: 15px; font-size: 12px; border-top: 1px dashed rgba(255,255,255,0.2); padding-top: 8px; display: flex; justify-content: space-between;">
+                <span>✨ Silver Glossy Text</span>
+                <span style="color: #ffd700;">डेमो देखें ➔</span>
             </div>
         </div>
-    </div>
 
-    <!-- Modal Popup for Plan Details & Direct Join -->
-    <div id="planModal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal()">&times;</span>
-            <h3 id="modalTitle" style="color: #ffd700; margin-bottom: 15px; font-size: 22px;">Plan Title</h3>
-            <p id="modalDetails" style="font-size: 14px; color: #ddd; margin-bottom: 20px; line-height: 1.6; background: rgba(0,0,0,0.4); padding: 12px; border-radius: 8px;"></p>
-            <input type="hidden" id="selectedPlanInput">
-            <button onclick="proceedToRegister()" style="background: linear-gradient(45deg, #138808, #ffd700); color: #000; font-weight: bold; padding: 12px; border: none; width: 100%; border-radius: 6px; cursor: pointer; font-size: 16px;">इस प्लान के साथ रजिस्टर करें</button>
+        <!-- 2. Business Growth Hub Card (Gold Texture) -->
+        <div class="base-card card-gold" onclick="openPlanModal('Business Growth Hub', '₹299', 'शामिल है: प्रीमियम गोल्ड टेक्सचर डिजिटल कार्ड, एक्सक्लूसिव मार्केटिंग मटेरियल और 67% (₹200) रेफरल कमीशन!')">
+            <div class="commission-tag" style="background:#000; color:#ffd700;">67% Commission (₹200)</div>
+            <div class="card-chip"></div>
+            <div style="font-size: 11px; letter-spacing: 1px; color: #333; font-weight: bold;">IOIS GOLDEN APEX</div>
+            <h3 style="font-size: 18px; margin: 5px 0; color: #111;">Business Growth Hub</h3>
+            <p style="font-size: 20px; font-weight: 900; color: #000;">₹299 <span style="font-size: 12px; color:#333; font-weight:normal;">/ lifetime</span></p>
+            <div style="margin-top: 15px; font-size: 12px; border-top: 1px dashed rgba(0,0,0,0.2); padding-top: 8px; display: flex; justify-content: space-between; font-weight: 600;">
+                <span>👑 Gold Luxury Finish</span>
+                <span>डेमो देखें ➔</span>
+            </div>
         </div>
+
+        <!-- 3. VIP Supreme Mastermind Card (Platinum Luxury Texture) -->
+        <div class="base-card card-platinum" onclick="openPlanModal('VIP Supreme Mastermind', '₹999', 'शामिल है: अल्टीमेट प्लैटिनम 3D होलोग्राफिक कार्ड, AI पास और 75% (₹750) मैक्सिमम रेफरल कमीशन!')">
+            <div class="commission-tag" style="background:#00f2fe; color:#000; border:none;">75% Commission (₹750)</div>
+            <div class="card-chip" style="background: linear-gradient(135deg, #00f2fe, #4facfe);"></div>
+            <div style="font-size: 11px; letter-spacing: 1px; color: #00f2fe; font-weight: bold;">IOIS VIP PLATINUM</div>
+            <h3 style="font-size: 18px; margin: 5px 0; color: #fff;">VIP Supreme Mastermind</h3>
+            <p style="font-size: 20px; font-weight: 900; color: #00f2fe;">₹999 <span style="font-size: 12px; color:#aaa; font-weight:normal;">/ lifetime</span></p>
+            <div style="margin-top: 15px; font-size: 12px; border-top: 1px dashed rgba(255,255,255,0.2); padding-top: 8px; display: flex; justify-content: space-between;">
+                <span>💎 Platinum Holographic</span>
+                <span style="color: #00f2fe;">डेमो देखें ➔</span>
+            </div>
+        </div>
+
     </div>
-
-    <footer>
-        <p>Official WhatsApp Support: +91 8877490845 | 100% Trusted Platform</p>
-        <p style="margin-top: 10px; color: #777;">&copy; 2026 IOIS Platform. All Rights Reserved.</p>
-    </footer>
-
-    <script src="script.js"></script>
-</body>
-</html>
+</div>
