@@ -3,34 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>रजिस्ट्रेशन - IOIS Platform</title>
+    <title>रजिस्ट्रेशन व पेमेंट प्रूफ - IOIS Platform</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, sans-serif; }
         body { background: #0b0f19; color: #fff; padding: 12px; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding-bottom: 80px; }
 
         .container { 
-            width: 100%;
-            max-width: 460px; 
+            width: 100%; max-width: 460px; 
             background: linear-gradient(135deg, #0f172a, #1e1b4b); 
-            border: 2px solid #fbbf24; 
-            border-radius: 20px; 
-            padding: 20px; 
+            border: 2px solid #fbbf24; border-radius: 20px; padding: 20px; 
             box-shadow: 0 10px 35px rgba(0, 0, 0, 0.9), 0 0 25px rgba(251,191,36,0.2); 
         }
 
         .brand-header { text-align: center; margin-bottom: 12px; }
         .logo-wrapper {
-            display: inline-block;
-            background: linear-gradient(135deg, rgba(251, 191, 36, 0.15), rgba(245, 158, 11, 0.3));
-            border: 2.5px solid #fbbf24;
-            padding: 8px 20px;
-            border-radius: 40px;
+            display: inline-block; background: linear-gradient(135deg, rgba(251, 191, 36, 0.15), rgba(245, 158, 11, 0.3));
+            border: 2.5px solid #fbbf24; padding: 8px 20px; border-radius: 40px;
             box-shadow: 0 0 20px rgba(251, 191, 36, 0.4);
         }
         .logo-main-text { 
             background: linear-gradient(135deg, #ff9933 0%, #ffffff 50%, #138808 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             font-size: 18px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; 
         }
         .logo-sub-text { font-size: 8px; color: #38bdf8; letter-spacing: 1px; text-transform: uppercase; margin-top: 2px; font-weight: 700; }
@@ -38,36 +31,29 @@
         .main-heading { text-align: center; color: #fbbf24; font-size: 18px; font-weight: 800; margin-bottom: 4px; text-transform: uppercase; }
         .sub-heading { text-align: center; color: #94a3b8; font-size: 11.5px; margin-bottom: 15px; font-weight: 500; }
 
+        /* QR Box for Payment */
+        .qr-box {
+            background: rgba(15, 23, 42, 0.95); border: 1.5px dashed #fbbf24; border-radius: 10px;
+            padding: 12px; text-align: center; margin-bottom: 15px;
+        }
+        .qr-box p { font-size: 12px; color: #38bdf8; margin-bottom: 6px; font-weight: bold; }
+        .upi-id-badge { background: #1e293b; color: #fbbf24; padding: 4px 10px; border-radius: 5px; font-size: 12px; font-weight: bold; display: inline-block; margin-top: 5px; border: 1px solid #fbbf24; }
+
         .form-group { margin-bottom: 12px; }
         .form-group label { display: block; font-size: 12px; color: #38bdf8; font-weight: 700; margin-bottom: 4px; }
         .form-group input, .form-group select {
-            width: 100%;
-            padding: 10px 12px;
-            background: rgba(15, 23, 42, 0.9);
-            border: 1px solid rgba(251, 191, 36, 0.4);
-            border-radius: 8px;
-            color: #fff;
-            font-size: 13px;
+            width: 100%; padding: 10px 12px; background: rgba(15, 23, 42, 0.9);
+            border: 1px solid rgba(251, 191, 36, 0.4); border-radius: 8px; color: #fff; font-size: 13px;
         }
+        .form-group input[type="file"] { padding: 6px; border: 1px dashed #38bdf8; color: #cbd5e1; }
         .form-group input:focus, .form-group select:focus {
-            border-color: #fbbf24;
-            outline: none;
-            box-shadow: 0 0 8px rgba(251,191,36,0.3);
+            border-color: #fbbf24; outline: none; box-shadow: 0 0 8px rgba(251,191,36,0.3);
         }
 
         .btn-register {
-            background: linear-gradient(135deg, #22c55e, #16a34a);
-            color: #fff;
-            font-weight: 800;
-            padding: 12px;
-            border: none;
-            width: 100%;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 14px;
-            text-transform: uppercase;
-            box-shadow: 0 4px 15px rgba(34,197,94,0.4);
-            margin-top: 10px;
+            background: linear-gradient(135deg, #22c55e, #16a34a); color: #fff; font-weight: 800;
+            padding: 12px; border: none; width: 100%; border-radius: 10px; cursor: pointer;
+            font-size: 14px; text-transform: uppercase; box-shadow: 0 4px 15px rgba(34,197,94,0.4); margin-top: 10px;
         }
 
         .back-link { text-align: center; margin-top: 15px; font-size: 12px; }
@@ -75,25 +61,14 @@
 
         /* Floating Bottom Navigation Bar */
         .floating-bottom-bar {
-            position: fixed;
-            bottom: 0; left: 0; width: 100%;
-            background: rgba(15, 23, 42, 0.95);
-            backdrop-filter: blur(10px);
+            position: fixed; bottom: 0; left: 0; width: 100%;
+            background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(10px);
             border-top: 1px solid rgba(251, 191, 36, 0.3);
-            display: flex;
-            justify-content: space-around;
-            padding: 8px 6px;
-            z-index: 9999;
+            display: flex; justify-content: space-around; padding: 8px 6px; z-index: 9999;
         }
         .float-nav-btn {
-            background: #1e293b;
-            border: 1px solid #38bdf8;
-            color: #38bdf8;
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 11px;
-            font-weight: 700;
-            text-decoration: none;
+            background: #1e293b; border: 1px solid #38bdf8; color: #38bdf8;
+            padding: 6px 12px; border-radius: 20px; font-size: 11px; font-weight: 700; text-decoration: none;
         }
         .float-nav-btn.gold { border-color: #fbbf24; color: #fbbf24; background: rgba(251,191,36,0.1); }
     </style>
@@ -115,8 +90,14 @@
             </div>
         </div>
 
-        <div class="main-heading">📝 नया रजिस्ट्रेशन फॉर्म</div>
-        <div class="sub-heading">अपनी सही जानकारी दर्ज करें ताकि आपकी अर्निंग और रेफरल तुरंत ट्रैक हो सके।</div>
+        <div class="main-heading">📝 नया रजिस्ट्रेशन व पेमेंट</div>
+        <div class="sub-heading">नीचे दिए गए QR पर पेमेंट करें और उसका स्क्रीनशॉट अपलोड करें।</div>
+
+        <!-- Payment QR / UPI Box -->
+        <div class="qr-box">
+            <p>👇 इस UPI ID पर पेमेंट भेजें (जैसे ₹10 डिजिटल किट)</p>
+            <div class="upi-id-badge">8877490845@paytm (या PhonePe/GooglePay)</div>
+        </div>
 
         <form id="registerForm" onsubmit="handleRegistration(event)">
             
@@ -138,19 +119,21 @@
             <div class="form-group">
                 <label>चुना गया प्लान (Selected Plan)</label>
                 <select id="selectedPlan">
-                    <option value="Digital Starter Kit (₹10)">Digital Starter Kit - ₹10 (70% Comm.)</option>
+                    <option value="Digital Starter Kit (₹10)">Digital Starter Kit - ₹10</option>
                     <option value="Pro Elite Pass (₹49)">Pro Elite Pass - ₹49</option>
                     <option value="Executive Master (₹99)">Executive Master - ₹99</option>
                     <option value="Smart Agency Pro (₹199)">Smart Agency Pro - ₹199</option>
-                    <option value="Business Growth Hub (₹299)">Business Growth Hub - ₹299</option>
-                    <option value="Diamond Apex Agency (₹499)">Diamond Apex Agency - ₹499</option>
-                    <option value="VIP Supreme Mastermind (₹999)">VIP Supreme Mastermind - ₹999</option>
                 </select>
             </div>
 
             <div class="form-group">
-                <label>पेमेंट रिसीव करने का विवरण (UPI ID / Bank A/c)</label>
-                <input type="text" id="paymentDetails" required placeholder="अपनी UPI ID या घरवाले का बैंक खाता विवरण दें">
+                <label>UPI ट्रांजैक्शन ID / UTR Number</label>
+                <input type="text" id="utrNumber" required placeholder="पेमेंट करने के बाद 12 अंकों का UTR नंबर लिखें">
+            </div>
+
+            <div class="form-group">
+                <label>पेमेंट का स्क्रीनशॉट (Payment Screenshot)</label>
+                <input type="file" id="paymentProof" accept="image/*" required>
             </div>
 
             <div class="form-group">
@@ -158,7 +141,7 @@
                 <input type="text" id="referralCode" placeholder="रेफर करने वाले का व्हाट्सएप नंबर या आईडी">
             </div>
 
-            <button type="submit" class="btn-register">रजिस्टर करें & आगे बढ़ें ➔</button>
+            <button type="submit" class="btn-register">रजिस्टर करें & वेरीफाई कराएं ➔</button>
         </form>
 
         <div class="back-link">
@@ -168,7 +151,6 @@
     </div>
 
     <script>
-        // होम पेज से यदि कोई प्लान चुना गया है तो उसे ऑटोमैटिक सेलेक्ट करना
         window.addEventListener('DOMContentLoaded', () => {
             const prefilled = localStorage.getItem('prefilledPlan');
             if (prefilled) {
@@ -181,7 +163,6 @@
                 }
             }
 
-            // URL से रेफरल कोड डिटेक्ट करना (जैसे register.html?ref=9876543210)
             const urlParams = new URLSearchParams(window.location.search);
             const refParam = urlParams.get('ref');
             if (refParam) {
@@ -196,38 +177,45 @@
             const whatsapp = document.getElementById('whatsapp').value.trim();
             const password = document.getElementById('password').value.trim();
             const plan = document.getElementById('selectedPlan').value;
-            const payment = document.getElementById('paymentDetails').value.trim();
-            const ref = document.getElementById('referralCode').value.trim() || 'DIRECT';
-            
+            const utr = document.getElementById('utrNumber').value.trim();
+            const ref = document.getElementById('referralCode').value.trim() / 1 || document.getElementById('referralCode').value.trim() || 'DIRECT';
             const joinDate = new Date().toLocaleDateString('hi-IN');
 
-            const userData = {
-                name: name,
-                whatsapp: whatsapp,
-                password: password,
-                plan: plan,
-                payment: payment,
-                referredBy: ref,
-                joinDate: joinDate,
-                status: 'Pending Verification',
-                earnings: 0,
-                directReferrals: 0
-            };
+            const fileInput = document.getElementById('paymentProof');
+            if (fileInput.files && fileInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const screenshotBase64 = e.target.result;
+                    
+                    const userData = {
+                        name: name,
+                        whatsapp: whatsapp,
+                        password: password,
+                        plan: plan,
+                        utr: utr,
+                        paymentProof: screenshotBase64,
+                        referredBy: ref,
+                        joinDate: joinDate,
+                        status: 'Pending Verification',
+                        earnings: 0
+                    };
 
-            // यूजर का डेटा सुरक्षित रूप से स्टोर करना (डेटा डिलीट नहीं होगा)
-            localStorage.setItem('user_' + whatsapp, JSON.stringify(userData));
-            localStorage.setItem('currentUser', whatsapp);
+                    // डेटा सुरक्षित रूप से स्टोर करना (कोई डेटा डिलीट नहीं होगा)
+                    localStorage.setItem('user_' + whatsapp, JSON.stringify(userData));
 
-            // एडमिन या ग्लोबल यूजर लिस्ट में जोड़ना (बिना पुराना डेटा हटाए)
-            let allUsers = JSON.parse(localStorage.getItem('iois_all_users') || '[]');
-            // चेक करें कि यह नंबर पहले से तो नहीं है
-            if (!allUsers.includes(whatsapp)) {
-                allUsers.push(whatsapp);
-                localStorage.setItem('iois_all_users', JSON.stringify(allUsers));
+                    let allUsers = JSON.parse(localStorage.getItem('iois_all_users') || '[]');
+                    if (!allUsers.includes(whatsapp)) {
+                        allUsers.push(whatsapp);
+                        localStorage.setItem('iois_all_users', JSON.stringify(allUsers));
+                    }
+
+                    alert('रजिस्ट्रेशन सफल! आपका पेमेंट प्रूफ एडमिन के पास भेज दिया गया है।');
+                    window.location.href = 'login.html';
+                };
+                reader.readAsDataURL(fileInput.files[0]);
+            } else {
+                alert('कृपया पेमेंट का स्क्रीनशॉट अपलोड करें!');
             }
-
-            alert('रजिस्ट्रेशन सफल! अब आप डैशबोर्ड पर जा सकते हैं।');
-            window.location.href = 'dashboard.html';
         }
     </script>
 </body>
