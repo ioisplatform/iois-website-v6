@@ -3,138 +3,91 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>लाइव यूटिलिटी और राशिफल - IOIS Platform</title>
+    <title>IOIS - पंचांग व राशिफल</title>
+    <link rel="icon" type="image/png" href="logo.png">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, sans-serif; }
-        body { background: #0b0f19; color: #fff; padding-bottom: 80px; }
+        body { background: #0b0f19; color: #fff; padding: 15px; }
+        .container { max-width: 600px; margin: 0 auto; }
+        .header { text-align: center; margin-bottom: 20px; border-bottom: 2px solid #fbbf24; padding-bottom: 10px; }
+        .header img { width: 50px; height: 50px; border-radius: 50%; border: 2px solid #fbbf24; }
+        .header h2 { color: #fbbf24; font-size: 16px; }
 
-        header {
-            background: linear-gradient(90deg, #1f222e, #14161f);
-            padding: 12px 20px; display: flex; justify-content: space-between; align-items: center;
-            border-bottom: 3px solid #fbbf24; position: sticky; top: 0; z-index: 1000;
-        }
-        .logo { color: #fbbf24; font-weight: 900; font-size: 16px; text-decoration: none; }
+        .box { background: #1e293b; border: 1px solid #fbbf24; border-radius: 12px; padding: 15px; margin-bottom: 15px; }
+        .box h3 { color: #38bdf8; margin-bottom: 10px; font-size: 15px; }
+        
+        select { width: 100%; padding: 10px; border-radius: 8px; background: #0f172a; color: #fff; border: 1px solid #fbbf24; font-size: 14px; margin-bottom: 10px; }
+        .result-box { background: #0f172a; padding: 12px; border-radius: 8px; font-size: 13px; color: #cbd5e1; margin-top: 10px; border-left: 4px solid #fbbf24; }
 
-        .container { max-width: 800px; margin: 15px auto; padding: 10px; }
-
-        /* Breaking News Ticker */
-        .breaking-bar {
-            background: #b91c1c; border: 1px solid #f87171; border-radius: 8px;
-            padding: 8px 12px; margin-bottom: 15px; display: flex; align-items: center; font-size: 12px; font-weight: bold;
-        }
-        .breaking-bar span { background: #000; color: #f87171; padding: 2px 6px; border-radius: 4px; margin-right: 8px; }
-        .breaking-bar marquee { color: #fef2f2; }
-
-        .section-box {
-            background: rgba(30, 41, 59, 0.8); border: 1px solid rgba(251, 191, 36, 0.3);
-            border-radius: 12px; padding: 15px; margin-bottom: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-        }
-        .box-title { color: #fbbf24; font-size: 15px; font-weight: 800; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
-
-        /* Grid elements */
-        .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
-
-        .widget-item { background: rgba(15, 23, 42, 0.9); padding: 12px; border-radius: 8px; border: 1px solid #38bdf8; }
-        .widget-item h4 { color: #38bdf8; font-size: 13px; margin-bottom: 5px; }
-        .widget-item p { font-size: 12px; color: #cbd5e1; line-height: 1.4; }
-
-        /* Floating Nav */
-        .floating-bottom-bar {
-            position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(15, 23, 42, 0.95);
-            backdrop-filter: blur(10px); border-top: 1px solid rgba(251, 191, 36, 0.3);
-            display: flex; justify-content: space-around; padding: 8px 6px; z-index: 9999;
-        }
-        .float-nav-btn {
-            background: #1e293b; border: 1px solid #38bdf8; color: #38bdf8;
-            padding: 6px 14px; border-radius: 20px; font-size: 11px; font-weight: 700; text-decoration: none;
-        }
-        .float-nav-btn.gold { border-color: #fbbf24; color: #fbbf24; background: rgba(251,191,36,0.1); }
+        .back-btn { display: block; text-align: center; background: #334155; color: #fff; text-decoration: none; padding: 10px; border-radius: 10px; margin-top: 20px; font-weight: bold; }
     </style>
 </head>
 <body>
-
-    <header>
-        <a href="index.html" class="logo">⚡ IOIS Hub - दैनिक सेवाएं</a>
-        <a href="dashboard.html" style="color:#38bdf8; font-size:12px; font-weight:bold; text-decoration:none;">👤 मेरा अकाउंट</a>
-    </header>
-
     <div class="container">
-
-        <!-- Breaking News -->
-        <div class="breaking-bar">
-            <span>ब्रेकिंग न्यूज़</span>
-            <marquee scrollamount="5">डिजिटल इंडिया के तहत आज ग्रामीण युवाओं के लिए ऑनलाइन अर्निंग और जॉब पोर्टल के नए अवसर लाइव कर दिए गए हैं। तुरंत रजिस्टर करें!</marquee>
+        <div class="header">
+            <img src="logo.png" alt="Logo">
+            <h2>IOIS - पंचांग व दैनिक राशिफल</h2>
         </div>
 
-        <!-- Live Calendar, Date & Time Box -->
-        <div class="section-box" style="text-align: center;">
-            <div class="box-title" style="justify-content: center;">📅 लाइव दिनांक, वार और समय (Calendar & Clock)</div>
-            <h2 id="liveClock" style="color: #38bdf8; font-size: 24px; font-weight: 900; margin: 5px 0;">--:--:--</h2>
-            <p id="liveDate" style="color: #fbbf24; font-size: 14px; font-weight: 700;">--</p>
+        <div class="box">
+            <h3>📅 आज का पंचांग</h3>
+            <p style="font-size: 13px; line-height: 1.6;">
+                <strong>तिथि:</strong> शुक्ल पक्ष एकादशी<br>
+                <strong>नक्षत्र:</strong> रोहिणी<br>
+                <strong>शुभ मुहूर्त:</strong> सुबह 11:45 से दोपहर 12:35 तक<br>
+                <strong>राहुकाल:</strong> दोपहर 01:30 से 03:00 तक
+            </p>
         </div>
 
-        <!-- Weather & Horoscope Grid -->
-        <div class="grid-2">
-            <!-- Weather Widget -->
-            <div class="section-box">
-                <div class="box-title">🌦️ लाइव मौसम का अनुमान</div>
-                <div class="widget-item">
-                    <h4 id="locationName">वर्तमान क्षेत्र: भारत</h4>
-                    <p id="weatherInfo">तापमान लोड हो रहा है...</p>
-                </div>
-            </div>
-
-            <!-- Daily Horoscope Widget -->
-            <div class="section-box">
-                <div class="box-title">🔮 दैनिक राशिफल (Aaj Ka Rashifal)</div>
-                <div class="widget-item">
-                    <h4>आज का विशेष संदेश</h4>
-                    <p>विद्यार्थियों और नौकरीपेशा लोगों के लिए आज का दिन अत्यंत शुभ है। नई ऑनलाइन शुरुआत करने से लाभ मिलेगा। धैर्य और मेहनत रंग लाएगी।</p>
-                </div>
-            </div>
+        <div class="box">
+            <h3>✨ अपनी राशि चुनें और सटीक राशिफल जानें</h3>
+            <select id="rashiSelect" onchange="showRashifal()">
+                <option value="">-- अपनी राशि चुनें --</option>
+                <option value="मेष">मेष (Aries)</option>
+                <option value="वृषभ">वृषभ (Taurus)</option>
+                <option value="मिथुन">मिथुन (Gemini)</option>
+                <option value="कर्क">कर्क (Cancer)</option>
+                <option value="सिंह">सिंह (Leo)</option>
+                <option value="कन्या">कन्या (Virgo)</option>
+                <option value="तुला">तुला (Libra)</option>
+                <option value="वृश्चिक">वृश्चिक (Scorpio)</option>
+                <option value="धनु">धनु (Sagittarius)</option>
+                <option value="मकर">मकर (Capricorn)</option>
+                <option value="कुंभ">कुंभ (Aquarius)</option>
+                <option value="मीन">मीन (Pisces)</option>
+            </select>
+            <div class="result-box" id="rashifalResult">कृपया ऊपर दी गई सूची से अपनी राशि चुनें।</div>
         </div>
 
-        <!-- News Papers & Channels Links -->
-        <div class="section-box">
-            <div class="box-title">📰 दैनिक समाचार पत्र और लाइव टीवी चैनल्स</div>
-            <div class="grid-2">
-                <div class="widget-item">
-                    <h4>प्रमुख ई-पेपर लिंक्स</h4>
-                    <p>• दैनिक भास्कर / जागरण ऑनलाइन<br>• हिंदुस्तान समाचार ई-पेपर<br>• रोजगार समाचार पत्रिका</p>
-                </div>
-                <div class="widget-item">
-                    <h4>लाइव न्यूज चैनल्स</h4>
-                    <p>• DD News Live<br>• Sansad TV & Educational Broadcasts<br>• Local Digital News Updates</p>
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-    <!-- Floating Navigation Bar -->
-    <div class="floating-bottom-bar">
-        <a href="index.html" class="float-nav-btn gold">🏠 होम</a>
-        <a href="utilities.html" class="float-nav-btn gold" style="background:rgba(251,191,36,0.2);">✨ यूटिलिटी</a>
-        <a href="dashboard.html" class="float-nav-btn">📊 डैशबोर्ड</a>
-        <a href="https://wa.me/918877490845?text=Hello%20Support" target="_blank" class="float-nav-btn" style="border-color:#22c55e; color:#4ade80;">💬 सपोर्ट</a>
+        <a href="index.html" class="back-btn">🏠 होम पेज पर वापस जाएं</a>
     </div>
 
     <script>
-        // Live Clock and Calendar Script
-        function updateClock() {
-            const now = new Date();
-            document.getElementById('liveClock').innerText = now.toLocaleTimeString('hi-IN');
+        function showRashifal() {
+            const rashi = document.getElementById('rashiSelect').value;
+            const res = document.getElementById('rashifalResult');
+            if(!rashi) {
+                res.innerHTML = "कृपया अपनी राशि चुनें।";
+                return;
+            }
             
-            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            document.getElementById('liveDate').innerText = now.toLocaleDateString('hi-IN', options);
+            const predictions = {
+                "मेष": "आज धन लाभ के योग बन रहे हैं। परिवार में खुशहाली रहेगी और कार्यक्षेत्र में सफलता मिलेगी।",
+                "वृषभ": "व्यापार में नए अवसर मिलेंगे। सेहत का ध्यान रखें और अनजान लोगों पर ज्यादा भरोसा न करें.",
+                "मिथुन": "विद्यार्थियों के लिए दिन उत्तम है। रुका हुआ पैसा वापस मिल सकता है.",
+                "कर्क": "मानसिक शांति बनी रहेगी। मित्रों का पूरा सहयोग मिलेगा, यात्रा टालें।",
+                "सिंह": "आत्मविश्वास में वृद्धि होगी। ऑफिस में ओथोरिटी बढ़ेगी, दिन शानदार है।",
+                "कन्या": "खर्चों पर नियंत्रण रखें। परिवार के साथ धार्मिक स्थल की यात्रा हो सकती है।",
+                "तुला": "सफलता आपके कदम चूमेगी। ऑनलाइन बिजनेस या कार्यों में विशेष लाभ मिलेगा।",
+                "वृश्चिक": "छुपकर विरोध करने वालों से सावधान रहें। धैर्य से काम लें, समय अनुकूल होगा।",
+                "धनु": "भाग्य का पूरा साथ मिलेगा। नई नौकरी या प्रोजेक्ट की शुरुआत के लिए बेहतरीन दिन है।",
+                "मकर": "कार्यभार अधिक हो सकता है। सेहत का ख्याल रखें, मेहनत का फल अवश्य मिलेगा।",
+                "कुंभ": "आय के नए स्रोत खुलेंगे। वैवाहिक जीवन सुखमय रहेगा और मित्रों से भेंट होगी।",
+                "मीन": "मन प्रसन्न रहेगा। रचनात्मक कार्यों में रुचि बढ़ेगी और पुराना अटका काम पूरा होगा।"
+            };
+            
+            res.innerHTML = `<strong>${rashi} राशि का आज का राशिफल:</strong><br>${predictions[rashi]}`;
         }
-        setInterval(updateClock, 1000);
-        updateClock();
-
-        // Simulated Weather info based on general estimation
-        window.addEventListener('DOMContentLoaded', () => {
-            document.getElementById('weatherInfo').innerText = "तापमान: 31°C | स्थिति: साफ आसमान, हल्की हवा और धूप (खेती और दैनिक कार्य के लिए अनुकूल)।";
-        });
     </script>
 </body>
 </html>
