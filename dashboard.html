@@ -3,69 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IOIS Platform - User Dashboard</title>
+    <title>IOIS Platform - Dashboard</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        .dash-card { background: #e9ecef; padding: 15px; border-radius: 6px; margin-bottom: 15px; }
-        .stat-box { display: flex; justify-content: space-between; gap: 10px; margin-bottom: 20px; }
-        .stat-item { flex: 1; background: #fff; padding: 15px; border-left: 4px solid #ff9933; text-align: center; border-radius: 5px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
-        .btn-wa { background: #25d366; margin-top: 10px; }
+        .id-card { background: linear-gradient(135deg, #111, #333); color: #fff; padding: 20px; border-radius: 10px; border: 2px solid #ff9933; margin-bottom: 20px; text-align: center; }
+        .id-card img { width: 90px; height: 90px; border-radius: 50%; object-fit: cover; border: 3px solid #ff9933; margin-bottom: 10px; }
+        .dash-box { background: #e9ecef; padding: 15px; border-radius: 6px; margin-bottom: 15px; }
     </style>
 </head>
 <body>
 
     <header>
         <div class="logo-text">IOIS PLATFORM</div>
-        <p>User Dashboard & Referral Center</p>
+        <p>Member Dashboard</p>
     </header>
 
-    <div class="container" style="max-width: 800px;">
-        <h2>स्वागत है, प्रमोटर! 👋</h2>
+    <nav>
+        <a href="index.html">🏠 होम</a>
+        <a href="register.html">📝 रजिस्ट्रेशन</a>
+        <a href="login.html">🔑 लॉगिन</a>
+        <a href="dashboard.html" class="active">📊 डैशबोर्ड</a>
+        <a href="admin.html" style="background:#dc3545;">🛡️ एडमिन पैनल</a>
+    </nav>
+
+    <div class="container" style="max-width: 700px;">
         
-        <div class="dash-card">
-            <p><strong>आपका यूजर आईडी:</strong> <span id="dispUserId" style="color: #138808; font-weight: bold;">IOIS309792</span></p>
+        <!-- यूनिक डिजिटल आईडी कार्ड (3D सिल्वर टेक्स्ट लुक) -->
+        <div class="id-card">
+            <img id="cardPhoto" src="" alt="Profile Photo" style="display:none;">
+            <h3 style="background: linear-gradient(45deg, #silver, #fff, #ff9933); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">IOIS 3D DIGITAL ID CARD</h3>
+            <p id="cardName" style="font-size: 20px; font-weight: bold; margin-top: 5px;"></p>
+            <p id="cardId" style="color: #ff9933; font-weight: bold;"></p>
+            <p id="cardPlan" style="font-size: 14px; color: #aaa;"></p>
+        </div>
+
+        <div class="dash-box">
             <p><strong>आपका यूनिक रेफरल लिंक:</strong></p>
-            <input type="text" id="refLink" value="https://ioisplatform.github.io/index.html?ref=IOIS309792" readonly style="margin-top: 5px; background: #fff;">
+            <input type="text" id="refLink" readonly style="margin-top: 5px; background: #fff;">
             <button onclick="copyLink()" style="margin-top: 10px; background: #ff9933; color: #000;">📋 लिंक कॉपी करें</button>
         </div>
 
-        <!-- Earnings & Referral Stats -->
-        <div class="stat-box">
-            <div class="stat-item">
-                <h3>₹0</h3>
-                <p>कुल कमाई (Total Earnings)</p>
-            </div>
-            <div class="stat-item">
-                <h3>0</h3>
-                <p>कुल डाउनलाइन (Total Referrals)</p>
-            </div>
-        </div>
-
-        <!-- One-Click WhatsApp Status & Downline Connect -->
-        <div class="dash-card" style="background: #fff; border: 1px solid #ddd;">
-            <h3>⚡ त्वरित प्रचार और टूल्स (Quick Actions)</h3>
-            <p style="margin-top: 8px;">अपने दोस्तों या व्हाट्सएप स्टेटस पर सीधे इस लिंक और बैनर को शेयर करें:</p>
-            
-            <a href="https://api.whatsapp.com/send?text=₹10%20में%20डिजिटल%20स्टार्टर%20किट%20खरीदें%20और%20प्रति%20रेफर%20₹7%20तुरंत%20कमाएं!%20लिंक:%20https://ioisplatform.github.io/index.html?ref=IOIS309792" target="_blank">
-                <button class="btn-wa">🟢 व्हाट्सएप स्टेटस पर शेयर करें</button>
-            </a>
-            
-            <a href="https://wa.me/?text=नमस्ते%20डाउनलाइन,%20अपना%20काम%20तेजी%20से%20शुरू%20करें!" target="_blank">
-                <button style="margin-top: 10px; background: #007bff;">💬 डाउनलाइन को व्हाट्सएप मैसेज भेजें</button>
+        <!-- व्हाट्सएप शेयरिंग और यूनिक पोस्टर बैनर लिंक -->
+        <div class="dash-box" style="background:#fff; border:1px solid #ddd;">
+            <h3>⚡ व्हाट्सएप स्टेटस शेयरिंग</h3>
+            <p style="margin-top: 5px; font-size: 14px;">एक क्लिक में अपने व्हाट्सएप स्टेटस पर IOIS का ऑफिशियल पोस्टर और रेफरल लिंक शेयर करें:</p>
+            <a id="waShareBtn" href="#" target="_blank">
+                <button style="background: #25d366; margin-top: 10px;">🟢 व्हाट्सएप स्टेटस पर शेयर करें</button>
             </a>
         </div>
 
         <div style="text-align: center; margin-top: 20px;">
-            <a href="index.html" style="color: #ff9933; text-decoration: none; font-weight: bold;">🚪 लॉग आउट करें (Logout)</a>
+            <button onclick="logout()" style="background: #dc3545; width: auto; padding: 10px 25px;">🚪 लॉग आउट</button>
         </div>
     </div>
 
+    <footer>
+        <p>Official WhatsApp: +91 8877490845</p>
+    </footer>
+
     <script>
+        const currentUserId = localStorage.getItem('currentUser');
+
+        if (!currentUserId || !localStorage.getItem(currentUserId)) {
+            alert('कृपया पहले लॉगिन करें!');
+            window.location.href = 'login.html';
+        } else {
+            const userData = JSON.parse(localStorage.getItem(currentUserId));
+            
+            document.getElementById('cardName').innerText = userData.fullName;
+            document.getElementById('cardId').innerText = `ID: ${userData.userId}`;
+            document.getElementById('cardPlan').innerText = `Plan: ${userData.cardTier}`;
+            
+            if(userData.photo) {
+                const img = document.getElementById('cardPhoto');
+                img.src = userData.photo;
+                img.style.display = 'inline-block';
+            }
+
+            const personalLink = `https://ioisplatform.github.io/register.html?ref=${userData.userId}`;
+            document.getElementById('refLink').value = personalLink;
+
+            const waText = encodeURIComponent(`🔥 IOIS Platform से जुड़ें!\nमात्र ₹10 में डिजिटल स्टार्टर किट प्राप्त करें और प्रति रेफर ₹7 तुरंत कमाएं!\nजॉइनिंग लिंक: ${personalLink}`);
+            document.getElementById('waShareBtn').href = `https://api.whatsapp.com/send?text=${waText}`;
+        }
+
         function copyLink() {
             var copyText = document.getElementById("refLink");
             copyText.select();
             document.execCommand("copy");
-            alert("रेफरल लिंक कॉपी हो गया: " + copyText.value);
+            alert("रेफरल लिंक कॉपी हो गया!");
+        }
+
+        function logout() {
+            localStorage.removeItem('currentUser');
+            window.location.href = 'login.html';
         }
     </script>
 </body>
