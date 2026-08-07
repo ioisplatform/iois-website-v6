@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IOIS Platform - User Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .dash-card { background: #e9ecef; padding: 15px; border-radius: 6px; margin-bottom: 15px; }
+        .stat-box { display: flex; justify-content: space-between; gap: 10px; margin-bottom: 20px; }
+        .stat-item { flex: 1; background: #fff; padding: 15px; border-left: 4px solid #ff9933; text-align: center; border-radius: 5px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .btn-wa { background: #25d366; margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-text">IOIS PLATFORM</div>
+        <p>User Dashboard & Referral Center</p>
+    </header>
+
+    <div class="container" style="max-width: 800px;">
+        <h2>स्वागत है, प्रमोटर! 👋</h2>
+        
+        <div class="dash-card">
+            <p><strong>आपका यूजर आईडी:</strong> <span id="dispUserId" style="color: #138808; font-weight: bold;">IOIS309792</span></p>
+            <p><strong>आपका यूनिक रेफरल लिंक:</strong></p>
+            <input type="text" id="refLink" value="https://ioisplatform.github.io/index.html?ref=IOIS309792" readonly style="margin-top: 5px; background: #fff;">
+            <button onclick="copyLink()" style="margin-top: 10px; background: #ff9933; color: #000;">📋 लिंक कॉपी करें</button>
+        </div>
+
+        <!-- Earnings & Referral Stats -->
+        <div class="stat-box">
+            <div class="stat-item">
+                <h3>₹0</h3>
+                <p>कुल कमाई (Total Earnings)</p>
+            </div>
+            <div class="stat-item">
+                <h3>0</h3>
+                <p>कुल डाउनलाइन (Total Referrals)</p>
+            </div>
+        </div>
+
+        <!-- One-Click WhatsApp Status & Downline Connect -->
+        <div class="dash-card" style="background: #fff; border: 1px solid #ddd;">
+            <h3>⚡ त्वरित प्रचार और टूल्स (Quick Actions)</h3>
+            <p style="margin-top: 8px;">अपने दोस्तों या व्हाट्सएप स्टेटस पर सीधे इस लिंक और बैनर को शेयर करें:</p>
+            
+            <a href="https://api.whatsapp.com/send?text=₹10%20में%20डिजिटल%20स्टार्टर%20किट%20खरीदें%20और%20प्रति%20रेफर%20₹7%20तुरंत%20कमाएं!%20लिंक:%20https://ioisplatform.github.io/index.html?ref=IOIS309792" target="_blank">
+                <button class="btn-wa">🟢 व्हाट्सएप स्टेटस पर शेयर करें</button>
+            </a>
+            
+            <a href="https://wa.me/?text=नमस्ते%20डाउनलाइन,%20अपना%20काम%20तेजी%20से%20शुरू%20करें!" target="_blank">
+                <button style="margin-top: 10px; background: #007bff;">💬 डाउनलाइन को व्हाट्सएप मैसेज भेजें</button>
+            </a>
+        </div>
+
+        <div style="text-align: center; margin-top: 20px;">
+            <a href="index.html" style="color: #ff9933; text-decoration: none; font-weight: bold;">🚪 लॉग आउट करें (Logout)</a>
+        </div>
+    </div>
+
+    <script>
+        function copyLink() {
+            var copyText = document.getElementById("refLink");
+            copyText.select();
+            document.execCommand("copy");
+            alert("रेफरल लिंक कॉपी हो गया: " + copyText.value);
+        }
+    </script>
+</body>
+</html>
