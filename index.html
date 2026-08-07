@@ -3,242 +3,295 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IOIS - Indian Online Income Supporting System</title>
+    <title>IOIS - INDIAN ONLINE INCOME SUPPORTING SYSTEM</title>
+    <!-- ब्राउज़र टैब के लिए लोगो (Favicon) -->
     <link rel="icon" type="image/png" href="logo.png">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, sans-serif; }
-        body { background: #0b0f19; color: #fff; padding-bottom: 90px; }
-
-        header {
-            background: linear-gradient(90deg, #1f222e, #14161f);
-            padding: 12px 20px; display: flex; justify-content: space-between; align-items: center;
-            border-bottom: 3px solid #fbbf24; position: sticky; top: 0; z-index: 1000;
-        }
-
-        .logo-container { display: flex; align-items: center; gap: 10px; text-decoration: none; }
         
-        .menu-btn { 
-            font-size: 12px; font-weight: 800; cursor: pointer; color: #fbbf24; 
-            background: rgba(251,191,36,0.1); padding: 6px 14px; border-radius: 20px; 
-            border: 1px solid rgba(251,191,36,0.4); text-transform: uppercase; letter-spacing: 1px;
+        body { 
+            /* कमरे की दीवार जैसा प्रीमियम बैकग्राउंड लुक */
+            background: linear-gradient(135deg, #1b263b, #0d1b2a);
+            color: #f8f9fa; 
+            min-height: 100vh;
+            padding-bottom: 40px;
         }
 
-        .dropdown-menu {
-            position: absolute; top: 60px; right: 15px;
-            background: rgba(20, 22, 31, 0.98); border: 2px solid #fbbf24; border-radius: 12px;
-            width: 240px; display: none; flex-direction: column; box-shadow: 0 10px 30px rgba(0,0,0,0.9); z-index: 1001;
+        .room-container {
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
-        .dropdown-menu a {
-            color: #fbbf24; text-decoration: none; padding: 11px 15px;
-            font-weight: 600; border-bottom: 1px solid rgba(255,255,255,0.1); font-size: 13px;
-        }
-        .dropdown-menu a:hover { background: #ff9933; color: #000; }
 
-        .container { max-width: 900px; margin: 15px auto; padding: 15px; }
+        /* हेडर और लोगो स्टाइल */
+        .brand-header {
+            text-align: center;
+            margin-bottom: 20px;
+            background: rgba(20, 30, 48, 0.8);
+            padding: 15px;
+            border-radius: 16px;
+            border: 2px solid #f1c40f;
+            width: 100%;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+        }
+        .brand-logo {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            border: 2px solid #f1c40f;
+            object-fit: cover;
+            margin-bottom: 8px;
+            box-shadow: 0 4px 10px rgba(241, 196, 15, 0.4);
+        }
+        .brand-header h1 {
+            font-size: 13px;
+            font-weight: 900;
+            color: #f1c40f;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
 
-        .widgets-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
-        .widget-card {
-            background: linear-gradient(135deg, #1e293b, #0f172a);
-            border: 1.5px solid rgba(251,191,36,0.3); border-radius: 16px; padding: 15px; text-align: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5); display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 90px;
+        /* दीवार की घड़ी और डिजिटल घड़ी का सेक्शन */
+        .wall-display {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 12px 20px;
+            border-radius: 16px;
+            margin-bottom: 15px;
+            border: 1px solid rgba(241, 196, 15, 0.3);
         }
-        .widget-card h3 { font-size: 15px; color: #fbbf24; margin-bottom: 4px; font-weight: 800; }
-        .widget-card p { font-size: 10.5px; color: #94a3b8; text-transform: uppercase; }
+        
+        /* एनालॉग दीवार घड़ी */
+        .analog-clock {
+            width: 65px; height: 65px; border: 4px solid #f1c40f; border-radius: 50%;
+            position: relative; background: #fff; box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+        }
+        .hand {
+            position: absolute; bottom: 50%; left: 50%; transform-origin: bottom; background: #000; border-radius: 4px;
+        }
+        .hour-hand { width: 3px; height: 16px; background: #333; transform: translateX(-50%); }
+        .minute-hand { width: 2px; height: 22px; background: #555; transform: translateX(-50%); }
+        .second-hand { width: 1px; height: 26px; background: #e74c3c; transform: translateX(-50%); }
+        .center-dot { width: 6px; height: 6px; background: #f1c40f; border-radius: 50%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
 
-        .hero-box {
-            background: linear-gradient(135deg, #1e1b4b, #0f172a);
-            border: 2px solid #fbbf24; border-radius: 16px; padding: 20px; text-align: center;
-            margin-bottom: 20px; box-shadow: 0 10px 30px rgba(251,191,36,0.15);
+        .digital-clock-box {
+            text-align: right;
         }
-        .hero-box h2 { font-size: 18px; margin-bottom: 8px; color: #fbbf24; }
-        .hero-box p { font-size: 12.5px; color: #cbd5e1; line-height: 1.5; margin-bottom: 12px; }
+        .digital-clock { font-size: 20px; font-weight: bold; color: #f1c40f; font-family: monospace; }
+        .clock-label { font-size: 9px; color: #a0aec0; text-transform: uppercase; letter-spacing: 1px; }
 
-        .service-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-bottom: 25px;
+        /* खिड़की जैसी आइकॉन (लाइव मौसम) */
+        .window-weather {
+            width: 100%;
+            height: 100px;
+            border: 6px solid #4a5568;
+            border-radius: 18px;
+            background: linear-gradient(to bottom, #38bdf8, #bae6fd);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 25px;
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.4), 0 5px 15px rgba(0,0,0,0.3);
+            color: #0f172a;
+            position: relative;
+            overflow: hidden;
         }
-        .service-card {
-            background: rgba(30, 41, 59, 0.8); border: 1px solid rgba(56, 189, 248, 0.3);
-            border-radius: 16px; padding: 16px; text-align: center; text-decoration: none; color: #fff; transition: 0.3s;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
+        .window-frame-line {
+            position: absolute; width: 100%; height: 2px; background: #4a5568; top: 50%;
         }
-        .service-card:hover { transform: translateY(-3px); border-color: #fbbf24; background: rgba(30, 41, 59, 1); }
-        .service-card span { font-size: 26px; margin-bottom: 8px; }
-        .service-card h3 { color: #fbbf24; font-size: 13px; margin-bottom: 4px; }
-        .service-card p { font-size: 10px; color: #94a3b8; }
+        .weather-info {
+            background: rgba(255, 255, 255, 0.85);
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-weight: 800;
+            font-size: 13px;
+            z-index: 2;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        .weather-sub { font-size: 10px; font-weight: 700; color: #334155; margin-top: 2px; z-index: 2; }
 
-        .floating-bottom-bar {
-            position: fixed; bottom: 0; left: 0; width: 100%;
-            background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(10px);
-            border-top: 1px solid rgba(251, 191, 36, 0.3);
-            display: flex; justify-content: space-around; padding: 8px 6px; z-index: 9999;
+        /* मोबाइल होम स्क्रीन ऐप आइकॉन ग्रिड */
+        .app-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            width: 100%;
         }
-        .float-nav-btn {
-            background: #1e293b; border: 1px solid #38bdf8; color: #38bdf8;
-            padding: 6px 12px; border-radius: 20px; font-size: 11px; font-weight: 700; text-decoration: none;
+        .app-icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: #fff;
+            transition: transform 0.2s;
         }
-        .float-nav-btn.gold { border-color: #fbbf24; color: #fbbf24; background: rgba(251,191,36,0.1); }
+        .app-icon:active { transform: scale(0.95); }
+        
+        .icon-box {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.15), rgba(255,255,255,0.05));
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            border: 1px solid rgba(241, 196, 15, 0.4);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+            margin-bottom: 6px;
+        }
+        .icon-label { 
+            font-size: 11px; 
+            font-weight: 600; 
+            text-align: center; 
+            color: #cbd5e1;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+        }
     </style>
 </head>
 <body>
-
-    <header>
-        <!-- टेक्स्ट लोगो -->
-        <a href="index.html" class="logo-container">
-            <div style="background: linear-gradient(135deg, #fbbf24, #f97316); width: 35px; height: 35px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 900; color: #000; font-size: 16px;">I</div>
-            <div>
-                <h1 style="font-size: 16px; font-weight: 900; background: linear-gradient(135deg, #ff9933, #fff, #138808); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin: 0; line-height: 1.2;">IOIS</h1>
-                <p style="font-size: 7.5px; color: #38bdf8; text-transform: uppercase; letter-spacing: 0.5px; margin: 0;">Indian Online Income Supporting System</p>
-            </div>
-        </a>
-
-        <div class="menu-btn" onclick="toggleMenu()">MENU ⁝</div>
+    <div class="room-container">
         
-        <div id="dropdownMenu" class="dropdown-menu">
-            <a href="index.html">🏠 होम पेज</a>
-            <a href="utilities.html">✨ पंचांग व राशिफल</a>
-            <a href="news.html">📰 दैनिक न्यूज़ व अपडेट</a>
-            <a href="jobs.html">💼 जॉब पोर्टल (Direct Apply)</a>
-            <a href="chat.html">💬 कम्युनिटी चैट रूम</a>
-            <a href="dashboard.html">📊 मेरा डैशबोर्ड / प्रोफाइल</a>
-            <a href="register.html">📝 रजिस्ट्रेशन करें</a>
-            <a href="login.html">🔑 लॉगिन करें</a>
-            <a href="admin.html" id="adminMenuLink" style="display:none; background:#dc3545; color:#fff;">🛡️ एडमिन पैनल (Owner)</a>
+        <!-- ब्रैंडेड हेडर और लोगो (फोटोज जैसी हाई क्वालिटी गोल्ड थीम) -->
+        <div class="brand-header">
+            <img src="logo.png" alt="IOIS Logo" class="brand-logo" onerror="this.src='https://via.placeholder.com/70?text=IOIS'">
+            <h1>IOIS - INDIAN ONLINE INCOME SUPPORTING SYSTEM</h1>
         </div>
-    </header>
 
-    <div class="container">
-        <!-- लाइव घड़ी और GPS लाइव मौसम व शहर विजेट -->
-        <div class="widgets-grid">
-            <div class="widget-card">
-                <h3 id="liveClock">00:00:00</h3>
-                <p>⏰ डिजिटल घड़ी</p>
+        <!-- दीवार वाली एनालॉग घड़ी और डिजिटल घड़ी -->
+        <div class="wall-display">
+            <div class="analog-clock">
+                <div class="hand hour-hand" id="hourHand"></div>
+                <div class="hand minute-hand" id="minuteHand"></div>
+                <div class="hand second-hand" id="secondHand"></div>
+                <div class="center-dot"></div>
             </div>
-            <div class="widget-card">
-                <h3 id="gpsWeather" style="font-size: 13px;">लोकेशन खोज रहे हैं...</h3>
-                <p>🌤️ लाइव मौसम व शहर</p>
+            <div class="digital-clock-box">
+                <div class="digital-clock" id="digitalClock">00:00:00</div>
+                <div class="clock-label">लाइव डिजिटल घड़ी</div>
             </div>
         </div>
-
-        <div class="hero-box">
-            <h2>IOIS डिजिटल हब</h2>
-            <p>पढ़ाई, कमाई, सिखाई और दैनिक जीवन की सभी जरूरी सेवाएं एक ही मंच पर।</p>
-            <a href="register.html" style="background:#22c55e; color:#fff; padding:10px 18px; border-radius:8px; text-decoration:none; font-weight:bold; font-size:12px; display:inline-block;">🚀 तुरंत शुरुआत करें (₹10 से)</a>
-        </div>
-
-        <div style="color:#fbbf24; font-size:14px; font-weight:800; margin-bottom:12px; text-transform:uppercase;">🌟 हमारी मुख्य सेवाएं</div>
         
-        <div class="service-grid">
-            <a href="utilities.html" class="service-card">
-                <span>📅</span>
-                <h3>पंचांग व राशिफल</h3>
-                <p>शुभ मुहूर्त और राशिफल</p>
+        <!-- खिड़की जैसी डिजाइन वाला लाइव मौसम विजेट -->
+        <div class="window-weather" id="weatherWidget">
+            <div class="window-frame-line"></div>
+            <div class="weather-info" id="tempText">मौसम लोड हो रहा है...</div>
+            <div class="weather-sub" id="cityText">GPS लोकेशन</div>
+        </div>
+
+        <!-- मोबाइल होम स्क्रीन जैसे ऐप आइकॉन (सभी जरूरी पेजों के लिए) -->
+        <div class="app-grid">
+            <a href="dashboard.html" class="app-icon">
+                <div class="icon-box">📊</div>
+                <div class="icon-label">डैशबोर्ड</div>
             </a>
-            <a href="news.html" class="service-card">
-                <span>📰</span>
-                <h3>दैनिक न्यूज़</h3>
-                <p>ताज़ा ब्रेकिंग न्यूज़</p>
+            <a href="jobs.html" class="app-icon">
+                <div class="icon-box">💼</div>
+                <div class="icon-label">जॉब्स पोर्टल</div>
             </a>
-            <a href="jobs.html" class="service-card">
-                <span>💼</span>
-                <h3>जॉब पोर्टल</h3>
-                <p>नौकरी के लिए आवेदन</p>
+            <a href="news.html" class="app-icon">
+                <div class="icon-box">📰</div>
+                <div class="icon-label">दैनिक न्यूज़</div>
             </a>
-            <a href="chat.html" class="service-card">
-                <span>💬</span>
-                <h3>कम्युनिटी चैट</h3>
-                <p>चर्चा व संवाद</p>
+            <a href="utilities.html" class="app-icon">
+                <div class="icon-box">📅</div>
+                <div class="icon-label">पंचांग व राशिफल</div>
             </a>
-            <a href="dashboard.html" class="service-card">
-                <span>👤</span>
-                <h3>मेरा डैशबोर्ड</h3>
-                <p>प्रोफाइल और स्टेटस</p>
+            <a href="chat.html" class="app-icon">
+                <div class="icon-box">💬</div>
+                <div class="icon-label">कम्युनिटी चैट</div>
             </a>
-            <a href="register.html" class="service-card" style="border-color:#fbbf24;">
-                <span>🚀</span>
-                <h3 style="color:#22c55e;">रजिस्ट्रेशन</h3>
-                <p>नया खाता बनाएं</p>
+            <a href="register.html" class="app-icon">
+                <div class="icon-box" style="border-color: #22c55e;">🚀</div>
+                <div class="icon-label" style="color: #22c55e;">रजिस्टर</div>
+            </a>
+            <a href="login.html" class="app-icon">
+                <div class="icon-box">🔑</div>
+                <div class="icon-label">लॉगिन</div>
+            </a>
+            <a href="admin.html" class="app-icon">
+                <div class="icon-box" style="border-color: #e74c3c;">🛡️</div>
+                <div class="icon-label">एडमिन पैनल</div>
+            </a>
+            <a href="utilities.html" class="app-icon">
+                <div class="icon-box">⚙️</div>
+                <div class="icon-label">अन्य सेवाएं</div>
             </a>
         </div>
     </div>
-
-    <div class="floating-bottom-bar">
-        <a href="index.html" class="float-nav-btn gold">🏠 होम</a>
-        <a href="utilities.html" class="float-nav-btn">✨ पंचांग</a>
-        <a href="jobs.html" class="float-nav-btn">💼 जॉब्स</a>
-        <a href="dashboard.html" class="float-nav-btn gold">👤 अकाउंट</a>
-    </div>
-
+    
     <script>
-        // मेनू टॉगल
-        function toggleMenu() {
-            const menu = document.getElementById('dropdownMenu');
-            menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
-        }
-
-        // डिजिटल घड़ी (लाइव लुक)
+        // घड़ी को चलाने का जावास्क्रिप्ट कोड (एनालॉग और डिजिटल दोनों)
         setInterval(() => {
             const now = new Date();
-            document.getElementById('liveClock').innerText = now.toLocaleTimeString('hi-IN');
+            
+            // डिजिटल घड़ी अपडेट
+            document.getElementById('digitalClock').innerText = now.toLocaleTimeString('hi-IN');
+
+            // एनालॉग घड़ी की सुइयां घुमाना
+            const hours = now.getHours();
+            const minutes = now.getMinutes();
+            const seconds = now.getSeconds();
+
+            const secondDeg = (seconds / 60) * 360;
+            const minuteDeg = ((minutes + seconds / 60) / 60) * 360;
+            const hourDeg = ((hours % 12 + minutes / 60) / 12) * 360;
+
+            document.getElementById('secondHand').style.transform = `translateX(-50%) rotate(${secondDeg}deg)`;
+            document.getElementById('minuteHand').style.transform = `translateX(-50%) rotate(${minuteDeg}deg)`;
+            document.getElementById('hourHand').style.transform = `translateX(-50%) rotate(${hourDeg}deg)`;
         }, 1000);
 
-        // GPS और शहर के नाम के साथ लाइव मौसम फेच करना
-        function fetchLiveWeatherAndCity() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(
-                    async (position) => {
-                        const lat = position.coords.latitude;
-                        const lon = position.coords.longitude;
-                        try {
-                            // 1. मौसम का डेटा फेच करना
-                            const weatherRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`);
-                            const weatherData = await weatherRes.json();
+        // लाइव GPS मौसम और शहर का नाम फेच करने का कोड
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                async (position) => {
+                    const lat = position.coords.latitude;
+                    const lon = position.coords.longitude;
+                    try {
+                        // Open-Meteo वेदर एपीआई
+                        const weatherRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`);
+                        const weatherData = await weatherRes.json();
+                        
+                        if (weatherData && weatherData.current_weather) {
+                            const temp = weatherData.current_weather.temperature;
                             
-                            // 2. शहर का नाम पता करना (रिवर्स जियोकोडिंग)
-                            const geoRes = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=local&count=1&latitude=${lat}&longitude=${lon}`);
-                            
-                            let cityName = "आपका क्षेत्र";
-                            if (weatherData && weatherData.current_weather) {
-                                const temp = weatherData.current_weather.temperature;
-                                
-                                // ब्राउज़र की भाषा या लोकेशन से शहर ढूंढने की कोशिश
-                                fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`)
-                                    .then(res => res.json())
-                                    .then(locData => {
-                                        if (locData && locData.address) {
-                                            cityName = locData.address.city || locData.address.town || locData.address.village || locData.address.county || "लाइव लोकेशन";
-                                        }
-                                        document.getElementById('gpsWeather').innerHTML = `${cityName}: ${temp}°C`;
-                                    })
-                                    .catch(() => {
-                                        document.getElementById('gpsWeather').innerHTML = `${temp}°C (लाइव)`;
-                                    });
-                            } else {
-                                document.getElementById('gpsWeather').innerText = "डेटा उपलब्ध नहीं";
-                            }
-                        } catch (err) {
-                            document.getElementById('gpsWeather').innerText = "कनेक्शन त्रुटि";
+                            // Nominatim से शहर का नाम पाना
+                            fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`)
+                                .then(res => res.json())
+                                .then(locData => {
+                                    let cityName = "आपका क्षेत्र";
+                                    if (locData && locData.address) {
+                                        cityName = locData.address.city || locData.address.town || locData.address.village || locData.address.county || "लाइव लोकेशन";
+                                    }
+                                    document.getElementById('tempText').innerText = `${temp}°C | साफ मौसम`;
+                                    document.getElementById('cityText').innerText = cityName;
+                                })
+                                .catch(() => {
+                                    document.getElementById('tempText').innerText = `${temp}°C तापमान`;
+                                    document.getElementById('cityText').innerText = "लाइव मौसम (GPS)";
+                                });
                         }
-                    },
-                    (error) => {
-                        document.getElementById('gpsWeather').innerText = "लोकेशन की अनुमति दें";
+                    } catch (err) {
+                        document.getElementById('tempText').innerText = "मौसम लोड नहीं हुआ";
                     }
-                );
-            } else {
-                document.getElementById('gpsWeather').innerText = "GPS समर्थित नहीं";
-            }
+                },
+                (error) => {
+                    document.getElementById('tempText').innerText = "लोकेशन अनुमति दें";
+                    document.getElementById('cityText').innerText = "GPS बंद है";
+                }
+            );
+        } else {
+            document.getElementById('tempText').innerText = "GPS समर्थित नहीं";
         }
-        
-        // पेज लोड होने पर मौसम लोड करें
-        fetchLiveWeatherAndCity();
-
-        // एडमिन लिंक चेकिंग
-        window.addEventListener('DOMContentLoaded', () => {
-            const currentUser = localStorage.getItem('currentUser');
-            if (currentUser === 'ioisowner') {
-                const adminLink = document.getElementById('adminMenuLink');
-                if(adminLink) adminLink.style.display = 'block';
-            }
-        });
     </script>
 </body>
 </html>
