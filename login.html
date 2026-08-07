@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IOIS Platform - Login</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo-text">IOIS PLATFORM</div>
+        <p>Indian Online Income Supporting System</p>
+    </header>
+
+    <div class="container">
+        <h2>Member Login</h2>
+        <form id="loginForm" onsubmit="handleLogin(event)">
+            
+            <div class="form-group">
+                <label>User ID or WhatsApp Number</label>
+                <input type="text" id="loginId" placeholder="अपनी यूजर आईडी या व्हाट्सएप दर्ज करें" required>
+            </div>
+
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" id="loginPass" placeholder="अपना पासवर्ड दर्ज करें" required>
+            </div>
+
+            <button type="submit">Login to Dashboard</button>
+
+            <div class="links-row">
+                <a href="#" onclick="alert('व्हाट्सएप सपोर्ट (+91 8877490845) पर संपर्क करके अपनी यूजर आईडी या पासवर्ड रिकवर करें।')">Forget ID / Password?</a>
+                <a href="register.html">New Registration</a>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function handleLogin(event) {
+            event.preventDefault();
+            const id = document.getElementById('loginId').value;
+            // Basic simulation login redirect to dashboard
+            alert('लॉगिन सफल रहा!');
+            window.location.href = 'dashboard.html';
+        }
+    </script>
+</body>
+</html>
