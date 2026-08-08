@@ -3,24 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IOIS Platform - Complete Dashboard & Weather</title>
+    <title>IOIS Platform - Complete Web Suite</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { background: #0b0f19; color: #fff; padding: 15px; min-height: 100vh; }
         .app-container { max-width: 480px; margin: auto; background: #121826; border-radius: 24px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 15px 35px rgba(0,0,0,0.6); }
 
-        /* Top Navigation & Menu Bar */
+        /* Top Navigation & Menu Button */
         .top-nav-bar { display: flex; justify-content: space-between; align-items: center; background: #1b2234; padding: 15px 20px; border-bottom: 1px solid rgba(255,255,255,0.05); }
         .menu-btn { background: none; border: none; color: #fff; font-size: 22px; cursor: pointer; display: flex; flex-direction: column; gap: 4px; }
         .menu-btn span { display: block; width: 22px; height: 2px; background: #fff; border-radius: 2px; }
         .brand-title { font-size: 16px; font-weight: bold; color: #38bdf8; }
         
-        /* Dropdown Menu (Hidden by default, toggled via button) */
+        /* Dropdown Menu */
         .dropdown-menu { display: none; background: #1b2234; padding: 10px 20px; border-bottom: 1px solid rgba(255,255,255,0.05); }
         .dropdown-menu a { display: block; color: #cbd5e1; text-decoration: none; padding: 8px 0; font-size: 14px; border-bottom: 1px solid rgba(255,255,255,0.03); }
         .dropdown-menu a:hover { color: #38bdf8; }
 
-        /* Section Switcher Tabs */
+        /* Tab Switcher */
         .tab-switcher { display: flex; background: #1b2234; padding: 10px 20px; gap: 10px; }
         .tab-btn { flex: 1; padding: 10px; border: none; border-radius: 10px; background: #121826; color: #94a3b8; font-weight: bold; cursor: pointer; font-size: 13px; transition: 0.3s; }
         .tab-btn.active { background: #3b82f6; color: #fff; box-shadow: 0 4px 12px rgba(59,130,246,0.4); }
@@ -81,13 +81,13 @@
         <a href="#">🚀 Referral System</a>
     </div>
 
-    <!-- Tab Switcher (Home & Weather) -->
+    <!-- Tab Switcher -->
     <div class="tab-switcher">
         <button class="tab-btn active" id="homeTabBtn" onclick="switchTab('home')">Home / Plans</button>
         <button class="tab-btn" id="weatherTabBtn" onclick="switchTab('weather')">Live Weather</button>
     </div>
 
-    <!-- PAGE 1: HOME DASHBOARD (7 Services & Referral) -->
+    <!-- PAGE 1: HOME DASHBOARD -->
     <div class="page-section active" id="homePage">
         <h3 style="font-size: 15px; margin-bottom: 12px; color: #38bdf8;">💎 7 Exclusive Service Plans (₹10 - ₹999)</h3>
         <div class="plans-grid">
@@ -143,7 +143,7 @@
         </div>
     </div>
 
-    <!-- PAGE 2: WEATHER.COM STYLE REAL LIVE SYSTEM -->
+    <!-- PAGE 2: WEATHER.COM STYLE LIVE SYSTEM -->
     <div class="page-section" id="weatherPage">
         <div class="search-box-wrap">
             <input type="text" id="cityInputSearch" class="search-input" value="Patna, Bihar" placeholder="Search area/city...">
@@ -152,7 +152,6 @@
 
         <!-- Real Live Visual Window -->
         <div class="live-visual-window" id="visualWindowBox">
-            <!-- Real Falling Rain Animation -->
             <div class="rain-container" id="rainEffectBox">
                 <div class="raindrop" style="left: 15%; animation-delay: 0.1s;"></div>
                 <div class="raindrop" style="left: 35%; animation-delay: 0.4s;"></div>
@@ -172,7 +171,7 @@
             </div>
         </div>
 
-        <!-- Safety Advisory & Precautions -->
+        <!-- Safety Advisory -->
         <div class="safety-alert-card">
             <h4>⚠️ Weather Safety Advisory</h4>
             <p id="safetyAdviceText">Mausam kharab hai aur tezi se barish ho rahi hai. Ghar ke andar rahein, khule sthan par na jayein.</p>
