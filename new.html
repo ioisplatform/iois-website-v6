@@ -326,3 +326,74 @@
 
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IOIS - Indian Online Income Supporting System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .tiranga-text { background: linear-gradient(90deg, #f97316 0%, #ffffff 50%, #10b981 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .room-wall { background: linear-gradient(135deg, #0b1329 0%, #050b18 100%); border: 4px solid #1e293b; box-shadow: inset 0 0 50px rgba(0,0,0,0.8); }
+        .digit-clock-box { background: #020617; border: 3px inset #334155; box-shadow: 0 0 15px rgba(245, 158, 11, 0.3); }
+        .window-frame { background: #1e1b4b; border: 6px solid #451a03; box-shadow: 0 10px 25px rgba(0,0,0,0.9); }
+        .solar-orbit { animation: rotate 25s linear infinite; }
+        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    </style>
+</head>
+<body class="bg-[#030712] text-white font-sans flex flex-col min-h-screen">
+
+    <!-- Navbar & Content yahan se upar wala code.... -->
+    <!-- (Maine bacha hua code yahan complete kar diya hai) -->
+
+    <!-- HERO SECTION KAA BOTTOM PART -->
+    <div class="bg-gradient-to-r from-amber-500/20 via-teal-500/20 to-amber-500/20 border-2 border-amber-400 p-4 rounded-2xl max-w-xl mx-auto mb-6 text-left shadow-2xl">
+        <div class="flex items-center gap-4">
+            <div class="text-3xl text-amber-400"><i class="fa-solid fa-rocket"></i></div>
+            <div>
+                <h3 class="text-white font-black text-sm uppercase">Priyanshu's Special Offer</h3>
+                <p class="text-[10px] text-gray-200">100% Secure & Trusted Platform. Aaj hi apna membership claim karein.</p>
+            </div>
+            <button onclick="window.location.href='membership.html'" class="ml-auto bg-amber-400 text-gray-950 px-4 py-2 rounded-xl font-black text-[10px]">JOIN NOW</button>
+        </div>
+    </div>
+    
+    <footer class="py-4 text-center text-[10px] text-gray-500">
+        © 2026 IOIS Platform | Designed for Growth
+    </footer>
+
+    <script>
+        // Digital Clock
+        function updateClock() {
+            const now = new Date();
+            document.getElementById('room-12digit-clock').innerText = now.toLocaleTimeString('hi-IN', { hour12: true });
+            
+            // Analog Hands
+            const s = now.getSeconds() * 6;
+            const m = now.getMinutes() * 6 + s/60;
+            const h = (now.getHours() % 12) * 30 + m/12;
+            document.getElementById('wall-sec').style.transform = `rotate(${s}deg)`;
+            document.getElementById('wall-min').style.transform = `rotate(${m}deg)`;
+            document.getElementById('wall-hour').style.transform = `rotate(${h}deg)`;
+        }
+        setInterval(updateClock, 1000);
+
+        // TV Mode Switcher
+        function playTvMode(mode) {
+            const iframe = document.getElementById('tv-iframe');
+            if(mode === 'youtube') {
+                iframe.src = "https://www.youtube.com/embed/0gYd3mIxksc?autoplay=1&mute=1";
+            } else {
+                iframe.src = "https://www.google.com";
+            }
+        }
+
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        }
+    </script>
+</body>
+</html>
