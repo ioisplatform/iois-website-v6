@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IOIS - Indian Online Income Supporting System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .tiranga-text {
+            background: linear-gradient(90deg, #f97316 0%, #ffffff 50%, #10b981 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        /* Room Interior Styles */
+        .room-wall {
+            background: linear-gradient(135deg, #0b1329 0%, #050b18 100%);
+            border: 4px solid #1e293b;
+            box-shadow: inset 0 0 50px rgba(0,0,0,0.8);
+        }
+        .digit-clock-box {
+            background: #020617;
+            border: 3px inset #334155;
+            box-shadow: 0 0 15px rgba(245, 158, 11, 0.3);
+        }
+        .window-frame {
+            background: #1e1b4b;
+            border: 6px solid #451a03;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.9);
+        }
+    </style>
+</head>
+<body class="bg-[#030712] text-white font-sans flex flex-col min-h-screen">
+
+    <!-- Announcement Ticker -->
+    <div class="bg-gradient-to-r from-amber-600 via-amber-500 to-amber-600 text-gray-950 py-1.5 px-4 font-bold text-xs flex items-center shadow-md">
+        <span class="bg-red-600 text-white text-[10px] px-2 py-0.5 rounded font-black mr-2 uppercase tracking-wider shrink-0">LIVE UPDATE</span>
+        <marquee class="font-bold tracking-wide">
+            🔥 ₹10 से जॉइन करके ₹49 वाला गोल्ड प्लान बेचें और पाएँ सीधे ₹35 (71%) कमीशन! &nbsp;&nbsp;&nbsp;&nbsp; 🚀 ₹99, ₹199, ₹499 और ₹999 के सभी 7 बड़े प्लांस लाइव हैं!
+        </marquee>
+    </div>
+
+    <!-- Navigation Bar (Same as your structure) -->
+    <nav class="bg-[#080d1e]/90 backdrop-blur-xl border-b border-amber-500/25 sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-2">
+                <img src="assets/logo.png" onerror="this.src='https://via.placeholder.com/40'" alt="IOIS" class="w-10 h-10 rounded-full border-2 border-amber-400 shadow-md object-cover">
+                <div>
+                    <span class="text-xl font-extrabold tracking-wider tiranga-text block leading-none">IOIS PLATFORM</span>
+                    <span class="text-[9px] text-teal-400 tracking-widest font-semibold uppercase">Indian Online Income Supporting System</span>
+                </div>
+            </a>
+            <div class="hidden md:flex items-center gap-5 text-xs font-semibold text-gray-300">
+                <a href="index.html" class="text-amber-400"><i class="fa-solid fa-house"></i> Home</a>
+                <a href="membership.html" class="hover:text-amber-400"><i class="fa-solid fa-layer-group"></i> Plans</a>
+                <a href="chat.html" class="hover:text-amber-400"><i class="fa-solid fa-comments text-amber-400"></i> चैट रूम</a>
+            </div>
+            <button type="button" onclick="openRegistrationFlow()" class="px-3.5 py-1.5 bg-amber-400 text-gray-950 font-black rounded-xl text-xs">Join IOIS</button>
+        </div>
+    </nav>
+
+    <!-- IMMERSIVE ROOM SECTION -->
+    <section class="py-6 px-4 max-w-7xl mx-auto w-full">
+        <div class="room-wall rounded-3xl p-4 md:p-6 mb-8 grid grid-cols-1 lg:grid-cols-3 gap-6 items-center">
+            
+            <!-- 1. LIVE DIGITAL CLOCK -->
+            <div class="digit-clock-box p-4 rounded-2xl text-center">
+                <div class="text-[10px] text-amber-400 font-bold mb-2 uppercase">Room Digital Clock (12-Digit)</div>
+                <div id="room-12digit-clock" class="text-amber-400 font-mono text-xl font-black tracking-widest bg-black/60 py-3 rounded-xl border border-amber-500/30">
+                    00:00:00:00:00
+                </div>
+            </div>
+
+            <!-- 2. OPEN WINDOW -->
+            <div class="window-frame p-3 rounded-2xl h-48 relative overflow-hidden flex flex-col items-center">
+                <div class="absolute top-2 left-2 z-10 bg-black/60 backdrop-blur px-2 py-0.5 rounded text-[10px] text-teal-300 border border-teal-500/30">
+                    <i class="fa-solid fa-cloud-sun text-yellow-400"></i> Live View
+                </div>
+                <div class="w-full h-full rounded-xl bg-gradient-to-b from-sky-400 via-sky-200 to-amber-100 flex items-center justify-center border border-amber-300 mt-4">
+                    <div class="text-yellow-300 text-3xl animate-spin" style="animation-duration: 25s;"><i class="fa-solid fa-sun"></i></div>
+                    <div class="text-white text-2xl animate-pulse ml-2"><i class="fa-solid fa-cloud"></i></div>
+                </div>
+            </div>
+
+            <!-- 3. SMART ALMARI (Rashifal) -->
+            <div class="bg-[#111c38] border-2 border-amber-500/40 p-4 rounded-2xl h-full flex flex-col">
+                <h4 class="text-xs font-bold text-amber-400 uppercase mb-2"><i class="fa-solid fa-box-archive"></i> Smart Almari (दैनिक राशिफल)</h4>
+                <div class="bg-[#080d1e] p-2 rounded-lg text-[11px] space-y-1 border border-gray-700">
+                    <p class="text-teal-300 font-bold">✨ शुभ रंग: <span class="text-white">पीला</span></p>
+                    <p class="text-amber-300 font-bold">⏰ शुभ समय: <span class="text-white">08:15 AM - 10:30 AM</span></p>
+                    <p class="text-gray-300">आज का दिन आर्थिक मामलों में बहुत शुभ है।</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. LIVE SMART TV -->
+        <div class="bg-gradient-to-r from-gray-900 via-[#111c38] to-gray-900 border-4 border-gray-800 rounded-3xl p-4 max-w-4xl mx-auto shadow-2xl">
+            <div class="flex justify-between items-center mb-3">
+                <span class="text-xs font-bold text-amber-400"><i class="fa-solid fa-tv"></i> IOIS Smart TV</span>
+                <div class="flex gap-2">
+                    <button onclick="playTvMode('youtube')" class="px-2 py-1 bg-red-600 text-white text-[10px] rounded">YouTube</button>
+                    <button onclick="playTvMode('chrome')" class="px-2 py-1 bg-blue-600 text-white text-[10px] rounded">Browser</button>
+                </div>
+            </div>
+            <div class="aspect-video bg-black rounded-2xl border-4 border-gray-900 overflow-hidden">
+                <iframe id="tv-iframe" class="w-full h-full" src="https://www.youtube.com/embed/live_stream?channel=UC_x5XG1OV2P6uZZ5FSM9Ttw"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- [Baaki ka section aapka purana structure yahan add karein] -->
+
+    <script>
+        // Clock Script
+        function updateRoomClock() {
+            const now = new Date();
+            const d = String(now.getDate()).padStart(2, '0');
+            const m = String(now.getMonth() + 1).padStart(2, '0');
+            const y = String(now.getFullYear()).slice(-2);
+            const hrs = String(now.getHours()).padStart(2, '0');
+            const mins = String(now.getMinutes()).padStart(2, '0');
+            const secs = String(now.getSeconds()).padStart(2, '0');
+            document.getElementById('room-12digit-clock').innerText = `${d}:${m}:${y} | ${hrs}:${mins}:${secs}`;
+        }
+        setInterval(updateRoomClock, 1000);
+
+        function playTvMode(mode) {
+            const iframe = document.getElementById('tv-iframe');
+            if(mode === 'youtube') iframe.src = "https://www.youtube.com/embed/live_stream?channel=UC_x5XG1OV2P6uZZ5FSM9Ttw";
+            else iframe.src = "https://www.google.com/search?igu=1";
+        }
+        
+        function openRegistrationFlow() { document.getElementById('reg-modal').classList.remove('hidden'); }
+        function closeModals() { document.getElementById('reg-modal').classList.add('hidden'); }
+    </script>
+</body>
+</html>
