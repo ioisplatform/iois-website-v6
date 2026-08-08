@@ -3,261 +3,211 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IOIS Platform - Complete Web Suite</title>
+    <title>IOIS Immersive Live Room Dashboard</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background: #0b0f19; color: #fff; padding: 15px; min-height: 100vh; }
-        .app-container { max-width: 480px; margin: auto; background: #121826; border-radius: 24px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 15px 35px rgba(0,0,0,0.6); }
+        body { background: #070913; color: #fff; padding: 10px; min-height: 100vh; display: flex; justify-content: center; align-items: center; }
+        .room-container { width: 100%; max-width: 520px; background: #0f172a; border-radius: 24px; overflow: hidden; border: 1px solid rgba(255,255,255,0.12); box-shadow: 0 20px 40px rgba(0,0,0,0.8); }
 
-        /* Top Navigation & Menu Button */
-        .top-nav-bar { display: flex; justify-content: space-between; align-items: center; background: #1b2234; padding: 15px 20px; border-bottom: 1px solid rgba(255,255,255,0.05); }
-        .menu-btn { background: none; border: none; color: #fff; font-size: 22px; cursor: pointer; display: flex; flex-direction: column; gap: 4px; }
-        .menu-btn span { display: block; width: 22px; height: 2px; background: #fff; border-radius: 2px; }
-        .brand-title { font-size: 16px; font-weight: bold; color: #38bdf8; }
-        
+        /* Top Nav & Menu */
+        .top-nav { display: flex; justify-content: space-between; align-items: center; background: #1e293b; padding: 12px 18px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+        .menu-btn { background: none; border: none; color: #fff; font-size: 20px; cursor: pointer; display: flex; flex-direction: column; gap: 4px; }
+        .menu-btn span { display: block; width: 20px; height: 2px; background: #38bdf8; border-radius: 2px; }
+        .brand { font-size: 15px; font-weight: bold; color: #38bdf8; letter-spacing: 0.5px; }
+
         /* Dropdown Menu */
-        .dropdown-menu { display: none; background: #1b2234; padding: 10px 20px; border-bottom: 1px solid rgba(255,255,255,0.05); }
-        .dropdown-menu a { display: block; color: #cbd5e1; text-decoration: none; padding: 8px 0; font-size: 14px; border-bottom: 1px solid rgba(255,255,255,0.03); }
-        .dropdown-menu a:hover { color: #38bdf8; }
+        .dropdown { display: none; background: #1e293b; padding: 10px 18px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+        .dropdown a { display: block; color: #cbd5e1; text-decoration: none; padding: 6px 0; font-size: 13px; border-bottom: 1px solid rgba(255,255,255,0.03); }
+        .dropdown a:hover { color: #38bdf8; }
 
-        /* Tab Switcher */
-        .tab-switcher { display: flex; background: #1b2234; padding: 10px 20px; gap: 10px; }
-        .tab-btn { flex: 1; padding: 10px; border: none; border-radius: 10px; background: #121826; color: #94a3b8; font-weight: bold; cursor: pointer; font-size: 13px; transition: 0.3s; }
-        .tab-btn.active { background: #3b82f6; color: #fff; box-shadow: 0 4px 12px rgba(59,130,246,0.4); }
-
-        .page-section { display: none; padding: 20px; }
-        .page-section.active { display: block; }
-
-        /* --- HOME PAGE STYLES --- */
-        .plans-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 20px; }
-        .plan-card { background: #1b2234; padding: 15px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); text-align: center; }
-        .plan-price { font-size: 18px; font-weight: bold; color: #2ecc71; margin: 5px 0; }
-        .plan-btn { background: #3b82f6; border: none; padding: 6px; width: 100%; border-radius: 6px; color: #fff; font-weight: bold; font-size: 12px; cursor: pointer; margin-top: 8px; }
+        /* Room Interior Viewport (Khidki & Weather Preview) */
+        .room-wall { position: relative; background: linear-gradient(135deg, #172033, #0b0f19); padding: 15px; border-bottom: 2px solid #1e293b; }
         
-        .referral-box { background: linear-gradient(135deg, #11998e, #38ef7d); padding: 16px; border-radius: 14px; color: #fff; }
-        .ref-row { display: flex; justify-content: space-between; background: rgba(0,0,0,0.15); padding: 6px 10px; border-radius: 6px; margin-top: 6px; font-size: 12px; }
+        /* Digital Room Clock (12-Digit style look) */
+        .room-clock-box { background: rgba(0,0,0,0.6); border: 1px solid rgba(56,189,248,0.3); padding: 8px 12px; border-radius: 10px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+        .digital-time { font-family: 'Courier New', Courier, monospace; font-size: 20px; font-weight: bold; color: #38bdf8; letter-spacing: 2px; }
+        .clock-date { font-size: 11px; color: #94a3b8; }
 
-        /* --- WEATHER PAGE STYLES --- */
-        .search-box-wrap { display: flex; gap: 10px; margin-bottom: 15px; }
-        .search-input { flex: 1; padding: 10px 14px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.1); background: #1b2234; color: #fff; font-size: 14px; outline: none; }
-        .gps-action-btn { background: #2563eb; border: none; padding: 10px 14px; border-radius: 10px; color: #fff; font-weight: bold; cursor: pointer; font-size: 13px; }
-
-        .live-visual-window { position: relative; height: 220px; background: linear-gradient(135deg, #1e3a8a, #0f172a); border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; padding: 18px; margin-bottom: 15px; border: 1px solid rgba(255,255,255,0.1); }
+        /* Open Window View (Real Outside Environment) */
+        .window-frame { position: relative; height: 180px; background: #0284c7; border: 6px solid #334155; border-radius: 14px; overflow: hidden; box-shadow: inset 0 0 20px rgba(0,0,0,0.5); }
+        /* Window Open Shutters Effect */
+        .window-shutter-left { position: absolute; top: 0; left: 0; width: 15px; height: 100%; background: #1e293b; z-index: 5; border-right: 2px solid #475569; }
+        .window-shutter-right { position: absolute; top: 0; right: 0; width: 15px; height: 100%; background: #1e293b; z-index: 5; border-left: 2px solid #475569; }
         
-        /* Real Rain Animation */
-        .rain-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; display: none; }
-        .raindrop { position: absolute; background: linear-gradient(transparent, rgba(255,255,255,0.8)); width: 2px; height: 18px; animation: fallRain 0.5s linear infinite; }
-        @keyframes fallRain { 0% { transform: translateY(-20px); } 100% { transform: translateY(240px); } }
+        .outside-view { position: absolute; width: 100%; height: 100%; top: 0; left: 0; background: linear-gradient(to bottom, #38bdf8, #bae6fd); display: flex; flex-direction: column; justify-content: space-between; padding: 12px; transition: 0.5s; }
+        .sun-cloud-anim { position: absolute; top: 15px; right: 25px; width: 45px; height: 45px; background: #fde047; border-radius: 50%; box-shadow: 0 0 20px #fde047; }
+        .cloud-moving { position: absolute; top: 20px; left: -60px; width: 90px; height: 35px; background: rgba(255,255,255,0.7); border-radius: 30px; animation: moveWindowCloud 10s linear infinite; }
+        @keyframes moveWindowCloud { 0% { left: -80px; } 100% { left: 450px; } }
 
-        .safety-alert-card { background: rgba(239, 68, 68, 0.12); border-left: 4px solid #ef4444; padding: 12px; border-radius: 0 10px 10px 0; margin-bottom: 15px; }
-        .safety-alert-card h4 { color: #f87171; margin-bottom: 4px; font-size: 14px; }
-        .safety-alert-card p { font-size: 12px; color: #cbd5e1; line-height: 1.4; }
+        /* Room Furniture & Widgets Section */
+        .interior-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 15px; }
 
-        .params-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 15px; }
-        .param-card { background: #1b2234; padding: 10px; border-radius: 10px; text-align: center; }
-        .param-card span { font-size: 10px; color: #94a3b8; display: block; }
-        .param-card strong { font-size: 13px; }
+        /* Almari (Rashifal & Horoscope Widget) */
+        .almari-widget { background: #182232; border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 12px; }
+        .almari-title { font-size: 13px; font-weight: bold; color: #f59e0b; margin-bottom: 6px; display: flex; align-items: center; gap: 5px; }
+        .rashi-content { font-size: 11px; color: #cbd5e1; line-height: 1.4; }
+
+        /* Working TV Widget (YouTube & Live Media) */
+        .tv-widget { background: #182232; border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 12px; display: flex; flex-direction: column; justify-content: space-between; }
+        .tv-screen { background: #000; height: 75px; border-radius: 6px; display: flex; justify-content: center; align-items: center; position: relative; overflow: hidden; border: 2px solid #334155; }
+        .tv-screen iframe { width: 100%; height: 100%; border: none; }
+
+        /* IOIS Service Plans Section */
+        .plans-section { padding: 0 15px 15px 15px; }
+        .plans-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-top: 8px; }
+        .plan-mini { background: #1e293b; padding: 8px 4px; border-radius: 8px; text-align: center; border: 1px solid rgba(255,255,255,0.05); }
+        .plan-mini span { font-size: 9px; color: #94a3b8; display: block; }
+        .plan-mini strong { font-size: 11px; color: #22c55e; }
     </style>
 </head>
 <body>
 
-<div class="app-container">
-    <!-- Top Navigation Bar with Menu Button -->
-    <div class="top-nav-bar">
+<div class="room-container">
+    <!-- Top Bar -->
+    <div class="top-nav">
         <button class="menu-btn" onclick="toggleMenu()">
             <span></span>
             <span></span>
             <span></span>
         </button>
-        <div class="brand-title">IOIS Platform</div>
-        <div style="font-size: 11px; background: rgba(56,189,248,0.2); color: #38bdf8; padding: 3px 8px; border-radius: 6px;">PRO</div>
+        <div class="brand">IOIS Room Dashboard</div>
+        <div style="font-size: 10px; background: rgba(56,189,248,0.2); color: #38bdf8; padding: 2px 6px; border-radius: 4px;">LIVE</div>
     </div>
 
-    <!-- Dropdown Menu Options -->
-    <div class="dropdown-menu" id="dropdownMenu">
-        <a href="#" onclick="switchTab('home'); toggleMenu();">🏠 Home Dashboard</a>
-        <a href="#" onclick="switchTab('weather'); toggleMenu();">🌤️ Live Weather System</a>
-        <a href="#">💎 Service Plans</a>
-        <a href="#">🚀 Referral System</a>
+    <!-- Dropdown Menu -->
+    <div class="dropdown" id="dropdownMenu">
+        <a href="#">🏠 Room Home</a>
+        <a href="#">🌤️ Open Window Weather</a>
+        <a href="#">🔮 Dainik Rashifal Almari</a>
+        <a href="#">📺 Live TV & Media Hub</a>
     </div>
 
-    <!-- Tab Switcher -->
-    <div class="tab-switcher">
-        <button class="tab-btn active" id="homeTabBtn" onclick="switchTab('home')">Home / Plans</button>
-        <button class="tab-btn" id="weatherTabBtn" onclick="switchTab('weather')">Live Weather</button>
+    <!-- Room Wall with Window & Clock -->
+    <div class="room-wall">
+        <!-- Digital Clock (12-digit visual room style) -->
+        <div class="room-clock-box">
+            <div>
+                <div class="digital-time" id="liveClockDisplay">12:00:00 AM</div>
+            </div>
+            <div style="text-align: right;">
+                <div class="clock-date" id="liveDateDisplay">Saturday, Aug 8</div>
+                <div style="font-size: 10px; color: #38bdf8;">Room Standard Time</div>
+            </div>
+        </div>
+
+        <!-- Khidki (Open Window Weather Preview View) -->
+        <div class="window-frame">
+            <div class="window-shutter-left"></div>
+            <div class="window-shutter-right"></div>
+            
+            <div class="outside-view" id="windowSkyView">
+                <div class="sun-cloud-anim"></div>
+                <div class="cloud-moving"></div>
+                
+                <div style="display: flex; justify-content: space-between; z-index: 2;">
+                    <span style="font-size: 11px; background: rgba(0,0,0,0.5); padding: 2px 8px; border-radius: 10px; font-weight: bold;">Patna, Bihar (Khidki View)</span>
+                    <span style="font-size: 11px; background: #eab308; color: #000; padding: 2px 6px; border-radius: 8px; font-weight: bold;">Tez Dhoop & Badal ☀️</span>
+                </div>
+                
+                <div style="z-index: 2; display: flex; justify-content: space-between; align-items: flex-end;">
+                    <div>
+                        <span style="font-size: 24px; font-weight: bold; text-shadow: 0 2px 4px rgba(0,0,0,0.3);">34°C</span>
+                        <p style="font-size: 10px; opacity: 0.9;">Clear sunshine with soft clouds outside</p>
+                    </div>
+                    <button onclick="changeWeatherOutside()" style="background: rgba(0,0,0,0.6); border: 1px solid #fff; color: #fff; font-size: 10px; padding: 4px 8px; border-radius: 6px; cursor: pointer;">Change View</button>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <!-- PAGE 1: HOME DASHBOARD -->
-    <div class="page-section active" id="homePage">
-        <h3 style="font-size: 15px; margin-bottom: 12px; color: #38bdf8;">💎 7 Exclusive Service Plans (₹10 - ₹999)</h3>
+    <!-- Interior Widgets: Almari (Rashifal) & TV Hub -->
+    <div class="interior-grid">
+        <!-- Almari Widget (Dainik Rashifal) -->
+        <div class="almari-widget">
+            <div class="almari-title">
+                <span>🗄️</span> Almari: Dainik Rashifal
+            </div>
+            <div class="rashi-content">
+                <p><strong>Mesh (Aries):</strong> Aaj ka din shubh hai. Dhoop ki tarah urja bani rahegi.</p>
+                <p style="margin-top: 4px; color: #38bdf8;">✨ <strong>Shubh Rang:</strong> Peela | ⏰ <strong>Time:</strong> 10 AM - 1 PM</p>
+            </div>
+        </div>
+
+        <!-- TV Widget (Live YouTube / Chrome Stream Support) -->
+        <div class="tv-widget">
+            <div style="font-size: 12px; font-weight: bold; color: #38bdf8; margin-bottom: 5px; display: flex; justify-content: space-between;">
+                <span>📺 Smart TV Hub</span>
+                <span style="font-size: 9px; color: #22c55e;">● LIVE</span>
+            </div>
+            <div class="tv-screen">
+                <!-- Embedded Responsive Live Player (YouTube / Google Stream support) -->
+                <iframe src="https://www.youtube.com/embed/jfKfPfyJRdk?autoplay=0&mute=1" title="Live Stream"></iframe>
+            </div>
+            <span style="font-size: 9px; color: #94a3b8; margin-top: 4px; text-align: center;">Supports YouTube & Chrome Cast</span>
+        </div>
+    </div>
+
+    <!-- IOIS Plans & Features Bar -->
+    <div class="plans-section">
+        <div style="font-size: 12px; font-weight: bold; color: #38bdf8; margin-bottom: 4px;">💎 IOIS Service Packages</div>
         <div class="plans-grid">
-            <div class="plan-card">
-                <span style="font-size: 11px; color: #94a3b8;">Starter</span>
-                <div class="plan-price">₹10</div>
-                <button class="plan-btn">Activate</button>
+            <div class="plan-mini">
+                <span>Starter</span>
+                <strong>₹10</strong>
             </div>
-            <div class="plan-card">
-                <span style="font-size: 11px; color: #94a3b8;">Bronze</span>
-                <div class="plan-price">₹49</div>
-                <button class="plan-btn">Activate</button>
+            <div class="plan-mini">
+                <span>Bronze</span>
+                <strong>₹49</strong>
             </div>
-            <div class="plan-card">
-                <span style="font-size: 11px; color: #94a3b8;">Silver</span>
-                <div class="plan-price">₹99</div>
-                <button class="plan-btn">Activate</button>
+            <div class="plan-mini">
+                <span>Silver</span>
+                <strong>₹99</strong>
             </div>
-            <div class="plan-card">
-                <span style="font-size: 11px; color: #94a3b8;">Gold</span>
-                <div class="plan-price">₹199</div>
-                <button class="plan-btn">Activate</button>
+            <div class="plan-mini">
+                <span>VIP</span>
+                <strong>₹999</strong>
             </div>
-            <div class="plan-card">
-                <span style="font-size: 11px; color: #94a3b8;">Platinum</span>
-                <div class="plan-price">₹299</div>
-                <button class="plan-btn">Activate</button>
-            </div>
-            <div class="plan-card">
-                <span style="font-size: 11px; color: #94a3b8;">Diamond</span>
-                <div class="plan-price">₹499</div>
-                <button class="plan-btn">Activate</button>
-            </div>
-            <div class="plan-card" style="grid-column: span 2; background: rgba(245,158,11,0.1); border-color: rgba(245,158,11,0.3);">
-                <span style="font-size: 11px; color: #f59e0b; font-weight: bold;">VIP Ultimate Plan</span>
-                <div class="plan-price" style="color: #f59e0b;">₹999</div>
-                <button class="plan-btn" style="background: #f59e0b;">Activate VIP</button>
-            </div>
-        </div>
-
-        <h3 style="font-size: 15px; margin-bottom: 10px; color: #38bdf8;">🚀 Referral Earning System</h3>
-        <div class="referral-box">
-            <h4 style="font-size: 14px; margin-bottom: 4px;">Earn 50% to 75% Commission</h4>
-            <p style="font-size: 11px; opacity: 0.9; margin-bottom: 8px;">Refer friends and earn instant rewards.</p>
-            <div class="ref-row">
-                <span>Direct Referral:</span>
-                <strong>Up to 50%</strong>
-            </div>
-            <div class="ref-row">
-                <span>Network Bonus:</span>
-                <strong>Extra 25%</strong>
-            </div>
-        </div>
-    </div>
-
-    <!-- PAGE 2: WEATHER.COM STYLE LIVE SYSTEM -->
-    <div class="page-section" id="weatherPage">
-        <div class="search-box-wrap">
-            <input type="text" id="cityInputSearch" class="search-input" value="Patna, Bihar" placeholder="Search area/city...">
-            <button class="gps-action-btn" onclick="updateRealWeather()">📍 GPS</button>
-        </div>
-
-        <!-- Real Live Visual Window -->
-        <div class="live-visual-window" id="visualWindowBox">
-            <div class="rain-container" id="rainEffectBox">
-                <div class="raindrop" style="left: 15%; animation-delay: 0.1s;"></div>
-                <div class="raindrop" style="left: 35%; animation-delay: 0.4s;"></div>
-                <div class="raindrop" style="left: 55%; animation-delay: 0.2s;"></div>
-                <div class="raindrop" style="left: 75%; animation-delay: 0.5s;"></div>
-                <div class="raindrop" style="left: 90%; animation-delay: 0.3s;"></div>
-            </div>
-
-            <div style="display: flex; justify-content: space-between; align-items: center; z-index: 2;">
-                <span id="locNameDisplay" style="font-weight: 600; font-size: 14px; background: rgba(0,0,0,0.4); padding: 4px 10px; border-radius: 20px;">Patna, Bihar</span>
-                <span style="font-size: 10px; background: rgba(59,130,246,0.3); color: #60a5fa; padding: 4px 8px; border-radius: 20px;">Live View</span>
-            </div>
-
-            <div style="z-index: 2;">
-                <div id="tempValDisplay" style="font-size: 42px; font-weight: bold; text-shadow: 0 2px 5px rgba(0,0,0,0.4);">27°C</div>
-                <div id="condValDisplay" style="font-size: 15px; font-weight: 600; color: #fde047; text-transform: uppercase;">Heavy Rain & Live Preview</div>
-            </div>
-        </div>
-
-        <!-- Safety Advisory -->
-        <div class="safety-alert-card">
-            <h4>⚠️ Weather Safety Advisory</h4>
-            <p id="safetyAdviceText">Mausam kharab hai aur tezi se barish ho rahi hai. Ghar ke andar rahein, khule sthan par na jayein.</p>
-        </div>
-
-        <!-- Parameters -->
-        <div class="params-grid">
-            <div class="param-card">
-                <span>Humidity</span>
-                <strong id="humDisplay">88%</strong>
-            </div>
-            <div class="param-card">
-                <span>Wind Speed</span>
-                <strong id="windDisplay">22 km/h</strong>
-            </div>
-            <div class="param-card">
-                <span>Air Quality</span>
-                <strong style="color: #4ade80;">Good (35)</strong>
-            </div>
-        </div>
-
-        <h3 style="font-size: 14px; margin-bottom: 8px; color: #38bdf8;">📅 Kal Ka Mausam (Tomorrow)</h3>
-        <div style="background: #1b2234; padding: 12px 15px; border-radius: 10px; font-size: 13px; display: flex; justify-content: space-between;">
-            <span>Forecast Update</span>
-            <strong id="tomorrowDisplay" style="color: #38bdf8;">29°C / 23°C - Showers</strong>
         </div>
     </div>
 </div>
 
 <script>
+    // Menu Toggle
     function toggleMenu() {
         const menu = document.getElementById('dropdownMenu');
         menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
     }
 
-    function switchTab(tabName) {
-        const homePage = document.getElementById('homePage');
-        const weatherPage = document.getElementById('weatherPage');
-        const homeTabBtn = document.getElementById('homeTabBtn');
-        const weatherTabBtn = document.getElementById('weatherTabBtn');
+    // Real Digital Clock Updater (Room Style)
+    setInterval(() => {
+        const now = new Date();
+        document.getElementById('liveClockDisplay').innerText = now.toLocaleTimeString();
+        const options = { weekday: 'long', month: 'short', day: 'numeric' };
+        document.getElementById('liveDateDisplay').innerText = now.toLocaleDateString('en-US', options);
+    }, 1000);
 
-        if(tabName === 'home') {
-            homePage.classList.add('active');
-            weatherPage.classList.remove('active');
-            homeTabBtn.classList.add('active');
-            weatherTabBtn.classList.remove('active');
+    // Toggle Window View State (Sunny vs Rain simulation)
+    let isSunny = true;
+    function changeWeatherOutside() {
+        const sky = document.getElementById('windowSkyView');
+        if(isSunny) {
+            sky.style.background = "linear-gradient(to bottom, #1e293b, #0f172a)";
+            sky.innerHTML = `
+                <div style="display: flex; justify-content: space-between; z-index: 2;">
+                    <span style="font-size: 11px; background: rgba(0,0,0,0.5); padding: 2px 8px; border-radius: 10px; font-weight: bold;">Patna, Bihar (Night Rain View)</span>
+                    <span style="font-size: 11px; background: #3b82f6; color: #fff; padding: 2px 6px; border-radius: 8px; font-weight: bold;">Tez Barish 🌧️</span>
+                </div>
+                <div style="z-index: 2; display: flex; justify-content: space-between; align-items: flex-end;">
+                    <div>
+                        <span style="font-size: 24px; font-weight: bold; text-shadow: 0 2px 4px rgba(0,0,0,0.3);">26°C</span>
+                        <p style="font-size: 10px; opacity: 0.9;">Real rainy atmosphere outside window</p>
+                    </div>
+                    <button onclick="changeWeatherOutside()" style="background: rgba(0,0,0,0.6); border: 1px solid #fff; color: #fff; font-size: 10px; padding: 4px 8px; border-radius: 6px; cursor: pointer;">Change View</button>
+                </div>
+            `;
+            isSunny = false;
         } else {
-            weatherPage.classList.add('active');
-            homePage.classList.remove('active');
-            weatherTabBtn.classList.add('active');
-            homeTabBtn.classList.remove('active');
-        }
-    }
-
-    function updateRealWeather() {
-        const query = document.getElementById('cityInputSearch').value.toLowerCase();
-        const visualBox = document.getElementById('visualWindowBox');
-        const rainBox = document.getElementById('rainEffectBox');
-        const tempDisp = document.getElementById('tempValDisplay');
-        const condDisp = document.getElementById('condValDisplay');
-        const safetyTxt = document.getElementById('safetyAdviceText');
-        const locTitle = document.getElementById('locNameDisplay');
-        const humDisp = document.getElementById('humDisplay');
-        const windDisp = document.getElementById('windDisplay');
-        const tomorrowDisp = document.getElementById('tomorrowDisplay');
-
-        locTitle.innerText = document.getElementById('cityInputSearch').value;
-
-        if(query.includes('mumbai') || query.includes('patna') || query.includes('village')) {
-            visualBox.style.background = "linear-gradient(135deg, #0f172a, #1e293b)";
-            rainBox.style.display = "block";
-            tempDisp.innerText = "27°C";
-            condDisp.innerText = "Heavy Rain Live View";
-            safetyTxt.innerText = "⚠️ Savadhani: Barish ke dauran gaadi dheere chalayein aur khule taar ya bijli ke khambon se door rahein.";
-            humDisp.innerText = "90%";
-            windDisp.innerText = "24 km/h";
-            tomorrowDisp.innerText = "28°C / 22°C - Light Rain";
-        } else {
-            visualBox.style.background = "linear-gradient(135deg, #0284c7, #0f172a)";
-            rainBox.style.display = "none";
-            tempDisp.innerText = "35°C";
-            condDisp.innerText = "Sunny & Clear Sky View";
-            safetyTxt.innerText = "💡 Savadhani: Dhoop tez hai, bahar nikalte waqt paani piyein aur dhoop se bachav karein.";
-            humDisp.innerText = "40%";
-            windDisp.innerText = "12 km/h";
-            tomorrowDisp.innerText = "36°C / 26°C - Sunny";
+            location.reload(); // Reset back to sunny default view
         }
     }
 </script>
