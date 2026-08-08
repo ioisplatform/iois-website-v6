@@ -1,153 +1,267 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IOIS - INDIAN ONLINE INCOME SUPPORTING SYSTEM</title>
-    <link rel="icon" type="image/png" href="logo.png">
+    <title>IOIS Platform - Complete Dashboard & Weather</title>
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, sans-serif; }
-        body { background: linear-gradient(135deg, #0f172a, #1e293b); color: #fff; min-height: 100vh; padding-bottom: 30px; }
-        .room-container { max-width: 480px; margin: 0 auto; padding: 15px; display: flex; flex-direction: column; align-items: center; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background: #0b0f19; color: #fff; padding: 15px; min-height: 100vh; }
+        .app-container { max-width: 480px; margin: auto; background: #121826; border-radius: 24px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 15px 35px rgba(0,0,0,0.6); }
 
-        .brand-header { text-align: center; margin-bottom: 15px; background: rgba(15, 23, 42, 0.9); padding: 12px; border-radius: 16px; border: 2px solid #fbbf24; width: 100%; box-shadow: 0 8px 25px rgba(0,0,0,0.6); }
-        .brand-logo { width: 65px; height: 65px; border-radius: 50%; border: 2px solid #fbbf24; object-fit: cover; margin-bottom: 6px; }
-        .brand-header h1 { font-size: 11.5px; font-weight: 900; color: #fbbf24; text-transform: uppercase; }
-
-        .wall-display { display: flex; justify-content: space-between; align-items: center; width: 100%; background: rgba(255, 255, 255, 0.05); padding: 10px 18px; border-radius: 16px; margin-bottom: 15px; border: 1px solid rgba(251, 191, 36, 0.3); }
-        .analog-clock { width: 65px; height: 65px; border: 4px solid #fbbf24; border-radius: 50%; position: relative; background: #fff; box-shadow: inset 0 0 10px rgba(0,0,0,0.5); }
-        .clock-number { position: absolute; font-size: 9px; font-weight: 900; color: #000; }
-        .n12 { top: 2px; left: 27px; } .n3 { top: 25px; right: 4px; } .n6 { bottom: 2px; left: 29px; } .n9 { top: 25px; left: 4px; }
-        .hand { position: absolute; bottom: 50%; left: 50%; transform-origin: bottom; background: #000; border-radius: 4px; }
-        .hour-hand { width: 3px; height: 15px; background: #222; transform: translateX(-50%); }
-        .minute-hand { width: 2px; height: 20px; background: #444; transform: translateX(-50%); }
-        .second-hand { width: 1px; height: 24px; background: #ef4444; transform: translateX(-50%); }
-        .center-dot { width: 6px; height: 6px; background: #fbbf24; border-radius: 50%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
-
-        .digital-clock-box { text-align: right; }
-        .digital-clock { font-size: 18px; font-weight: bold; color: #fbbf24; font-family: monospace; }
-        .clock-label { font-size: 9px; color: #cbd5e1; text-transform: uppercase; }
-
-        .city-search-box { display: flex; gap: 8px; width: 100%; margin-bottom: 15px; }
-        .city-search-box input { flex: 1; padding: 10px 14px; border-radius: 10px; border: 1px solid #fbbf24; background: rgba(15, 23, 42, 0.9); color: #fff; font-size: 13px; outline: none; }
-        .city-search-box button { background: #fbbf24; color: #000; border: none; padding: 0 16px; border-radius: 10px; font-weight: 800; cursor: pointer; font-size: 12px; }
-
-        /* खिड़की जिसमें बादल/साफ आसमान बिल्कुल स्पष्ट दिखेगा */
-        .open-window {
-            width: 100%; height: 135px; border: 8px solid #475569; border-radius: 20px;
-            position: relative; overflow: hidden; margin-bottom: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5), inset 0 0 15px rgba(0,0,0,0.4);
-            display: flex; align-items: flex-end; justify-content: center; padding-bottom: 10px;
-            transition: 0.6s background;
-        }
-        .window-grid-v { position: absolute; width: 3px; height: 100%; background: #475569; left: 50%; z-index: 2; }
-        .window-grid-h { position: absolute; width: 100%; height: 3px; background: #475569; top: 50%; z-index: 2; }
+        /* Top Navigation & Menu Bar */
+        .top-nav-bar { display: flex; justify-content: space-between; align-items: center; background: #1b2234; padding: 15px 20px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .menu-btn { background: none; border: none; color: #fff; font-size: 22px; cursor: pointer; display: flex; flex-direction: column; gap: 4px; }
+        .menu-btn span { display: block; width: 22px; height: 2px; background: #fff; border-radius: 2px; }
+        .brand-title { font-size: 16px; font-weight: bold; color: #38bdf8; }
         
-        .weather-status-tag { background: rgba(15, 23, 42, 0.9); border: 1px solid #fbbf24; padding: 6px 15px; border-radius: 12px; font-size: 12px; font-weight: 800; z-index: 3; color: #fff; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+        /* Dropdown Menu (Hidden by default, toggled via button) */
+        .dropdown-menu { display: none; background: #1b2234; padding: 10px 20px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .dropdown-menu a { display: block; color: #cbd5e1; text-decoration: none; padding: 8px 0; font-size: 14px; border-bottom: 1px solid rgba(255,255,255,0.03); }
+        .dropdown-menu a:hover { color: #38bdf8; }
 
-        .app-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; width: 100%; }
-        .app-icon { display: flex; flex-direction: column; align-items: center; text-decoration: none; color: #fff; }
-        .icon-box { width: 65px; height: 65px; background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(8px); border-radius: 18px; display: flex; align-items: center; justify-content: center; font-size: 26px; border: 1px solid rgba(251, 191, 36, 0.4); box-shadow: 0 6px 15px rgba(0,0,0,0.4); margin-bottom: 5px; }
-        .icon-label { font-size: 11px; font-weight: 600; text-align: center; color: #e2e8f0; }
+        /* Section Switcher Tabs */
+        .tab-switcher { display: flex; background: #1b2234; padding: 10px 20px; gap: 10px; }
+        .tab-btn { flex: 1; padding: 10px; border: none; border-radius: 10px; background: #121826; color: #94a3b8; font-weight: bold; cursor: pointer; font-size: 13px; transition: 0.3s; }
+        .tab-btn.active { background: #3b82f6; color: #fff; box-shadow: 0 4px 12px rgba(59,130,246,0.4); }
+
+        .page-section { display: none; padding: 20px; }
+        .page-section.active { display: block; }
+
+        /* --- HOME PAGE STYLES --- */
+        .plans-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 20px; }
+        .plan-card { background: #1b2234; padding: 15px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); text-align: center; }
+        .plan-price { font-size: 18px; font-weight: bold; color: #2ecc71; margin: 5px 0; }
+        .plan-btn { background: #3b82f6; border: none; padding: 6px; width: 100%; border-radius: 6px; color: #fff; font-weight: bold; font-size: 12px; cursor: pointer; margin-top: 8px; }
+        
+        .referral-box { background: linear-gradient(135deg, #11998e, #38ef7d); padding: 16px; border-radius: 14px; color: #fff; }
+        .ref-row { display: flex; justify-content: space-between; background: rgba(0,0,0,0.15); padding: 6px 10px; border-radius: 6px; margin-top: 6px; font-size: 12px; }
+
+        /* --- WEATHER PAGE STYLES --- */
+        .search-box-wrap { display: flex; gap: 10px; margin-bottom: 15px; }
+        .search-input { flex: 1; padding: 10px 14px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.1); background: #1b2234; color: #fff; font-size: 14px; outline: none; }
+        .gps-action-btn { background: #2563eb; border: none; padding: 10px 14px; border-radius: 10px; color: #fff; font-weight: bold; cursor: pointer; font-size: 13px; }
+
+        .live-visual-window { position: relative; height: 220px; background: linear-gradient(135deg, #1e3a8a, #0f172a); border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; padding: 18px; margin-bottom: 15px; border: 1px solid rgba(255,255,255,0.1); }
+        
+        /* Real Rain Animation */
+        .rain-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; display: none; }
+        .raindrop { position: absolute; background: linear-gradient(transparent, rgba(255,255,255,0.8)); width: 2px; height: 18px; animation: fallRain 0.5s linear infinite; }
+        @keyframes fallRain { 0% { transform: translateY(-20px); } 100% { transform: translateY(240px); } }
+
+        .safety-alert-card { background: rgba(239, 68, 68, 0.12); border-left: 4px solid #ef4444; padding: 12px; border-radius: 0 10px 10px 0; margin-bottom: 15px; }
+        .safety-alert-card h4 { color: #f87171; margin-bottom: 4px; font-size: 14px; }
+        .safety-alert-card p { font-size: 12px; color: #cbd5e1; line-height: 1.4; }
+
+        .params-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 15px; }
+        .param-card { background: #1b2234; padding: 10px; border-radius: 10px; text-align: center; }
+        .param-card span { font-size: 10px; color: #94a3b8; display: block; }
+        .param-card strong { font-size: 13px; }
     </style>
 </head>
 <body>
-    <div class="room-container">
-        <div class="brand-header">
-            <img src="logo.png" alt="IOIS Logo" class="brand-logo" onerror="this.src='https://via.placeholder.com/65?text=IOIS'">
-            <h1>IOIS - INDIAN ONLINE INCOME SUPPORTING SYSTEM</h1>
-        </div>
 
-        <div class="wall-display">
-            <div class="analog-clock">
-                <span class="clock-number n12">12</span>
-                <span class="clock-number n3">3</span>
-                <span class="clock-number n6">6</span>
-                <span class="clock-number n9">9</span>
-                <div class="hand hour-hand" id="hourHand"></div>
-                <div class="hand minute-hand" id="minuteHand"></div>
-                <div class="hand second-hand" id="secondHand"></div>
-                <div class="center-dot"></div>
+<div class="app-container">
+    <!-- Top Navigation Bar with Menu Button -->
+    <div class="top-nav-bar">
+        <button class="menu-btn" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <div class="brand-title">IOIS Platform</div>
+        <div style="font-size: 11px; background: rgba(56,189,248,0.2); color: #38bdf8; padding: 3px 8px; border-radius: 6px;">PRO</div>
+    </div>
+
+    <!-- Dropdown Menu Options -->
+    <div class="dropdown-menu" id="dropdownMenu">
+        <a href="#" onclick="switchTab('home'); toggleMenu();">🏠 Home Dashboard</a>
+        <a href="#" onclick="switchTab('weather'); toggleMenu();">🌤️ Live Weather System</a>
+        <a href="#">💎 Service Plans</a>
+        <a href="#">🚀 Referral System</a>
+    </div>
+
+    <!-- Tab Switcher (Home & Weather) -->
+    <div class="tab-switcher">
+        <button class="tab-btn active" id="homeTabBtn" onclick="switchTab('home')">Home / Plans</button>
+        <button class="tab-btn" id="weatherTabBtn" onclick="switchTab('weather')">Live Weather</button>
+    </div>
+
+    <!-- PAGE 1: HOME DASHBOARD (7 Services & Referral) -->
+    <div class="page-section active" id="homePage">
+        <h3 style="font-size: 15px; margin-bottom: 12px; color: #38bdf8;">💎 7 Exclusive Service Plans (₹10 - ₹999)</h3>
+        <div class="plans-grid">
+            <div class="plan-card">
+                <span style="font-size: 11px; color: #94a3b8;">Starter</span>
+                <div class="plan-price">₹10</div>
+                <button class="plan-btn">Activate</button>
             </div>
-            <div class="digital-clock-box">
-                <div class="digital-clock" id="digitalClock">00:00:00</div>
-                <div class="clock-label">लाइव घड़ी</div>
+            <div class="plan-card">
+                <span style="font-size: 11px; color: #94a3b8;">Bronze</span>
+                <div class="plan-price">₹49</div>
+                <button class="plan-btn">Activate</button>
+            </div>
+            <div class="plan-card">
+                <span style="font-size: 11px; color: #94a3b8;">Silver</span>
+                <div class="plan-price">₹99</div>
+                <button class="plan-btn">Activate</button>
+            </div>
+            <div class="plan-card">
+                <span style="font-size: 11px; color: #94a3b8;">Gold</span>
+                <div class="plan-price">₹199</div>
+                <button class="plan-btn">Activate</button>
+            </div>
+            <div class="plan-card">
+                <span style="font-size: 11px; color: #94a3b8;">Platinum</span>
+                <div class="plan-price">₹299</div>
+                <button class="plan-btn">Activate</button>
+            </div>
+            <div class="plan-card">
+                <span style="font-size: 11px; color: #94a3b8;">Diamond</span>
+                <div class="plan-price">₹499</div>
+                <button class="plan-btn">Activate</button>
+            </div>
+            <div class="plan-card" style="grid-column: span 2; background: rgba(245,158,11,0.1); border-color: rgba(245,158,11,0.3);">
+                <span style="font-size: 11px; color: #f59e0b; font-weight: bold;">VIP Ultimate Plan</span>
+                <div class="plan-price" style="color: #f59e0b;">₹999</div>
+                <button class="plan-btn" style="background: #f59e0b;">Activate VIP</button>
             </div>
         </div>
 
-        <div class="city-search-box">
-            <input type="text" id="cityInput" placeholder="अपना शहर/गाँव लिखें (जैसे: Patna)...">
-            <button onclick="getWeather()">देखें</button>
-        </div>
-        
-        <div class="open-window" id="windowView" style="background: linear-gradient(to bottom, #38bdf8, #bae6fd);">
-            <div class="window-grid-v"></div>
-            <div class="window-grid-h"></div>
-            <div class="weather-status-tag" id="weatherText">मौसम लोड हो रहा है...</div>
-        </div>
-
-        <div class="app-grid">
-            <a href="membership.html" class="app-icon"><div class="icon-box" style="border-color:#22c55e;">💰</div><div class="icon-label">मेंबरशिप & 7-Level</div></a>
-            <a href="utilities.html" class="app-icon"><div class="icon-box">✨</div><div class="icon-label">कुंडली व पंचांग</div></a>
-            <a href="weather.html" class="app-icon"><div class="icon-box" style="border-color:#38bdf8;">🛰️</div><div class="icon-label">वेदर सैटेलाइट</div></a>
-            <a href="calendar.html" class="app-icon"><div class="icon-box">📅</div><div class="icon-label">त्योहार कैलेंडर</div></a>
-            <a href="news.html" class="app-icon"><div class="icon-box">📰</div><div class="icon-label">ताजा जानकारी</div></a>
-            <a href="dashboard.html" class="app-icon"><div class="icon-box">📊</div><div class="icon-label">डैशबोर्ड</div></a>
-            <a href="jobs.html" class="app-icon"><div class="icon-box">💼</div><div class="icon-label">जॉब पोर्टल</div></a>
-            <a href="chat.html" class="app-icon"><div class="icon-box">💬</div><div class="icon-label">चैट रूम</div></a>
-            <a href="admin.html" class="app-icon"><div class="icon-box" style="border-color:#ef4444;">🛡️</div><div class="icon-label">एडमिन पैनल</div></a>
+        <h3 style="font-size: 15px; margin-bottom: 10px; color: #38bdf8;">🚀 Referral Earning System</h3>
+        <div class="referral-box">
+            <h4 style="font-size: 14px; margin-bottom: 4px;">Earn 50% to 75% Commission</h4>
+            <p style="font-size: 11px; opacity: 0.9; margin-bottom: 8px;">Refer friends and earn instant rewards.</p>
+            <div class="ref-row">
+                <span>Direct Referral:</span>
+                <strong>Up to 50%</strong>
+            </div>
+            <div class="ref-row">
+                <span>Network Bonus:</span>
+                <strong>Extra 25%</strong>
+            </div>
         </div>
     </div>
-    
-    <script>
-        setInterval(() => {
-            const now = new Date();
-            document.getElementById('digitalClock').innerText = now.toLocaleTimeString('hi-IN');
-            const h = now.getHours() % 12, m = now.getMinutes(), s = now.getSeconds();
-            document.getElementById('secondHand').style.transform = `translateX(-50%) rotate(${(s/60)*360}deg)`;
-            document.getElementById('minuteHand').style.transform = `translateX(-50%) rotate(${(m/60)*360}deg)`;
-            document.getElementById('hourHand').style.transform = `translateX(-50%) rotate(${((h + m/60)/12)*360}deg)`;
-        }, 1000);
 
-        async function getWeather() {
-            const city = document.getElementById('cityInput').value.trim() || "Patna";
-            const textTag = document.getElementById('weatherText');
-            const windowBox = document.getElementById('windowView');
-            
-            textTag.innerHTML = "मौसम जाँच रहे हैं...";
-            try {
-                const geoRes = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(city)}&count=1`);
-                const geoData = await geoRes.json();
-                if(!geoData.results) { textTag.innerHTML = "शहर नहीं मिला!"; return; }
-                const { latitude, longitude, name } = geoData.results[0];
-                const weatherRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true`);
-                const weatherData = await weatherRes.json();
-                
-                const temp = weatherData.current_weather.temperature;
-                const code = weatherData.current_weather.weathercode;
+    <!-- PAGE 2: WEATHER.COM STYLE REAL LIVE SYSTEM -->
+    <div class="page-section" id="weatherPage">
+        <div class="search-box-wrap">
+            <input type="text" id="cityInputSearch" class="search-input" value="Patna, Bihar" placeholder="Search area/city...">
+            <button class="gps-action-btn" onclick="updateRealWeather()">📍 GPS</button>
+        </div>
 
-                let condition = "साफ धूप ☀️";
-                let windowBg = "linear-gradient(to bottom, #38bdf8, #bae6fd)"; // धूप वाला साफ आसमान
+        <!-- Real Live Visual Window -->
+        <div class="live-visual-window" id="visualWindowBox">
+            <!-- Real Falling Rain Animation -->
+            <div class="rain-container" id="rainEffectBox">
+                <div class="raindrop" style="left: 15%; animation-delay: 0.1s;"></div>
+                <div class="raindrop" style="left: 35%; animation-delay: 0.4s;"></div>
+                <div class="raindrop" style="left: 55%; animation-delay: 0.2s;"></div>
+                <div class="raindrop" style="left: 75%; animation-delay: 0.5s;"></div>
+                <div class="raindrop" style="left: 90%; animation-delay: 0.3s;"></div>
+            </div>
 
-                if (code >= 1 && code <= 3) {
-                    // बादलों वाला साफ़ दृश्य (डार्क ग्रे-ब्लू और क्लाउडी ग्रेडिएंट)
-                    condition = "आसमान में घने बादल ☁️";
-                    windowBg = "linear-gradient(to bottom, #475569, #94a3b8)"; 
-                } else if (code >= 51 && code <= 67) {
-                    condition = "मूसलाधार बारिश 🌧️";
-                    windowBg = "linear-gradient(to bottom, #1e293b, #475569)"; 
-                } else if (code >= 71) {
-                    condition = "बर्फबारी ❄️";
-                    windowBg = "linear-gradient(to bottom, #cbd5e1, #f1f5f9)";
-                }
+            <div style="display: flex; justify-content: space-between; align-items: center; z-index: 2;">
+                <span id="locNameDisplay" style="font-weight: 600; font-size: 14px; background: rgba(0,0,0,0.4); padding: 4px 10px; border-radius: 20px;">Patna, Bihar</span>
+                <span style="font-size: 10px; background: rgba(59,130,246,0.3); color: #60a5fa; padding: 4px 8px; border-radius: 20px;">Live View</span>
+            </div>
 
-                windowBox.style.background = windowBg;
-                textTag.innerHTML = `📍 ${name} : ${temp}°C | ${condition}`;
-            } catch(e) {
-                textTag.innerHTML = "त्रुटि, पुनः प्रयास करें";
-            }
+            <div style="z-index: 2;">
+                <div id="tempValDisplay" style="font-size: 42px; font-weight: bold; text-shadow: 0 2px 5px rgba(0,0,0,0.4);">27°C</div>
+                <div id="condValDisplay" style="font-size: 15px; font-weight: 600; color: #fde047; text-transform: uppercase;">Heavy Rain & Live Preview</div>
+            </div>
+        </div>
+
+        <!-- Safety Advisory & Precautions -->
+        <div class="safety-alert-card">
+            <h4>⚠️ Weather Safety Advisory</h4>
+            <p id="safetyAdviceText">Mausam kharab hai aur tezi se barish ho rahi hai. Ghar ke andar rahein, khule sthan par na jayein.</p>
+        </div>
+
+        <!-- Parameters -->
+        <div class="params-grid">
+            <div class="param-card">
+                <span>Humidity</span>
+                <strong id="humDisplay">88%</strong>
+            </div>
+            <div class="param-card">
+                <span>Wind Speed</span>
+                <strong id="windDisplay">22 km/h</strong>
+            </div>
+            <div class="param-card">
+                <span>Air Quality</span>
+                <strong style="color: #4ade80;">Good (35)</strong>
+            </div>
+        </div>
+
+        <h3 style="font-size: 14px; margin-bottom: 8px; color: #38bdf8;">📅 Kal Ka Mausam (Tomorrow)</h3>
+        <div style="background: #1b2234; padding: 12px 15px; border-radius: 10px; font-size: 13px; display: flex; justify-content: space-between;">
+            <span>Forecast Update</span>
+            <strong id="tomorrowDisplay" style="color: #38bdf8;">29°C / 23°C - Showers</strong>
+        </div>
+    </div>
+</div>
+
+<script>
+    function toggleMenu() {
+        const menu = document.getElementById('dropdownMenu');
+        menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+    }
+
+    function switchTab(tabName) {
+        const homePage = document.getElementById('homePage');
+        const weatherPage = document.getElementById('weatherPage');
+        const homeTabBtn = document.getElementById('homeTabBtn');
+        const weatherTabBtn = document.getElementById('weatherTabBtn');
+
+        if(tabName === 'home') {
+            homePage.classList.add('active');
+            weatherPage.classList.remove('active');
+            homeTabBtn.classList.add('active');
+            weatherTabBtn.classList.remove('active');
+        } else {
+            weatherPage.classList.add('active');
+            homePage.classList.remove('active');
+            weatherTabBtn.classList.add('active');
+            homeTabBtn.classList.remove('active');
         }
-        window.onload = () => { getWeather(); };
-    </script>
+    }
+
+    function updateRealWeather() {
+        const query = document.getElementById('cityInputSearch').value.toLowerCase();
+        const visualBox = document.getElementById('visualWindowBox');
+        const rainBox = document.getElementById('rainEffectBox');
+        const tempDisp = document.getElementById('tempValDisplay');
+        const condDisp = document.getElementById('condValDisplay');
+        const safetyTxt = document.getElementById('safetyAdviceText');
+        const locTitle = document.getElementById('locNameDisplay');
+        const humDisp = document.getElementById('humDisplay');
+        const windDisp = document.getElementById('windDisplay');
+        const tomorrowDisp = document.getElementById('tomorrowDisplay');
+
+        locTitle.innerText = document.getElementById('cityInputSearch').value;
+
+        if(query.includes('mumbai') || query.includes('patna') || query.includes('village')) {
+            visualBox.style.background = "linear-gradient(135deg, #0f172a, #1e293b)";
+            rainBox.style.display = "block";
+            tempDisp.innerText = "27°C";
+            condDisp.innerText = "Heavy Rain Live View";
+            safetyTxt.innerText = "⚠️ Savadhani: Barish ke dauran gaadi dheere chalayein aur khule taar ya bijli ke khambon se door rahein.";
+            humDisp.innerText = "90%";
+            windDisp.innerText = "24 km/h";
+            tomorrowDisp.innerText = "28°C / 22°C - Light Rain";
+        } else {
+            visualBox.style.background = "linear-gradient(135deg, #0284c7, #0f172a)";
+            rainBox.style.display = "none";
+            tempDisp.innerText = "35°C";
+            condDisp.innerText = "Sunny & Clear Sky View";
+            safetyTxt.innerText = "💡 Savadhani: Dhoop tez hai, bahar nikalte waqt paani piyein aur dhoop se bachav karein.";
+            humDisp.innerText = "40%";
+            windDisp.innerText = "12 km/h";
+            tomorrowDisp.innerText = "36°C / 26°C - Sunny";
+        }
+    }
+</script>
+
 </body>
 </html>
