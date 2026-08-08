@@ -3,397 +3,98 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IOIS Platform - Live Widgets & Masterplans</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        body {
-            background-color: #f4f7f6;
-            color: #333;
-            line-height: 1.6;
-        }
-        header {
-            background: linear-gradient(135deg, #1e3c72, #2a5298);
-            color: white;
-            text-align: center;
-            padding: 30px 20px;
-        }
-        header h1 {
-            font-size: 2.2rem;
-            margin-bottom: 5px;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 20px auto;
-            padding: 0 20px;
-        }
-
-        /* --- पुरानी विगेट्स (घड़ी, मौसम, राशिफल) के लिए स्टाइल --- */
-        .widgets-section {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 15px;
-            margin-bottom: 30px;
-        }
-        .widget-card {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            text-align: center;
-            border-left: 4px solid #2a5298;
-        }
-        .widget-card h3 {
-            color: #2a5298;
-            margin-bottom: 10px;
-            font-size: 1.1rem;
-        }
-        #live-clock {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #27ae60;
-        }
-
-        /* --- नए प्लांस और मास्टरप्लान के लिए स्टाइल --- */
-        .intro-box {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            margin-bottom: 25px;
-        }
-        .intro-box h2 {
-            color: #2a5298;
-            margin-bottom: 8px;
-            font-size: 1.3rem;
-        }
-        .plans-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 20px;
-        }
-        .plan-card {
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            border-top: 5px solid #2a5298;
-        }
-        .plan-title {
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 5px;
-        }
-        .plan-price {
-            font-size: 1.6rem;
-            font-weight: bold;
-            color: #27ae60;
-            margin-bottom: 10px;
-        }
-        .plan-features {
-            list-style: none;
-            margin-bottom: 15px;
-        }
-        .plan-features li {
-            padding: 4px 0;
-            font-size: 0.9rem;
-            border-bottom: 1px solid #eee;
-        }
-        .payout-badge {
-            background: #e8f8f5;
-            color: #16a085;
-            padding: 6px;
-            text-align: center;
-            font-weight: bold;
-            border-radius: 5px;
-            margin-bottom: 12px;
-            font-size: 0.85rem;
-        }
-        .btn {
-            background: #2a5298;
-            color: white;
-            text-align: center;
-            padding: 8px;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: bold;
-            display: block;
-        }
-        .btn:hover {
-            background: #1e3c72;
-        }
-        footer {
-            text-align: center;
-            padding: 15px;
-            background: #222;
-            color: white;
-            margin-top: 30px;
-            font-size: 0.9rem;
-        }
-    </style>
-</head>
-<body>
-
-    <header>
-        <h1>IOIS Platform</h1>
-        <p>Digital Services, Live Widgets & Masterplans</p>
-    </header>
-
-    <div class="container">
-
-        <!-- 🌟 1. पुरानी विगेट्स (डिजिटल घड़ी, मौसम, राशिफल) सेक्शन -->
-        <div class="widgets-section">
-            <div class="widget-card">
-                <h3>⏰ Live Digital Clock</h3>
-                <div id="live-clock">00:00:00 AM</div>
-            </div>
-            <div class="widget-card">
-                <h3>⛅ Weather System</h3>
-                <p>Live Location: <b>Normal / Clear</b></p>
-            </div>
-            <div class="widget-card">
-                <h3>🔮 Dainik Rashifal</h3>
-                <p>आज का दिन आपके और आपके बिजनेस के लिए शुभ है!</p>
-            </div>
-        </div>
-
-        <!-- 🌟 2. नया IOIS और मिक्स्ड रेफरल सिस्टम परिचय -->
-        <div class="intro-box">
-            <h2>💡 IOIS Masterplan & Mixed Referral System</h2>
-            <p>विद्यार्थियों और प्रमोटर्स के लिए बेहतरीन डिजिटल टूल्स। हमारे <strong>मिक्स्ड रेफरल सिस्टम</strong> के तहत छोटे प्लान से जुड़ा प्रमोटर भी बड़ा प्लान बेचकर सीधा पूरा बड़ा कमीशन (जैसे ₹750 तक) पा सकता है!</p>
-        </div>
-
-        <!-- 🌟 3. सभी 7 प्लांस का ग्रिड -->
-        <div class="plans-grid">
-            <!-- Plan 1 -->
-            <div class="plan-card">
-                <div>
-                    <div class="plan-title">Alpha Starter Pass</div>
-                    <div class="plan-price">₹10</div>
-                    <ul class="plan-features">
-                        <li>Starter Digital ID Pass</li>
-                        <li>3 CV Templates & Cover Letters</li>
-                        <li>10 ChatGPT Email Prompts</li>
-                        <li>Important Website Links Sheet</li>
-                    </ul>
-                </div>
-                <div>
-                    <div class="payout-badge">Instant Payout: ₹7 (70%)</div>
-                    <a href="#" class="btn">Join Now (₹10)</a>
-                </div>
-            </div>
-
-            <!-- Plan 2 -->
-            <div class="plan-card">
-                <div>
-                    <div class="plan-title">Nexus Pro Creator Kit</div>
-                    <div class="plan-price">₹49</div>
-                    <ul class="plan-features">
-                        <li>Pro Creator Badge (Gold Accent)</li>
-                        <li>15+ Bio-data Formats</li>
-                        <li>50+ Social Festival Posts</li>
-                        <li>Smartphone Website Guide</li>
-                    </ul>
-                </div>
-                <div>
-                    <div class="payout-badge">Instant Payout: ₹35</div>
-                    <a href="#" class="btn">Get Kit (₹49)</a>
-                </div>
-            </div>
-
-            <!-- Plan 3 -->
-            <div class="plan-card">
-                <div>
-                    <div class="plan-title">Apex Executive Pass</div>
-                    <div class="plan-price">₹99</div>
-                    <ul class="plan-features">
-                        <li>Executive Business Pass</li>
-                        <li>100+ Branding Templates</li>
-                        <li>Business Card & Letterhead</li>
-                        <li>Content Writing AI Prompts</li>
-                    </ul>
-                </div>
-                <div>
-                    <div class="payout-badge">Instant Payout: ₹70</div>
-                    <a href="#" class="btn">Buy Pass (₹99)</a>
-                </div>
-            </div>
-
-            <!-- Plan 4 -->
-            <div class="plan-card">
-                <div>
-                    <div class="plan-title">Zenith VIP Creator Pass</div>
-                    <div class="plan-price">₹199</div>
-                    <ul class="plan-features">
-                        <li>VIP Creator Holographic Card</li>
-                        <li>Mobile Design Masterclass</li>
-                        <li>300+ Marketing Banners</li>
-                        <li>Client Pitching Toolkit</li>
-                    </ul>
-                </div>
-                <div>
-                    <div class="payout-badge">Direct Payout: ₹120 (+ L2)</div>
-                    <a href="#" class="btn">Join VIP (₹199)</a>
-                </div>
-            </div>
-
-            <!-- Plan 5 -->
-            <div class="plan-card">
-                <div>
-                    <div class="plan-title">Govt Exam & Student Pass</div>
-                    <div class="plan-price">₹299</div>
-                    <ul class="plan-features">
-                        <li>Student & Aspirant ID Card</li>
-                        <li>Govt Job Quick-Alert Sheet</li>
-                        <li>GK & Exam PDF Notes Bank</li>
-                        <li>Mock Test Links</li>
-                    </ul>
-                </div>
-                <div>
-                    <div class="payout-badge">Direct Payout: ₹220 (+ L2)</div>
-                    <a href="#" class="btn">Get Student Pass</a>
-                </div>
-            </div>
-
-            <!-- Plan 6 -->
-            <div class="plan-card">
-                <div>
-                    <div class="plan-title">Diamond Business Agency</div>
-                    <div class="plan-price">₹499</div>
-                    <ul class="plan-features">
-                        <li>Diamond Agency Partner Card</li>
-                        <li>1000+ Graphic & Video Assets</li>
-                        <li>Agency Operations Manual</li>
-                        <li>Lead Generation Scripts</li>
-                    </ul>
-                </div>
-                <div>
-                    <div class="payout-badge">Direct Payout: ₹375 (+ L2)</div>
-                    <a href="#" class="btn">Start Agency (₹499)</a>
-                </div>
-            </div>
-
-            <!-- Plan 7 -->
-            <div class="plan-card" style="border-top-color: #f39c12;">
-                <div>
-                    <div class="plan-title">VIP Mastermind & AI Pass</div>
-                    <div class="plan-price">₹999</div>
-                    <ul class="plan-features">
-                        <li>VIP Mastermind Elite Card</li>
-                        <li>AI Tools Mastery & Canva AI</li>
-                        <li>Freelancing Secrets Blueprint</li>
-                        <li>VIP Community Support</li>
-                    </ul>
-                </div>
-                <div>
-                    <div class="payout-badge" style="background: #fef9e7; color: #d35400;">Direct Payout: ₹750 (+ L2)</div>
-                    <a href="#" class="btn" style="background: #f39c12;">Join Mastermind</a>
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-    <footer>
-        <p>&copy; 2026 IOIS Platform. All Rights Reserved. | Integrated Live System.</p>
-    </footer>
-
-    <!-- लाइव घड़ी चालू रखने के लिए जावास्क्रिप्ट -->
-    <script>
-        function updateClock() {
-            const now = new Date();
-            let hours = now.getHours();
-            let minutes = now.getMinutes();
-            let seconds = now.getSeconds();
-            let ampm = hours >= 12 ? 'PM' : 'AM';
-            hours = hours % 12;
-            hours = hours ? hours : 12;
-            minutes = minutes < 10 ? '0' + minutes : minutes;
-            seconds = seconds < 10 ? '0' + seconds : seconds;
-            document.getElementById('live-clock').innerText = `${hours}:${minutes}:${seconds} ${ampm}`;
-        }
-        setInterval(updateClock, 1000);
-        updateClock();
-    </script>
-
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="hi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IOIS - Indian Online Income Supporting System</title>
+    <title>IOIS Platform | Advanced Dashboard</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
     <style>
-        .tiranga-text { background: linear-gradient(90deg, #f97316 0%, #ffffff 50%, #10b981 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .room-wall { background: linear-gradient(135deg, #0b1329 0%, #050b18 100%); border: 4px solid #1e293b; box-shadow: inset 0 0 50px rgba(0,0,0,0.8); }
-        .digit-clock-box { background: #020617; border: 3px inset #334155; box-shadow: 0 0 15px rgba(245, 158, 11, 0.3); }
-        .window-frame { background: #1e1b4b; border: 6px solid #451a03; box-shadow: 0 10px 25px rgba(0,0,0,0.9); }
-        .solar-orbit { animation: rotate 25s linear infinite; }
-        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        body { font-family: 'Poppins', sans-serif; }
+        .glass-card { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .gradient-text { background: linear-gradient(to right, #fbbf24, #f59e0b); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
     </style>
 </head>
-<body class="bg-[#030712] text-white font-sans flex flex-col min-h-screen">
 
-    <!-- Navbar & Content yahan se upar wala code.... -->
-    <!-- (Maine bacha hua code yahan complete kar diya hai) -->
+<body class="bg-[#020617] text-gray-200">
 
-    <!-- HERO SECTION KAA BOTTOM PART -->
-    <div class="bg-gradient-to-r from-amber-500/20 via-teal-500/20 to-amber-500/20 border-2 border-amber-400 p-4 rounded-2xl max-w-xl mx-auto mb-6 text-left shadow-2xl">
-        <div class="flex items-center gap-4">
-            <div class="text-3xl text-amber-400"><i class="fa-solid fa-rocket"></i></div>
-            <div>
-                <h3 class="text-white font-black text-sm uppercase">Priyanshu's Special Offer</h3>
-                <p class="text-[10px] text-gray-200">100% Secure & Trusted Platform. Aaj hi apna membership claim karein.</p>
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-[#050b1d]/80 backdrop-blur-md border-b border-gray-800 p-4">
+        <div class="max-w-4xl mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-black tracking-tighter text-white">IOIS<span class="text-amber-500">PLATFORM</span></h1>
+            <div id="nav-links" class="hidden md:flex gap-6">
+                <a href="#home" class="hover:text-amber-400 transition">Home</a>
+                <a href="#earnings" class="hover:text-amber-400 transition">Earnings</a>
+                <a href="#support" class="hover:text-amber-400 transition">Support</a>
             </div>
-            <button onclick="window.location.href='membership.html'" class="ml-auto bg-amber-400 text-gray-950 px-4 py-2 rounded-xl font-black text-[10px]">JOIN NOW</button>
+            <button onclick="document.getElementById('nav-links').classList.toggle('hidden')" class="md:hidden text-xl"><i class="fa-solid fa-bars"></i></button>
         </div>
-    </div>
-    
-    <footer class="py-4 text-center text-[10px] text-gray-500">
-        © 2026 IOIS Platform | Designed for Growth
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-4xl mx-auto p-4 space-y-8">
+        
+        <!-- Hero Section -->
+        <section id="home" class="mt-8 text-center">
+            <h2 class="text-4xl font-extrabold text-white mb-4">Make Money <span class="gradient-text">Smartly</span></h2>
+            <p class="text-gray-400 mb-6">IOIS प्लेटफॉर्म के साथ अपना डिजिटल करियर आज ही शुरू करें।</p>
+            <div id="live-clock" class="text-5xl font-mono font-bold text-amber-500 mb-8">00:00:00</div>
+            <button class="bg-amber-500 text-black font-bold px-8 py-3 rounded-full hover:scale-105 transition">Start Earning Now</button>
+        </section>
+
+        <!-- Stats Grid -->
+        <div class="grid grid-cols-2 gap-4">
+            <div class="glass-card p-4 rounded-2xl text-center">
+                <p class="text-xs text-gray-500 uppercase">Today's Earnings</p>
+                <h3 class="text-xl font-bold text-white">₹450.00</h3>
+            </div>
+            <div class="glass-card p-4 rounded-2xl text-center">
+                <p class="text-xs text-gray-500 uppercase">Total Members</p>
+                <h3 class="text-xl font-bold text-white">1,240</h3>
+            </div>
+        </div>
+
+        <!-- TV / Video Widget -->
+        <section class="glass-card p-2 rounded-2xl">
+            <div class="aspect-video bg-black rounded-xl overflow-hidden">
+                <iframe id="main-video" class="w-full h-full" src="https://www.youtube.com/embed/0gYd3mIxksc" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </section>
+
+        <!-- Referral Section -->
+        <section class="bg-gradient-to-r from-amber-600 to-amber-400 p-6 rounded-3xl text-black">
+            <h3 class="text-xl font-black mb-2">Refer & Earn</h3>
+            <p class="text-sm font-medium mb-4">अपने दोस्तों को इन्वाइट करें और पाएं हर जॉइनिंग पर बोनस।</p>
+            <input type="text" value="iois.com/ref/yourid" readonly class="w-full p-3 rounded-xl bg-black/10 font-mono text-sm border border-black/20 mb-3">
+            <button class="w-full bg-black text-white py-3 rounded-xl font-bold hover:bg-gray-800">Copy Referral Link</button>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-12 py-8 text-center border-t border-gray-800 text-[10px] text-gray-600">
+        <p>&copy; 2026 IOIS Platform. All Rights Reserved.</p>
+        <p class="mt-2">Designed for Financial Empowerment</p>
     </footer>
 
+    <!-- JavaScript -->
     <script>
         // Digital Clock
         function updateClock() {
             const now = new Date();
-            document.getElementById('room-12digit-clock').innerText = now.toLocaleTimeString('hi-IN', { hour12: true });
-            
-            // Analog Hands
-            const s = now.getSeconds() * 6;
-            const m = now.getMinutes() * 6 + s/60;
-            const h = (now.getHours() % 12) * 30 + m/12;
-            document.getElementById('wall-sec').style.transform = `rotate(${s}deg)`;
-            document.getElementById('wall-min').style.transform = `rotate(${m}deg)`;
-            document.getElementById('wall-hour').style.transform = `rotate(${h}deg)`;
+            document.getElementById('live-clock').innerText = now.toLocaleTimeString('en-IN', { hour12: false });
         }
         setInterval(updateClock, 1000);
+        updateClock();
 
-        // TV Mode Switcher
-        function playTvMode(mode) {
-            const iframe = document.getElementById('tv-iframe');
-            if(mode === 'youtube') {
-                iframe.src = "https://www.youtube.com/embed/0gYd3mIxksc?autoplay=1&mute=1";
-            } else {
-                iframe.src = "https://www.google.com";
-            }
-        }
-
-        // Mobile Menu Toggle
-        function toggleMobileMenu() {
-            document.getElementById('mobile-menu').classList.toggle('hidden');
-        }
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+            });
+        });
     </script>
 </body>
 </html>
