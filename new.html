@@ -1,71 +1,549 @@
-<!DOCTYPE html>
-<html lang="hi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IOIS Professional Platform</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-</head>
-<body class="bg-gray-950 text-white font-sans">
+/* =========================================================
+   IOIS HOME PAGE - script.js
+   Existing Home Page Functions
+   ========================================================= */
 
-    <!-- 1. LOGIN SECTION -->
-    <div id="login-section" class="min-h-screen flex items-center justify-center p-4">
-        <div class="bg-gray-900 p-8 rounded-3xl w-full max-w-sm border border-gray-800 shadow-2xl">
-            <h2 class="text-2xl font-bold mb-6 text-center text-amber-400">IOIS LOGIN</h2>
-            <input id="user-name" type="text" placeholder="अपना नाम लिखें" class="w-full p-3 mb-4 rounded-xl bg-gray-800 border border-gray-700">
-            <button onclick="loginUser()" class="w-full bg-amber-500 py-3 rounded-xl font-bold text-black">LOGIN</button>
-        </div>
-    </div>
+"use strict";
 
-    <!-- 2. DASHBOARD SECTION (HIDDEN BY DEFAULT) -->
-    <div id="dashboard-section" class="hidden p-4 max-w-lg mx-auto">
-        <!-- User Header -->
-        <div class="flex justify-between items-center mb-6">
-            <h1 class="text-lg font-bold">नमस्ते, <span id="display-name" class="text-amber-400"></span></h1>
-            <button onclick="logout()" class="text-xs bg-red-900 px-3 py-1 rounded">Logout</button>
-        </div>
+/* =========================
+   1. LIVE CLOCK
+========================= */
 
-        <!-- Wallet Card -->
-        <div class="bg-gradient-to-r from-blue-900 to-indigo-900 p-6 rounded-3xl mb-6 shadow-xl">
-            <p class="text-xs text-blue-200">Total Balance</p>
-            <h2 class="text-4xl font-black">₹<span id="user-balance">0.00</span></h2>
-        </div>
+function updateRoomClocks() {
+    const now = new Date();
 
-        <!-- Action Grid -->
-        <div class="grid grid-cols-2 gap-4">
-            <button onclick="showSection('earn')" class="bg-gray-800 p-4 rounded-2xl">अर्निंग करें</button>
-            <button onclick="showSection('profile')" class="bg-gray-800 p-4 rounded-2xl">प्रोफाइल</button>
-        </div>
-    </div>
+    const d = String(now.getDate()).padStart(2, "0");
+    const m = String(now.getMonth() + 1).padStart(2, "0");
+    const y = String(now.getFullYear()).slice(-2);
 
-    <script>
-        // LOGIN LOGIC
-        function loginUser() {
-            const name = document.getElementById('user-name').value;
-            if(name) {
-                localStorage.setItem('ioisUser', name);
-                showDashboard();
-            } else {
-                alert("कृपया अपना नाम लिखें!");
+    const hrs = String(now.getHours()).padStart(2, "0");
+    const mins = String(now.getMinutes()).padStart(2, "0");
+    const secs = String(now.getSeconds()).padStart(2, "0");
+    const msecs = String(
+        Math.floor(now.getMilliseconds() / 10)
+    ).padStart(2, "0");
+
+    const clock = document.getElementById(
+        "room-12digit-clock"
+    );
+
+    if (clock) {
+        clock.innerText =
+            `${d}:${m}:${y} | ${hrs}:${mins}:${secs}:${msecs}`;
+    }
+
+    const sec = document.getElementById("wall-sec");
+    const min = document.getElementById("wall-min");
+    const hour = document.getElementById("wall-hour");
+
+    if (sec) {
+        sec.style.transform =
+            `rotate(${now.getSeconds() * 6}deg)`;
+    }
+
+    if (min) {
+        min.style.transform =
+            `rotate(${now.getMinutes() * 6 + now.getSeconds() * 0.1}deg)`;
+    }
+
+    if (hour) {
+        hour.style.transform =
+            `rotate(${(now.getHours() % 12) * 30 + now.getMinutes() * 0.5}deg)`;
+    }
+}
+
+setInterval(updateRoomClocks, 50);
+updateRoomClocks();
+
+
+/* =========================
+   2. LIVE WEATHER
+========================= */
+
+function fetchLiveWeather() {
+
+    if (!navigator.geolocation) {
+        fallbackWeather();
+        return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+
+        function(position) {
+
+            const lat = position.coords.latitude;
+            const lon = position.coords.longitude;
+
+            const location =
+                document.getElementById(
+                    "weather-location-label"
+                );
+
+            if (location) {
+                location.innerText = "Live GPS Area";
             }
+
+            const url =
+                `https://api.open-meteo.com/v1/forecast` +
+                `?latitude=${lat}` +
+                `&longitude=${lon}` +
+                `&current_weather=true`;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+
+                    if (
+                        data &&
+                        data.current_weather
+                    ) {
+
+                        const weather =
+                            data.current_weather;
+
+                        const temp =
+                            document.getElementById(
+                                "weather-temp-display"
+                            );
+
+                        const status =
+                            document.getElementById(
+                                "weather-status-display"
+                            );
+
+                        if (temp) {
+                            temp.innerText =
+                                `${weather.temperature}°C`;
+                        }
+
+                        if (status) {
+                            status.innerText =
+                                `☀️ हवा गति: ${weather.windspeed} km/h`;
+                        }
+                    }
+
+                })
+                .catch(() => {
+                    fallbackWeather();
+                });
+        },
+
+        function() {
+            fallbackWeather();
+        }
+    );
+}
+
+
+function fallbackWeather() {
+
+    const location =
+        document.getElementById(
+            "weather-location-label"
+        );
+
+    const temp =
+        document.getElementById(
+            "weather-temp-display"
+        );
+
+    const status =
+        document.getElementById(
+            "weather-status-display"
+        );
+
+    if (location) {
+        location.innerText = "India";
+    }
+
+    if (temp) {
+        temp.innerText = "33°C";
+    }
+
+    if (status) {
+        status.innerText =
+            "☀️ धूप खिली है + साफ मौसम";
+    }
+}
+
+fetchLiveWeather();
+
+
+/* =========================
+   3. MOBILE MENU
+========================= */
+
+function toggleMobileMenu() {
+
+    const menu =
+        document.getElementById("mobile-menu");
+
+    if (!menu) return;
+
+    menu.classList.toggle("hidden");
+}
+
+
+/* =========================
+   4. REGISTRATION MODAL
+========================= */
+
+function openRegistrationFlow() {
+
+    const modal =
+        document.getElementById("reg-modal");
+
+    if (!modal) return;
+
+    modal.classList.remove("hidden");
+}
+
+
+function openRegistrationFlowWithTier(tierName) {
+
+    const modal =
+        document.getElementById("reg-modal");
+
+    const select =
+        document.getElementById("reg-card-tier");
+
+    if (!modal) return;
+
+    if (select && tierName) {
+        select.value = tierName;
+    }
+
+    modal.classList.remove("hidden");
+}
+
+
+/* =========================
+   5. CLOSE MODAL
+========================= */
+
+function closeModals() {
+
+    const modal =
+        document.getElementById("reg-modal");
+
+    if (!modal) return;
+
+    modal.classList.add("hidden");
+}
+
+
+/* =========================
+   6. LOGIN
+========================= */
+
+function openLoginModal() {
+
+    alert("IOIS Login Panel Opened");
+
+}
+
+
+/* =========================
+   7. REGISTRATION FORM
+========================= */
+
+function handleDetailsSubmit(event) {
+
+    event.preventDefault();
+
+    const name =
+        document.getElementById("reg-name");
+
+    const phone =
+        document.getElementById("reg-phone");
+
+    const plan =
+        document.getElementById("reg-card-tier");
+
+    if (!name || !phone || !plan) {
+        return;
+    }
+
+    const fullName =
+        name.value.trim();
+
+    const mobile =
+        phone.value.trim();
+
+    const selectedPlan =
+        plan.value;
+
+
+    /* Name Check */
+
+    if (fullName.length < 2) {
+
+        alert(
+            "कृपया अपना सही नाम दर्ज करें।"
+        );
+
+        name.focus();
+
+        return;
+    }
+
+
+    /* Mobile Check */
+
+    if (!/^[6-9][0-9]{9}$/.test(mobile)) {
+
+        alert(
+            "कृपया सही 10 अंकों का WhatsApp Number दर्ज करें।"
+        );
+
+        phone.focus();
+
+        return;
+    }
+
+
+    /* Registration Data */
+
+    const registration = {
+
+        name: fullName,
+
+        phone: mobile,
+
+        plan: selectedPlan,
+
+        date: new Date().toISOString()
+
+    };
+
+
+    localStorage.setItem(
+        "iois_registration",
+        JSON.stringify(registration)
+    );
+
+
+    alert(
+        "Registration Successfully Submitted!\n\n" +
+        "Name: " + fullName + "\n" +
+        "Plan: " + selectedPlan
+    );
+
+
+    closeModals();
+}
+
+
+/* =========================
+   8. TV PLAYER
+========================= */
+
+function playTvMode(mode) {
+
+    const iframe =
+        document.getElementById("tv-iframe");
+
+    if (!iframe) return;
+
+
+    if (mode === "youtube") {
+
+        iframe.src =
+            "https://www.youtube.com/embed/0gYd3mIxksc" +
+            "?autoplay=1&mute=1" +
+            "&loop=1&playlist=0gYd3mIxksc";
+
+    }
+
+
+    if (mode === "chrome") {
+
+        iframe.src =
+            "https://www.google.com/search?igu=1";
+
+    }
+}
+
+
+/* =========================
+   9. CLOSE MODAL WITH ESC
+========================= */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (event.key !== "Escape") return;
+
+        const modal =
+            document.getElementById("reg-modal");
+
+        if (
+            modal &&
+            !modal.classList.contains("hidden")
+        ) {
+            closeModals();
         }
 
-        function showDashboard() {
-            document.getElementById('login-section').classList.add('hidden');
-            document.getElementById('dashboard-section').classList.remove('hidden');
-            document.getElementById('display-name').innerText = localStorage.getItem('ioisUser');
+    }
+);
+
+
+/* =========================
+   10. CLOSE MODAL OUTSIDE
+========================= */
+
+document.addEventListener(
+    "click",
+    function(event) {
+
+        const modal =
+            document.getElementById("reg-modal");
+
+        if (!modal) return;
+
+        if (event.target === modal) {
+            closeModals();
         }
 
-        function logout() {
-            localStorage.clear();
-            location.reload();
-        }
+    }
+);
 
-        // AUTO-CHECK LOGIN
-        window.onload = () => {
-            if(localStorage.getItem('ioisUser')) showDashboard();
-        }
-    </script>
-</body>
-</html>
+
+/* =========================
+   11. IOIS PLAN DATA
+========================= */
+
+const IOIS_PLANS = [
+
+    {
+        name: "Alpha Starter Pass",
+        price: 10,
+        payout: 7
+    },
+
+    {
+        name: "Nexus Pro Creator Kit",
+        price: 49,
+        payout: 35
+    },
+
+    {
+        name: "Apex Executive Pass",
+        price: 99,
+        payout: 70
+    },
+
+    {
+        name: "Zenith VIP Creator Pass",
+        price: 199,
+        payout: 120
+    },
+
+    {
+        name: "Govt Exam & Student Pass",
+        price: 299,
+        payout: 220
+    },
+
+    {
+        name: "Diamond Business Agency Pass",
+        price: 499,
+        payout: 375
+    },
+
+    {
+        name: "VIP Mastermind & AI Pass",
+        price: 999,
+        payout: 750
+    }
+
+];
+
+
+/* =========================
+   12. PLAN PAYOUT FUNCTION
+========================= */
+
+function getIOISPayout(price) {
+
+    const plan =
+        IOIS_PLANS.find(
+            item => item.price === Number(price)
+        );
+
+    if (!plan) return null;
+
+    return plan.payout;
+}
+
+
+/* =========================
+   13. REFERRAL EXAMPLE
+========================= */
+
+function showReferralExample(price) {
+
+    const plan =
+        IOIS_PLANS.find(
+            item => item.price === Number(price)
+        );
+
+    if (!plan) return;
+
+    alert(
+        `${plan.name}\n\n` +
+        `Plan Price: ₹${plan.price}\n` +
+        `Direct Referral Payout: ₹${plan.payout}`
+    );
+}
+
+
+/* =========================
+   14. SMOOTH SCROLL
+========================= */
+
+function scrollToPlans() {
+
+    const plans =
+        document.getElementById("plans");
+
+    if (plans) {
+
+        plans.scrollIntoView({
+            behavior: "smooth"
+        });
+
+    }
+}
+
+
+function scrollToServices() {
+
+    const services =
+        document.getElementById("services");
+
+    if (services) {
+
+        services.scrollIntoView({
+            behavior: "smooth"
+        });
+
+    }
+}
+
+
+/* =========================
+   15. PAGE LOADED
+========================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        console.log(
+            "IOIS Home Page Script Loaded Successfully."
+        );
+
+    }
+);
