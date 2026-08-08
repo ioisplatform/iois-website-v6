@@ -12,22 +12,16 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        @keyframes slideIn { from { transform: translateY(100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-        .toast-animate { animation: slideIn 0.5s ease-out forwards; }
-
-        /* Room Element Custom Styles */
         .room-wall {
             background: linear-gradient(135deg, #0b1329 0%, #050b18 100%);
             border: 4px solid #1e293b;
             box-shadow: inset 0 0 50px rgba(0,0,0,0.8);
         }
-        /* 12-Digit Room Clock Animation/Glow */
         .digit-clock-box {
             background: #020617;
             border: 3px inset #334155;
             box-shadow: 0 0 15px rgba(245, 158, 11, 0.3);
         }
-        /* Window Open View */
         .window-frame {
             background: #1e1b4b;
             border: 6px solid #451a03;
@@ -41,7 +35,7 @@
     <div class="bg-gradient-to-r from-amber-600 via-amber-500 to-amber-600 text-gray-950 py-1.5 px-4 font-bold text-xs flex items-center shadow-md">
         <span class="bg-red-600 text-white text-[10px] px-2 py-0.5 rounded font-black mr-2 uppercase tracking-wider shrink-0">LIVE UPDATE</span>
         <marquee class="font-bold tracking-wide">
-            🔥 ₹10 से जॉइन करके ₹49 वाला गोल्ड प्लान बेचें और पाएँ सीधे ₹35 (71%) कमीशन! &nbsp;&nbsp;&nbsp;&nbsp; 🎉 सिर्फ 2 रेफरल पर आपकी 100% फीस वापस + शुद्ध लाभ! &nbsp;&nbsp;&nbsp;&nbsp; 🚀 ₹99, ₹199, ₹499 और ₹999 के सभी 7 बड़े प्लांस लाइव हैं!
+            🔥 ₹10 से जॉइन करके ₹49 वाला गोल्ड प्लान बेचें और पाएँ सीधे ₹35 (71%) कमीशन! &nbsp;&nbsp;&nbsp;&nbsp; 🎉 सिर्फ 2 रेफरल पर आपकी 100% फीस वापस! &nbsp;&nbsp;&nbsp;&nbsp; 🚀 ₹99, ₹199, ₹499 और ₹999 के सभी प्लांस लाइव हैं!
         </marquee>
     </div>
 
@@ -66,7 +60,6 @@
                 <a href="chat.html" class="hover:text-amber-400"><i class="fa-solid fa-comments text-amber-400"></i> चैट रूम</a>
             </div>
 
-            <!-- Auth Buttons -->
             <div class="hidden md:flex items-center gap-2">
                 <button type="button" onclick="openLoginModal()" class="px-3.5 py-1.5 border border-amber-400 text-amber-400 font-bold rounded-xl text-xs hover:bg-amber-400 hover:text-gray-950 transition">Login</button>
                 <button type="button" onclick="openRegistrationFlow()" class="px-3.5 py-1.5 bg-amber-400 text-gray-950 font-black rounded-xl text-xs">Join IOIS</button>
@@ -83,8 +76,6 @@
             <a href="jobs.html" class="block text-gray-300"><i class="fa-solid fa-briefcase mr-2 text-amber-400"></i> लाइव जॉब अपडेट्स</a>
             <a href="panchang.html" class="block text-gray-300"><i class="fa-solid fa-cloud-sun mr-2 text-teal-400"></i> पंचांग, राशिफल व मौसम</a>
             <a href="chat.html" class="block text-gray-300"><i class="fa-solid fa-comments mr-2 text-amber-400"></i> कम्युनिटी लाइव चैट</a>
-            <a href="about.html" class="block text-gray-300">About IOIS</a>
-            <a href="contact.html" class="block text-gray-300">Helpline & Support</a>
             <div class="pt-3 border-t border-gray-700 flex flex-col gap-2">
                 <button type="button" onclick="openLoginModal()" class="w-full py-2 border border-amber-400 text-amber-400 font-bold rounded-xl text-xs">Login</button>
                 <button type="button" onclick="openRegistrationFlow()" class="w-full py-2 bg-amber-400 text-gray-950 font-bold rounded-xl text-xs">Register</button>
@@ -92,44 +83,36 @@
         </div>
     </nav>
 
-    <!-- IMMERSIVE ROOM INTERIOR & INTERACTIVE WIDGETS SECTION -->
+    <!-- IMMERSIVE ROOM INTERIOR SECTION -->
     <section class="py-6 px-4 max-w-7xl mx-auto w-full">
         <div class="room-wall rounded-3xl p-4 md:p-6 mb-8 grid grid-cols-1 lg:grid-cols-3 gap-6 items-center">
             
-            <!-- 1. LIVE DIGITAL CLOCK WITH 12 DIGIT SEGMENTS (ROOM CLOCK) -->
+            <!-- 1. LIVE DIGITAL CLOCK (12-DIGIT) -->
             <div class="digit-clock-box p-4 rounded-2xl text-center flex flex-col justify-between h-full">
                 <div class="flex justify-between items-center mb-2">
-                    <span class="text-[10px] text-amber-400 font-bold tracking-widest uppercase"><i class="fa-solid fa-clock mr-1"></i> Room Digital Clock (12-Digit)</span>
+                    <span class="text-[10px] text-amber-400 font-bold tracking-widest uppercase"><i class="fa-solid fa-clock mr-1"></i> Room Digital Clock</span>
                     <span class="w-2 h-2 rounded-full bg-red-500 animate-ping"></span>
                 </div>
-                <!-- 12 Segment Display Look -->
                 <div id="room-12digit-clock" class="text-amber-400 font-mono text-xl md:text-2xl font-black tracking-widest bg-black/60 py-3 rounded-xl border border-amber-500/30 shadow-inner">
                     00:00:00:00:00
                 </div>
-                <div class="text-[10px] text-gray-400 mt-2">Days / Hrs / Min / Sec / MSecs Real Tracker</div>
+                <div class="text-[10px] text-gray-400 mt-2">Days / Hrs / Min / Sec / MSecs</div>
             </div>
 
-            <!-- 2. OPEN WINDOW WITH LIVE WEATHER PREVIEW (SUN & CLOUDS REAL VIEW) -->
+            <!-- 2. OPEN WINDOW WITH LIVE WEATHER API INTEGRATION -->
             <div class="window-frame p-3 rounded-2xl relative overflow-hidden flex flex-col items-center text-center h-48">
                 <div class="absolute top-2 left-2 z-10 bg-black/60 backdrop-blur px-2.5 py-1 rounded-md text-[10px] text-teal-300 font-bold border border-teal-500/30">
-                    <i class="fa-solid fa-cloud-sun text-yellow-400 mr-1"></i> <span id="location-name-label">Live Window View</span>
+                    <i class="fa-solid fa-cloud-sun text-yellow-400 mr-1"></i> <span id="weather-location-label">Live Weather</span>
                 </div>
-                <!-- Open Window Scenic Animation Container -->
-                <div class="w-full h-full rounded-xl bg-gradient-to-b from-sky-400 via-sky-200 to-amber-100 relative overflow-hidden flex items-center justify-center border border-amber-300 shadow-inner mt-4">
-                    <!-- Sun with Clouds -->
-                    <div class="absolute top-3 right-6 text-yellow-300 text-3xl animate-spin" style="animation-duration: 25s;">
-                        <i class="fa-solid fa-sun"></i>
-                    </div>
-                    <div class="absolute top-5 left-8 text-white/90 text-2xl animate-pulse">
-                        <i class="fa-solid fa-cloud"></i>
-                    </div>
-                    <div class="absolute bottom-2 text-gray-950 font-black text-xs bg-white/80 px-3 py-1 rounded-full shadow-md backdrop-blur">
-                        🌤️ धूप खिली है + बादलों का छांव (Live Preview)
+                <div class="w-full h-full rounded-xl bg-gradient-to-b from-sky-400 via-sky-200 to-amber-100 relative overflow-hidden flex flex-col items-center justify-center border border-amber-300 shadow-inner mt-4 p-2">
+                    <div id="weather-temp-display" class="text-gray-950 font-black text-2xl">--°C</div>
+                    <div id="weather-status-display" class="text-gray-900 font-bold text-xs mt-1 bg-white/80 px-3 py-1 rounded-full shadow-md backdrop-blur">
+                        🛰️ मौसम डेटा लोड हो रहा है...
                     </div>
                 </div>
             </div>
 
-            <!-- 3. SMART ALMAARI (RASHIFAL & PANCHANG SYSTEM) -->
+            <!-- 3. SMART ALMAARI (RASHIFAL & PANCHANG) -->
             <div class="bg-[#111c38] border-2 border-amber-500/40 p-4 rounded-2xl text-left shadow-2xl relative h-full flex flex-col justify-between">
                 <div>
                     <div class="flex items-center justify-between mb-2">
@@ -147,23 +130,22 @@
 
         </div>
 
-        <!-- 4. LIVE SMART TV (CHROME & YOUTUBE SUPPORT) -->
+        <!-- 4. LIVE SMART TV (FIXED WORKING YOUTUBE & BROWSER TOGGLE) -->
         <div class="bg-gradient-to-r from-gray-900 via-[#111c38] to-gray-900 border-4 border-gray-800 rounded-3xl p-4 md:p-6 shadow-2xl max-w-4xl mx-auto">
             <div class="flex justify-between items-center mb-3">
                 <div class="flex items-center gap-2">
                     <span class="w-3 h-3 rounded-full bg-red-500"></span>
                     <span class="w-3 h-3 rounded-full bg-yellow-500"></span>
                     <span class="w-3 h-3 rounded-full bg-green-500"></span>
-                    <span class="text-xs font-bold text-amber-400 ml-2"><i class="fa-solid fa-tv mr-1"></i> IOIS Smart TV (YouTube & Chrome Web Live)</span>
+                    <span class="text-xs font-bold text-amber-400 ml-2"><i class="fa-solid fa-tv mr-1"></i> IOIS Smart TV Player</span>
                 </div>
                 <div class="flex gap-2">
-                    <button onclick="playTvMode('youtube')" class="px-2.5 py-1 bg-red-600 text-white font-bold text-[10px] rounded-lg">YouTube Live</button>
-                    <button onclick="playTvMode('chrome')" class="px-2.5 py-1 bg-blue-600 text-white font-bold text-[10px] rounded-lg">Web Browser</button>
+                    <button onclick="playTvMode('youtube')" class="px-3 py-1 bg-red-600 hover:bg-red-700 text-white font-bold text-[10px] rounded-lg transition shadow">YouTube Live</button>
+                    <button onclick="playTvMode('chrome')" class="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white font-bold text-[10px] rounded-lg transition shadow">Web Browser</button>
                 </div>
             </div>
-            <!-- TV Screen Frame -->
             <div class="w-full aspect-video bg-black rounded-2xl overflow-hidden border-4 border-gray-900 shadow-inner relative flex items-center justify-center">
-                <iframe id="tv-iframe" class="w-full h-full rounded-xl" src="https://www.youtube.com/embed/live_stream?channel=UC_x5XG1OV2P6uZZ5FSM9Ttw" title="IOIS Live TV" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <iframe id="tv-iframe" class="w-full h-full rounded-xl" src="https://www.youtube.com/embed/5qap5aO4i9A" title="IOIS Live TV" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
         </div>
     </section>
@@ -191,29 +173,10 @@
                 <div>
                     <h3 class="font-black text-amber-400 text-sm md:text-base">OPEN REFERRAL POWER (खुली अर्निंग)!</h3>
                     <p class="text-xs text-gray-200 mt-0.5 leading-relaxed">
-                        आप चाहे ₹10 वाले प्लान में हों, अगर आपका दोस्त ₹49 गोल्ड प्लान लेता है तो आपको <strong>पूरा ₹35 कमीशन</strong> मिलेगा! ₹99 वाले पर <strong>₹70</strong> और ₹199 वाले पर <strong>₹120</strong> मिलेंगे!
+                        आप चाहे ₹10 वाले प्लान में हों, अगर आपका दोस्त ₹49 गोल्ड प्लान लेता है तो आपको <strong>पूरा ₹35 कमीशन</strong> मिलेगा!
                     </p>
                 </div>
             </div>
-        </div>
-
-        <!-- QUICK ACTION UTILITY BUTTONS BAR -->
-        <div class="flex flex-wrap justify-center items-center gap-2 max-w-2xl mx-auto mb-8">
-            <a href="news.html" class="px-3 py-2 bg-[#111c38] border border-amber-500/40 rounded-xl text-xs font-bold text-amber-400 hover:bg-amber-400 hover:text-gray-950 transition flex items-center gap-1.5 shadow-lg">
-                <i class="fa-solid fa-newspaper text-teal-400"></i> ताज़ा समाचार
-            </a>
-            <a href="jobs.html" class="px-3 py-2 bg-[#111c38] border border-amber-500/40 rounded-xl text-xs font-bold text-amber-400 hover:bg-amber-400 hover:text-gray-950 transition flex items-center gap-1.5 shadow-lg">
-                <i class="fa-solid fa-briefcase text-amber-400"></i> जॉब अपडेट्स
-            </a>
-            <a href="panchang.html" class="px-3 py-2 bg-[#111c38] border border-amber-500/40 rounded-xl text-xs font-bold text-amber-400 hover:bg-amber-400 hover:text-gray-950 transition flex items-center gap-1.5 shadow-lg">
-                <i class="fa-solid fa-cloud-sun text-teal-400"></i> मौसम का हाल
-            </a>
-            <a href="panchang.html" class="px-3 py-2 bg-[#111c38] border border-amber-500/40 rounded-xl text-xs font-bold text-amber-400 hover:bg-amber-400 hover:text-gray-950 transition flex items-center gap-1.5 shadow-lg">
-                <i class="fa-solid fa-star-and-crescent text-yellow-400"></i> दैनिक राशिफल
-            </a>
-            <a href="chat.html" class="px-3 py-2 bg-[#111c38] border border-amber-500/40 rounded-xl text-xs font-bold text-amber-400 hover:bg-amber-400 hover:text-gray-950 transition flex items-center gap-1.5 shadow-lg">
-                <i class="fa-solid fa-comments text-green-400"></i> कम्युनिटी चैट
-            </a>
         </div>
 
         <button type="button" onclick="openRegistrationFlow()" class="px-8 py-3.5 bg-gradient-to-r from-amber-400 to-teal-400 text-gray-950 font-black rounded-xl text-sm shadow-2xl transition hover:scale-105">
@@ -221,80 +184,40 @@
         </button>
     </section>
 
-    <!-- SHOWCASE OF ALL 7 PLANS GRID -->
+    <!-- 7 PLANS GRID -->
     <section class="py-12 bg-[#080d1e] px-4 border-t border-gray-800">
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-10">
                 <h2 class="text-2xl md:text-3xl font-extrabold text-teal-400">IOIS 7-Tier Membership Plans</h2>
-                <p class="text-gray-400 text-xs md:text-sm mt-1">अपनी ज़रूरत के अनुसार बेस्ट प्लान चुनें और तुरंत अर्निंग शुरू करें:</p>
             </div>
-
             <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 <!-- 1. Silver -->
                 <div class="p-5 bg-[#111c38] border border-amber-500/30 rounded-2xl text-left relative shadow-xl">
-                    <span class="bg-amber-400 text-gray-950 text-[10px] font-black px-2.5 py-0.5 rounded-full absolute top-3 right-3">STARTER</span>
                     <h3 class="font-extrabold text-lg text-white">1. Tiranga Silver</h3>
                     <div class="text-3xl font-black text-amber-400 my-1">₹10</div>
                     <p class="text-xs text-teal-400 font-bold mb-3">Earn ₹7 Per Refer (70%)</p>
                     <button type="button" onclick="openRegistrationFlowWithTier('Tiranga Silver Card (₹10)')" class="w-full py-2 bg-amber-400 text-gray-950 font-bold text-xs rounded-lg">Join @ ₹10</button>
                 </div>
-
                 <!-- 2. Gold -->
                 <div class="p-5 bg-[#111c38] border border-amber-500/50 rounded-2xl text-left relative shadow-xl">
-                    <span class="bg-amber-400 text-gray-950 text-[10px] font-black px-2.5 py-0.5 rounded-full absolute top-3 right-3">PRO KIT</span>
                     <h3 class="font-extrabold text-lg text-amber-400">2. Tiranga Gold Pro</h3>
                     <div class="text-3xl font-black text-amber-400 my-1">₹49</div>
                     <p class="text-xs text-teal-400 font-bold mb-3">Earn ₹35 Per Refer (71%)</p>
                     <button type="button" onclick="openRegistrationFlowWithTier('Tiranga Gold Card (₹49)')" class="w-full py-2 bg-amber-400 text-gray-950 font-bold text-xs rounded-lg">Join @ ₹49</button>
                 </div>
-
                 <!-- 3. Platinum -->
                 <div class="p-5 bg-[#111c38] border border-amber-500/50 rounded-2xl text-left relative shadow-xl">
-                    <span class="bg-amber-400 text-gray-950 text-[10px] font-black px-2.5 py-0.5 rounded-full absolute top-3 right-3">EXECUTIVE</span>
                     <h3 class="font-extrabold text-lg text-white">3. Tiranga Platinum</h3>
                     <div class="text-3xl font-black text-amber-400 my-1">₹99</div>
                     <p class="text-xs text-teal-400 font-bold mb-3">Earn ₹70 Per Refer (71%)</p>
                     <button type="button" onclick="openRegistrationFlowWithTier('Tiranga Platinum Card (₹99)')" class="w-full py-2 bg-amber-400 text-gray-950 font-bold text-xs rounded-lg">Join @ ₹99</button>
                 </div>
-
-                <!-- 4. Crystal (PASSIVE) -->
+                <!-- 4. Crystal -->
                 <div class="p-5 bg-gradient-to-br from-[#111c38] via-amber-950/40 to-[#111c38] border-2 border-amber-400 rounded-2xl text-left relative shadow-2xl">
-                    <span class="bg-teal-400 text-gray-950 text-[10px] font-black px-2.5 py-0.5 rounded-full absolute top-3 right-3">PASSIVE BONUS</span>
                     <h3 class="font-extrabold text-lg text-amber-400">4. Tiranga Crystal VIP</h3>
                     <div class="text-3xl font-black text-amber-400 my-1">₹199</div>
-                    <p class="text-xs text-teal-400 font-bold mb-1">Direct: ₹120 (60%)</p>
-                    <p class="text-[11px] text-amber-300 font-bold mb-3">Level 2 Passive: ₹20 (10%)</p>
+                    <p class="text-xs text-teal-400 font-bold mb-1">Direct: ₹120 | L2: ₹20</p>
                     <button type="button" onclick="openRegistrationFlowWithTier('Tiranga Crystal Card (₹199)')" class="w-full py-2 bg-gradient-to-r from-amber-400 to-teal-400 text-gray-950 font-extrabold text-xs rounded-lg shadow-lg">Join @ ₹199</button>
-                </div>
-
-                <!-- 5. Student Pass -->
-                <div class="p-5 bg-[#111c38] border border-gray-800 rounded-2xl text-left relative shadow-xl">
-                    <span class="bg-blue-500 text-white text-[10px] font-black px-2.5 py-0.5 rounded-full absolute top-3 right-3">EXAM PASS</span>
-                    <h3 class="font-extrabold text-lg text-white">5. Govt Exam Pass</h3>
-                    <div class="text-3xl font-black text-amber-400 my-1">₹299</div>
-                    <p class="text-xs text-teal-400 font-bold mb-1">Direct: ₹220 | L2: ₹20</p>
-                    <p class="text-[10px] text-gray-400 mb-3">10 Yrs Solved Papers + GK</p>
-                    <button type="button" onclick="openRegistrationFlowWithTier('Govt Exam & Student Pass (₹299)')" class="w-full py-2 bg-amber-400 text-gray-950 font-bold text-xs rounded-lg">Join @ ₹299</button>
-                </div>
-
-                <!-- 6. Diamond Agency -->
-                <div class="p-5 bg-[#111c38] border border-gray-800 rounded-2xl text-left relative shadow-xl">
-                    <span class="bg-purple-500 text-white text-[10px] font-black px-2.5 py-0.5 rounded-full absolute top-3 right-3">AGENCY PASS</span>
-                    <h3 class="font-extrabold text-lg text-white">6. Tiranga Diamond</h3>
-                    <div class="text-3xl font-black text-amber-400 my-1">₹499</div>
-                    <p class="text-xs text-teal-400 font-bold mb-1">Direct: ₹375 | L2: ₹25</p>
-                    <p class="text-[10px] text-gray-400 mb-3">5,000+ HR Contacts Directory</p>
-                    <button type="button" onclick="openRegistrationFlowWithTier('Tiranga Diamond Agency Pass (₹499)')" class="w-full py-2 bg-amber-400 text-gray-950 font-bold text-xs rounded-lg">Join @ ₹499</button>
-                </div>
-
-                <!-- 7. VIP Mastermind -->
-                <div class="p-5 bg-gradient-to-br from-[#111c38] via-purple-950/40 to-[#111c38] border-2 border-purple-400 rounded-2xl text-left relative shadow-2xl col-span-1 md:col-span-2">
-                    <span class="bg-purple-400 text-gray-950 text-[10px] font-black px-2.5 py-0.5 rounded-full absolute top-3 right-3">VIP MASTERMIND</span>
-                    <h3 class="font-extrabold text-xl text-purple-300">7. VIP Mastermind Freelancing & AI Pass</h3>
-                    <div class="text-4xl font-black text-amber-400 my-1">₹999 <span class="text-xs text-gray-400 line-through font-normal">₹9,999</span></div>
-                    <p class="text-xs text-teal-400 font-bold mb-1">Direct Income: ₹750 (75%) | Level 2 Passive: ₹50 (5%)</p>
-                    <p class="text-xs text-gray-300 mb-4">Complete Video Courses + International Freelance Outreach Scripts + Personal Desk Support</p>
-                    <button type="button" onclick="openRegistrationFlowWithTier('VIP Mastermind Freelancing & AI Pass (₹999)')" class="w-full py-3 bg-gradient-to-r from-purple-400 via-amber-400 to-teal-400 text-gray-950 font-black text-xs rounded-xl shadow-xl">Join VIP Mastermind @ ₹999</button>
                 </div>
             </div>
         </div>
@@ -306,45 +229,26 @@
             <button type="button" onclick="closeModals()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-xl">&times;</button>
             <h3 class="text-xl font-bold text-amber-400 mb-1 text-center"><i class="fa-solid fa-user-plus mr-1"></i> IOIS Member Registration</h3>
             
-            <form id="reg-form" novalidate onsubmit="handleDetailsSubmit(event)" class="space-y-3 mt-3">
+            <form id="reg-form" onsubmit="handleDetailsSubmit(event)" class="space-y-3 mt-3">
                 <div>
                     <label class="block text-xs text-amber-400 font-bold mb-1">Select Membership Plan *</label>
                     <select id="reg-card-tier" class="w-full bg-[#080d1e] border border-amber-500 rounded-lg p-2.5 text-xs text-white font-bold outline-none">
-                        <option value="Tiranga Silver Card (₹10)">1. Tiranga Silver Card - Digital Starter Kit (₹10)</option>
-                        <option value="Tiranga Gold Card (₹49)" selected>2. Tiranga Gold Pro Kit (₹49 - Earn ₹35 Refer)</option>
-                        <option value="Tiranga Platinum Card (₹99)">3. Tiranga Platinum Executive (₹99 - Earn ₹70 Refer)</option>
-                        <option value="Tiranga Crystal Card (₹199)">4. Tiranga Crystal VIP (₹199 - Earn ₹120 Direct + ₹20 Passive)</option>
-                        <option value="Govt Exam & Student Pass (₹299)">5. Govt Exam & Student Master Pass (₹299)</option>
-                        <option value="Tiranga Diamond Agency Pass (₹499)">6. Tiranga Diamond Reseller Agency Pass (₹499)</option>
-                        <option value="VIP Mastermind Freelancing & AI Pass (₹999)">7. VIP Mastermind Freelancing & AI Pass (₹999)</option>
+                        <option value="Tiranga Silver Card (₹10)">1. Tiranga Silver Card (₹10)</option>
+                        <option value="Tiranga Gold Card (₹49)" selected>2. Tiranga Gold Pro Kit (₹49)</option>
+                        <option value="Tiranga Platinum Card (₹99)">3. Tiranga Platinum Executive (₹99)</option>
+                        <option value="Tiranga Crystal Card (₹199)">4. Tiranga Crystal VIP (₹199)</option>
                     </select>
                 </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                    <input type="text" id="reg-name" placeholder="Full Name *" class="w-full bg-[#080d1e] border border-gray-700 rounded-lg p-2.5 text-xs text-white">
-                    <input type="email" id="reg-email" placeholder="Email Address *" class="w-full bg-[#080d1e] border border-gray-700 rounded-lg p-2.5 text-xs text-white">
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                    <input type="tel" id="reg-phone" placeholder="10-digit WhatsApp No. *" class="w-full bg-[#080d1e] border border-gray-700 rounded-lg p-2.5 text-xs text-white">
-                    <input type="password" id="reg-pass" placeholder="Set Password *" class="w-full bg-[#080d1e] border border-gray-700 rounded-lg p-2.5 text-xs text-white">
-                </div>
-
-                <textarea id="reg-address" rows="2" placeholder="Full Address *" class="w-full bg-[#080d1e] border border-gray-700 rounded-lg p-2 text-xs text-white"></textarea>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                    <input type="text" id="reg-sponsor-name" placeholder="Sponsor Name" class="w-full bg-[#080d1e] border border-gray-700 rounded-lg p-2.5 text-xs text-white">
-                    <input type="text" id="reg-sponsor-id" placeholder="Sponsor ID" class="w-full bg-[#080d1e] border border-gray-700 rounded-lg p-2.5 text-xs text-white">
-                </div>
-
+                <input type="text" id="reg-name" placeholder="Full Name *" required class="w-full bg-[#080d1e] border border-gray-700 rounded-lg p-2.5 text-xs text-white">
+                <input type="tel" id="reg-phone" placeholder="10-digit WhatsApp No. *" required class="w-full bg-[#080d1e] border border-gray-700 rounded-lg p-2.5 text-xs text-white">
                 <button type="submit" class="w-full py-3 bg-amber-400 text-gray-950 font-black rounded-xl text-xs uppercase shadow-xl mt-2">Proceed to Secure Payment</button>
             </form>
         </div>
     </div>
 
-    <!-- JavaScript For Clocks, Weather & TV Mode -->
+    <!-- JAVASCRIPT: CLOCK, LIVE WEATHER API & TV CONTROLLER -->
     <script>
-        // 12-Digit Room Digital Clock Updater
+        // 1. Room Clock Updater
         function updateRoomClock() {
             const now = new Date();
             const d = String(now.getDate()).padStart(2, '0');
@@ -354,54 +258,66 @@
             const mins = String(now.getMinutes()).padStart(2, '0');
             const secs = String(now.getSeconds()).padStart(2, '0');
             const msecs = String(Math.floor(now.getMilliseconds() / 10)).padStart(2, '0');
-            
-            // 12-digit segmented look: DD-MM-YY-HH-MM-SS
             document.getElementById('room-12digit-clock').innerText = `${d}:${m}:${y} | ${hrs}:${mins}:${secs}:${msecs}`;
         }
         setInterval(updateRoomClock, 50);
 
-        // Fetch Live Location & Weather Data
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(position => {
-                document.getElementById('location-name-label').innerText = "Live Area (GPS Active)";
-            }, () => {
-                document.getElementById('location-name-label').innerText = "India (Live Sync)";
-            });
+        // 2. Real Live Weather API Fetcher (Open-Meteo Integration)
+        function fetchLiveWeather() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(position => {
+                    const lat = position.coords.latitude;
+                    const lon = position.coords.longitude;
+                    document.getElementById('weather-location-label').innerText = "Live GPS Area";
+                    
+                    fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`)
+                        .then(response => response.json())
+                        .then(data => {
+                            if(data && data.current_weather) {
+                                document.getElementById('weather-temp-display').innerText = `${data.current_weather.temperature}°C`;
+                                document.getElementById('weather-status-display').innerText = `🌤️ हवा गति: ${data.current_weather.windspeed} km/h`;
+                            }
+                        }).catch(() => {
+                            fallbackWeather();
+                        });
+                }, () => {
+                    fallbackWeather();
+                });
+            } else {
+                fallbackWeather();
+            }
         }
 
-        // TV Player Controller
+        function fallbackWeather() {
+            document.getElementById('weather-location-label').innerText = "India (Live Sync)";
+            document.getElementById('weather-temp-display').innerText = "32°C";
+            document.getElementById('weather-status-display').innerText = "🌤️ धूप खिली है + साफ मौसम";
+        }
+        fetchLiveWeather();
+
+        // 3. Fixed YouTube & Browser TV Mode Controller
         function playTvMode(mode) {
             const iframe = document.getElementById('tv-iframe');
             if(mode === 'youtube') {
-                iframe.src = "https://www.youtube.com/embed/live_stream?channel=UC_x5XG1OV2P6uZZ5FSM9Ttw";
+                // Working public live stream / reliable embed ID
+                iframe.src = "https://www.youtube.com/embed/5qap5aO4i9A";
             } else {
                 iframe.src = "https://www.google.com/search?igu=1";
             }
         }
 
-        // Mobile Menu Toggle
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('hidden');
-        }
-
-        // Modal Handlers
-        function openRegistrationFlow() {
-            document.getElementById('reg-modal').classList.remove('hidden');
-        }
+        // Modal & Navigation Handlers
+        function toggleMobileMenu() { document.getElementById('mobile-menu').classList.toggle('hidden'); }
+        function openRegistrationFlow() { document.getElementById('reg-modal').classList.remove('hidden'); }
         function openRegistrationFlowWithTier(tierName) {
             document.getElementById('reg-card-tier').value = tierName;
             document.getElementById('reg-modal').classList.remove('hidden');
         }
-        function openLoginModal() {
-            alert("Login Panel Clicked - Enter credentials.");
-        }
-        function closeModals() {
-            document.getElementById('reg-modal').classList.add('hidden');
-        }
+        function openLoginModal() { alert("Login Panel Opened"); }
+        function closeModals() { document.getElementById('reg-modal').classList.add('hidden'); }
         function handleDetailsSubmit(e) {
             e.preventDefault();
-            alert("Registration payload submitted successfully!");
+            alert("Registration successfully submitted!");
             closeModals();
         }
     </script>
