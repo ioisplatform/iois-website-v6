@@ -3,102 +3,143 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IOIS Live Weather & Satellite Platform</title>
+    <title>Live Weather Platform - Weather.com Style</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); color: #fff; padding: 15px; min-height: 100vh; }
-        .container { max-width: 500px; margin: auto; }
+        body { background: #0f172a; color: #fff; padding: 15px; min-height: 100vh; }
+        .weather-app { max-width: 480px; margin: auto; background: #1e293b; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); }
         
-        /* Header & GPS Button */
-        .weather-header { display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); padding: 15px; border-radius: 15px; margin-bottom: 15px; border: 1px solid rgba(255,255,255,0.2); }
-        .gps-btn { background: #00c6ff; border: none; padding: 8px 12px; border-radius: 8px; color: #fff; font-weight: bold; cursor: pointer; font-size: 12px; box-shadow: 0 4px 10px rgba(0,198,255,0.4); }
+        /* Search & Location Bar */
+        .search-section { padding: 20px; background: #0f172a; display: flex; gap: 10px; align-items: center; }
+        .search-section input { flex: 1; padding: 12px 15px; border-radius: 10px; border: none; background: #334155; color: #fff; font-size: 15px; outline: none; }
+        .gps-btn { background: #3b82f6; border: none; padding: 12px 15px; border-radius: 10px; color: #fff; font-weight: bold; cursor: pointer; font-size: 14px; transition: 0.2s; }
+        .gps-btn:hover { background: #2563eb; }
 
-        /* Satellite Window View Box */
-        .satellite-box { position: relative; width: 100%; height: 240px; border-radius: 15px; overflow: hidden; background: url('https://images.unsplash.com/photo-1534088568595-a066fa41088a?auto=format&fit=crop&w=600&q=80') center/cover; border: 3px solid rgba(255,255,255,0.3); box-shadow: inset 0 0 30px rgba(0,0,0,0.5); display: flex; flex-direction: column; justify-content: space-between; padding: 15px; margin-bottom: 15px; }
-        .satellite-badge { background: rgba(0, 0, 0, 0.6); padding: 5px 10px; border-radius: 20px; font-size: 11px; align-self: flex-start; border: 1px solid #00c6ff; color: #00c6ff; font-weight: bold; }
+        /* Live Visual Weather Window */
+        .live-preview-box { position: relative; height: 220px; background: linear-gradient(135deg, #3b82f6, #1d4ed8); display: flex; flex-direction: column; justify-content: space-between; padding: 20px; overflow: hidden; transition: 0.5s; }
         
-        /* Weather Alert Banner */
-        .alert-banner { background: rgba(231, 76, 60, 0.85); padding: 12px; border-radius: 12px; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; border: 1px solid #ff6b6b; animation: pulseAlert 2s infinite; }
-        @keyframes pulseAlert { 0% { opacity: 0.9; } 50% { opacity: 1; transform: scale(1.01); } 100% { opacity: 0.9; } }
+        /* Weather Effects Animations */
+        .rain-effect { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: linear-gradient(transparent, rgba(255,255,255,0.4)); animation: rainfall 0.4s linear infinite; display: none; pointer-events: none; }
+        @keyframes rainfall { 0% { background-position: 0 0; } 100% { background-position: 0 25px; } }
+
+        .weather-status-text { position: relative; z-index: 2; }
+        .temp-display { font-size: 42px; font-weight: bold; text-shadow: 0 2px 4px rgba(0,0,0,0.3); }
         
-        /* Forecast Section (Kal Ka Mausam) */
-        .forecast-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 15px; }
-        .forecast-card { background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); padding: 12px; border-radius: 12px; text-align: center; border: 1px solid rgba(255,255,255,0.15); }
+        /* Details & Forecast Section */
+        .content-body { padding: 20px; }
         
-        /* Details Grid */
-        .details-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; text-align: center; }
-        .detail-item { background: rgba(255,255,255,0.08); padding: 10px; border-radius: 10px; font-size: 13px; }
+        /* Alert & Safety Box (Kya karein / Kya nahi) */
+        .alert-safety-box { background: rgba(239, 68, 68, 0.15); border-left: 4px solid #ef4444; padding: 15px; border-radius: 0 10px 10px 0; margin-bottom: 20px; }
+        .alert-safety-box h4 { color: #f87171; margin-bottom: 5px; font-size: 15px; }
+        .alert-safety-box p { font-size: 13px; color: #cbd5e1; line-height: 1.4; }
+
+        /* Grid Stats */
+        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; }
+        .stat-card { background: #334155; padding: 12px; border-radius: 12px; text-align: center; }
+        .stat-card span { font-size: 11px; color: #94a3b8; display: block; margin-bottom: 4px; }
+        .stat-card strong { font-size: 14px; }
+
+        /* Future Forecast (Kal Ka Mausam) */
+        .forecast-title { font-size: 15px; margin-bottom: 10px; color: #38bdf8; font-weight: 600; }
+        .forecast-row { display: flex; justify-content: space-between; background: #334155; padding: 12px 15px; border-radius: 10px; margin-bottom: 8px; align-items: center; font-size: 14px; }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <!-- Header with GPS detection -->
-    <div class="weather-header">
-        <div>
-            <h2 id="locationName" style="font-size: 16px;">Detecting GPS...</h2>
-            <p style="font-size: 11px; color: #a0aec0;">IOIS Live Satellite Weather</p>
-        </div>
-        <button class="gps-btn" onclick="detectGPS()">📍 Live GPS</button>
+<div class="weather-app">
+    <!-- Search & GPS Bar -->
+    <div class="search-section">
+        <input type="text" id="cityInput" placeholder="Search city or local area..." value="Patna, Bihar">
+        <button class="gps-btn" onclick="fetchLiveWeather()">📍 GPS</button>
     </div>
 
-    <!-- Weather Alert System -->
-    <div class="alert-banner">
-        <span>⚠️</span>
-        <div>
-            <strong style="font-size: 13px; display: block;">Weather Alert / Advisory</strong>
-            <span style="font-size: 11px;" id="alertText">Clear skies expected today. Moderate winds by evening.</span>
+    <!-- Live Visual Window (Weather.com Style Preview) -->
+    <div class="live-preview-box" id="weatherWindowBg">
+        <div class="rain-effect" id="rainLayer"></div>
+        <div style="display: flex; justify-content: space-between; align-items: center; z-index: 2;">
+            <span id="locationTitle" style="font-weight: 600; font-size: 16px; background: rgba(0,0,0,0.3); padding: 4px 10px; border-radius: 20px;">Patna, Bihar</span>
+            <span id="weatherBadge" style="font-size: 12px; background: rgba(255,255,255,0.2); padding: 4px 10px; border-radius: 20px;">Live View</span>
         </div>
-    </div>
-
-    <!-- Live Satellite Window View -->
-    <div class="satellite-box">
-        <div class="satellite-badge">🛰️ LIVE SATELLITE VIEW</div>
-        <div>
-            <h1 id="tempMain" style="font-size: 38px; font-weight: bold; text-shadow: 0 2px 5px rgba(0,0,0,0.5);">--°C</h1>
-            <p id="conditionMain" style="font-size: 16px; font-weight: 600; color: #ffeb3b;">Loading weather data...</p>
+        <div class="weather-status-text">
+            <div class="temp-display" id="tempText">31°C</div>
+            <div id="conditionText" style="font-size: 18px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px;">Thunderstorm & Rain</div>
         </div>
     </div>
 
-    <!-- Future & Tomorrow Forecast (Kal Ka Mausam) -->
-    <h3 style="font-size: 14px; margin-bottom: 8px; color: #00c6ff;">📅 Future & Tomorrow Forecast</h3>
-    <div class="forecast-grid">
-        <div class="forecast-card">
-            <span style="font-size: 12px; color: #a0aec0;">Kal Ka Mausam (Tomorrow)</span>
-            <div style="font-size: 18px; font-weight: bold; margin: 5px 0;" id="tomorrowTemp">31°C / 24°C</div>
-            <span style="font-size: 11px; color: #2ecc71;" id="tomorrowCond">Sunny & Pleasant</span>
+    <div class="content-body">
+        <!-- Weather Alert & Safety Advisory (Kya karein / Kya nahi) -->
+        <div class="alert-safety-box" id="safetyAlertBox">
+            <h4>⚠️ Weather Advisory & Safety</h4>
+            <p id="safetyText">Bhari barish ki sambhavna hai. Ghar se bahar nikalte waqt chhatri ya rain-coat ka upyog karein. Pedon ke niche na khade rahein.</p>
         </div>
-        <div class="forecast-card">
-            <span style="font-size: 12px; color: #a0aec0;">Day After (Upcoming)</span>
-            <div style="font-size: 18px; font-weight: bold; margin: 5px 0;">29°C / 23°C</div>
-            <span style="font-size: 11px; color: #3498db;">Light Showers</span>
-        </div>
-    </div>
 
-    <!-- Core Parameters -->
-    <div class="details-grid">
-        <div class="detail-item"><span style="display:block; font-size:11px; color:#a0aec0;">Humidity</span><strong id="humidity">--%</strong></div>
-        <div class="detail-item"><span style="display:block; font-size:11px; color:#a0aec0;">Wind Speed</span><strong id="wind">-- km/h</strong></div>
-        <div class="detail-item"><span style="display:block; font-size:11px; color:#a0aec0;">Air Quality</span><strong style="color: #2ecc71;">Good (AQI 45)</strong></div>
+        <!-- Current Stats -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <span>Humidity</span>
+                <strong id="humidityVal">85%</strong>
+            </div>
+            <div class="stat-card">
+                <span>Wind Speed</span>
+                <strong id="windVal">18 km/h</strong>
+            </div>
+            <div class="stat-card">
+                <span>Air Quality</span>
+                <strong style="color: #4ade80;">Good (35)</strong>
+            </div>
+        </div>
+
+        <!-- Future Forecast (Kal ka mausam aur aage ka update) -->
+        <div class="forecast-title">📅 Future & Tomorrow Forecast</div>
+        <div class="forecast-row">
+            <span>Kal Ka Mausam (Tomorrow)</span>
+            <strong id="tomorrowText">29°C / 24°C - Rainy</strong>
+        </div>
+        <div class="forecast-row">
+            <span>Parso (Day After)</span>
+            <span>32°C / 26°C - Cloudy</span>
+        </div>
     </div>
 </div>
 
 <script>
-    function detectGPS() {
-        const loc = document.getElementById('locationName');
-        const temp = document.getElementById('tempMain');
-        const cond = document.getElementById('conditionMain');
-        const hum = document.getElementById('humidity');
-        const wind = document.getElementById('wind');
-        
-        loc.innerText = "Local Area (GPS Active)";
-        temp.innerText = "33°C";
-        cond.innerText = "Clear Sky & Live Satellite View";
-        hum.innerText = "42%";
-        wind.innerText = "11 km/h";
-        alert("GPS Location successfully detected and synced with satellite imagery!");
+    function fetchLiveWeather() {
+        const city = document.getElementById('cityInput').value.toLowerCase();
+        const bgBox = document.getElementById('weatherWindowBg');
+        const rainLayer = document.getElementById('rainLayer');
+        const tempText = document.getElementById('tempText');
+        const conditionText = document.getElementById('conditionText');
+        const safetyText = document.getElementById('safetyText');
+        const locationTitle = document.getElementById('locationTitle');
+        const humidityVal = document.getElementById('humidityVal');
+        const windVal = document.getElementById('windVal');
+        const tomorrowText = document.getElementById('tomorrowText');
+
+        locationTitle.innerText = document.getElementById('cityInput').value;
+
+        // Dummy logic simulating real weather.com sync based on condition
+        if(city.includes('mumbai') || city.includes('patna')) {
+            // Rainy / Stormy Condition Live View
+            bgBox.style.background = "linear-gradient(135deg, #1e293b, #0f172a)";
+            rainLayer.style.display = "block";
+            tempText.innerText = "27°C";
+            conditionText.innerText = "Heavy Rain Live View";
+            safetyText.innerText = "⚠️ Savadhani: Bijli kadakne ke dauran khule sthan par na jayein. Electrical appliances ko unplugin karke rakhein.";
+            humidity.innerText = "90%";
+            windVal.innerText = "24 km/h";
+            tomorrowText.innerText = "28°C / 23°C - Showers";
+        } else {
+            // Sunny / Clear Condition Live View
+            bgBox.style.background = "linear-gradient(135deg, #0284c7, #0369a1)";
+            rainLayer.style.display = "none";
+            tempText.innerText = "34°C";
+            conditionText.innerText = "Sunny & Clear Sky";
+            safetyText.innerText = "💡 Savadhani: Dhoop tez hai, bahar nikalte waqt paani piyein aur dhoop se bachav karein.";
+            humidityVal.innerText = "40%";
+            windVal.innerText = "10 km/h";
+            tomorrowText.innerText = "35°C / 25°C - Sunny";
+        }
     }
-    window.onload = detectGPS;
 </script>
 
 </body>
